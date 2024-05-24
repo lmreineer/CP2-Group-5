@@ -124,11 +124,12 @@ public class MotorPHManager {
             Employee employeeInfo = getEmployeeInfo(employeeNumber, EMPLOYEES_DATA_PATH);
             WageCalculation wageCalculation = createWageCalculation(isGross, employeeNumber, employeeInfo);
 
-            // Prompt the user to go back to the main menu
             wageCalculation.showWage(employeeNumber, dateRange);
 
             // Discard any remaining input and prompt the user to go back to the main menu
             scanner.nextLine();
+            
+            // Prompt the user to go back to the main smenu
             promptToGoBackToMainMenu(scanner);
         } catch (RuntimeException e) {
             // Throw RuntimeException with an error message

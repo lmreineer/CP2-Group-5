@@ -52,7 +52,7 @@ public class MotorPHMenuGUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Menu");
+        jLabel2.setText("Main Menu");
         jLabel2.setOpaque(true);
 
         btnCalculateGrossWage.setBackground(new java.awt.Color(255, 255, 255));
@@ -82,6 +82,11 @@ public class MotorPHMenuGUI extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnSearchEmployeeMouseExited(evt);
+            }
+        });
+        btnSearchEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchEmployeeActionPerformed(evt);
             }
         });
 
@@ -225,6 +230,11 @@ public class MotorPHMenuGUI extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
+    private void btnSearchEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchEmployeeActionPerformed
+        // TODO add your handling code here:
+        new SearchEmployeeGUI().setVisible(true);
+    }//GEN-LAST:event_btnSearchEmployeeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -260,7 +270,7 @@ public class MotorPHMenuGUI extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private void setFrameIconImage() {
         String pathToImageIcon = "C:\\Users\\Lance1\\Desktop\\projects\\java\\CP2\\CP2-Group-5\\src\\main\\resources\\images\\motorph-logo.jpg";
         ImageIcon img = new ImageIcon(pathToImageIcon);
