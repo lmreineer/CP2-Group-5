@@ -11,7 +11,7 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>com.mycompany.motorph.MotorPH</exec.mainClass>
     </properties>
-    <name>MO-IT101-Group1</name>
+    <name>CP2-Group-5</name>
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
