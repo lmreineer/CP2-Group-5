@@ -32,9 +32,9 @@ public class MotorPHManager {
     private final SSSDeduction sssDeduction;
     private final HealthInsurancesDeduction healthInsuranceDeduction;
     private final WithholdingTaxCalculation withholdingTaxCalculation;
-
-    // Path to the employee data file
-    private static final String EMPLOYEES_DATA_PATH = "C:\\Users\\Lance1\\Documents\\MO-IT101-Group1\\src\\main\\resources\\data\\employee_information.txt";
+//
+//    // Path to the employee data file
+//    private static final String EMPLOYEES_DATA_PATH = "C:\\Users\\Lance1\\Documents\\MO-IT101-Group1\\src\\main\\resources\\data\\employee_information.txt";
 
     /**
      * Constructor for MotorPHManager.
@@ -47,120 +47,33 @@ public class MotorPHManager {
         this.withholdingTaxCalculation = new WithholdingTaxCalculation(sssDeduction, healthInsuranceDeduction);
     }
 
-    /**
-     * Displays the main menu.
-     */
-    public void printMenu() {
-        System.out.println("\n================================");
-        System.out.println("    Motor PH Payroll System     ");
-        System.out.println("================================");
-        System.out.println("|   1:  Search Employee        |");
-        System.out.println("|   2:  Calculate Gross Wage   |");
-        System.out.println("|   3:  Calculate Net Wage     |");
-        System.out.println("|                              |");
-        System.out.println("|   0:  Exit Menu              |");
-        System.out.println("================================");
-    }
-
-    /**
-     * Prompts the user for the menu choice and validates it.
-     *
-     * @param scanner Scanner for user input
-     * @return Valid menu choice
-     */
-    public int getMenuChoice(Scanner scanner) {
-        // Prompt the user in a loop until a valid input is received
-        while (true) {
-            try {
-                System.out.print("Choose your option: ");
-                int menuChoice = scanner.nextInt();
-                // Discard any remaining input
-                scanner.nextLine();
-
-                // Return the valid menu choice
-                return menuChoice;
-            } catch (InputMismatchException e) {
-                // Display an error message
-                System.out.println("Invalid input. Please enter a valid integer.");
-                // Discard any remaining input
-                scanner.nextLine();
-            }
-        }
-    }
-
-    /**
-     * Shows information about an employee.
-     *
-     * @param scanner Scanner for user input
-     * @throws java.io.IOException
-     * @throws java.text.ParseException
-     */
-    public void showEmployeeInformation(Scanner scanner) throws IOException, ParseException {
-        // Prompt the user for the employee number
-        int employeeNumber = getValidEmployeeNumberFromUser(scanner);
-
-        // Show information of the employee with the inputted employee number
-        new EmployeeInformation().showEmployeeInformation(employeeNumber);
-
-        // Prompt the user to go back to the main menu
-        promptToGoBackToMainMenu(scanner);
-    }
-
-    /**
-     * Shows either gross or net wage calculation for an employee.
-     *
-     * @param scanner Scanner for user input
-     * @param isGross Indicates whether to calculate gross or net wage
-     * @throws ParseException If date parsing error occurs
-     * @throws IOException If I/O error occurs
-     */
-    public void showWage(Scanner scanner, boolean isGross) throws ParseException, IOException {
-        try {
-            // Prompt the user for the employee number
-            int employeeNumber = getValidEmployeeNumberFromUser(scanner);
-            DateRange dateRange = getDateRangeFromUser(scanner);
-
-            // Retrieve employee information from the data source
-            Employee employeeInfo = getEmployeeInfo(employeeNumber, EMPLOYEES_DATA_PATH);
-            WageCalculation wageCalculation = createWageCalculation(isGross, employeeNumber, employeeInfo);
-
-            wageCalculation.showWage(employeeNumber, dateRange);
-
-            // Discard any remaining input and prompt the user to go back to the main menu
-            scanner.nextLine();
-
-            // Prompt the user to go back to the main smenu
-            promptToGoBackToMainMenu(scanner);
-        } catch (RuntimeException e) {
-            // Throw RuntimeException with an error message
-            throw new RuntimeException("Employee not found.");
-        }
-    }
-
-    /**
-     * Prompts the user for the employee number and validates it.
-     *
-     * @param scanner Scanner for user input
-     * @return Valid employee number
-     */
-    private int getValidEmployeeNumberFromUser(Scanner scanner) {
-        while (true) {
-            try {
-                System.out.print("Enter employee number: ");
-                int employeeNumber = scanner.nextInt();
-                // Discard any remaining input
-                scanner.nextLine();
-
-                // Return valid employee number
-                return employeeNumber;
-            } catch (InputMismatchException e) {
-                // Display an error message
-                System.out.println("Invalid input. Please enter a valid integer.");
-                // Discard any remaining input
-                scanner.nextLine();
-            }
-        }
-    }
+//    /**
+//     * Shows either gross or net wage calculation for an employee.
+//     *
+//     * @param scanner Scanner for user input
+//     * @param isGross Indicates whether to calculate gross or net wage
+//     * @throws ParseException If date parsing error occurs
+//     * @throws IOException If I/O error occurs
+//     */
+//    public void showWage(Scanner scanner, boolean isGross) throws ParseException, IOException {
+//        try {
+//            // Prompt the user for the employee number
+//            int employeeNumber = getValidEmployeeNumberFromUser(scanner);
+//            DateRange dateRange = getDateRangeFromUser(scanner);
+//
+//            // Retrieve employee information from the data source
+//            Employee employeeInfo = getEmployeeInfo(employeeNumber, EMPLOYEES_DATA_PATH);
+//            WageCalculation wageCalculation = createWageCalculation(isGross, employeeNumber, employeeInfo);
+//
+//            wageCalculation.showWage(employeeNumber, dateRange);
+//
+//            // Discard any remaining input and prompt the user to go back to the main menu
+//            scanner.nextLine();
+//        } catch (RuntimeException e) {
+//            // Throw RuntimeException with an error message
+//            throw new RuntimeException("Employee not found.");
+//        }
+//    }
 
     /**
      * Prompts the user to enter start and end dates, then creates a DateRange
@@ -209,24 +122,6 @@ public class MotorPHManager {
                     sssDeduction,
                     healthInsuranceDeduction,
                     withholdingTaxCalculation);
-        }
-    }
-
-    /**
-     * Prompts/asks the user to go back to the main menu or exit.
-     *
-     * @param scanner Scanner for user input
-     */
-    private void promptToGoBackToMainMenu(Scanner scanner) {
-        System.out.print("Do you want to go back to the main menu? (y or n): ");
-        String response = scanner.nextLine().trim().toLowerCase();
-
-        // If the user wants to exit
-        if (!response.equals("y")) {
-            // Display logged out message
-            System.out.println("Logged out.");
-            // Exit the program
-            System.exit(0);
         }
     }
 
