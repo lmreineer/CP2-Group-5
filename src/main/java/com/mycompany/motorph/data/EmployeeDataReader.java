@@ -95,6 +95,7 @@ public class EmployeeDataReader {
      */
     private Employee createEmployeeFromData(String[] employeeData) throws ParseException {
         Employee employee = new Employee();
+
         employee.setEmployeeNumber(Integer.parseInt(employeeData[0]));
         employee.setLastName(employeeData[1]);
         employee.setFirstName(employeeData[2]);

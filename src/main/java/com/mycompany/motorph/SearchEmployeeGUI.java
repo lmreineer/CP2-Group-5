@@ -4,6 +4,14 @@
  */
 package com.mycompany.motorph;
 
+import com.mycompany.motorph.employee.EmployeeInformation;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lance1
@@ -26,379 +34,365 @@ public class SearchEmployeeGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jTextField18 = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jTextField19 = new javax.swing.JTextField();
-        jTextField20 = new javax.swing.JTextField();
-        jTextField21 = new javax.swing.JTextField();
-        jTextField22 = new javax.swing.JTextField();
-        jTextField23 = new javax.swing.JTextField();
-        jTextField24 = new javax.swing.JTextField();
-        jTextField25 = new javax.swing.JTextField();
-        jTextField26 = new javax.swing.JTextField();
-        jTextField27 = new javax.swing.JTextField();
-        jTextField28 = new javax.swing.JTextField();
-        jTextField29 = new javax.swing.JTextField();
-        jTextField30 = new javax.swing.JTextField();
-        jTextField31 = new javax.swing.JTextField();
-        jTextField32 = new javax.swing.JTextField();
-        jTextField33 = new javax.swing.JTextField();
-        jTextField34 = new javax.swing.JTextField();
-        jTextField35 = new javax.swing.JTextField();
+        pnlMain = new javax.swing.JPanel();
+        lblMotorPhHeader = new javax.swing.JLabel();
+        lblEmployeeSearchHeader = new javax.swing.JLabel();
+        lblLastName = new javax.swing.JLabel();
+        lblFirstName = new javax.swing.JLabel();
+        lblBirthdate = new javax.swing.JLabel();
+        lblAddress = new javax.swing.JLabel();
+        lblPhoneNumber = new javax.swing.JLabel();
+        lblSssNumber = new javax.swing.JLabel();
+        lblPhilHealthNumber = new javax.swing.JLabel();
+        lblTinNumber = new javax.swing.JLabel();
+        lblPagIbigNumber = new javax.swing.JLabel();
+        lblStatus = new javax.swing.JLabel();
+        lblPosition = new javax.swing.JLabel();
+        lblImmediateSupervisor = new javax.swing.JLabel();
+        lblBasicSalary = new javax.swing.JLabel();
+        lblRiceSubsidy = new javax.swing.JLabel();
+        lblPhoneAllowance = new javax.swing.JLabel();
+        lblClothingAllowance = new javax.swing.JLabel();
+        lblGrossSemimonthlyRate = new javax.swing.JLabel();
+        txtHourlyRate = new javax.swing.JTextField();
+        lblHourlyRate = new javax.swing.JLabel();
+        lblEmployeeNumber = new javax.swing.JLabel();
+        lblTopSeparator = new javax.swing.JLabel();
+        txtGrossSemimonthlyRate = new javax.swing.JTextField();
+        txtClothingAllowance = new javax.swing.JTextField();
+        txtPhoneAllowance = new javax.swing.JTextField();
+        txtRiceSubsidy = new javax.swing.JTextField();
+        txtBasicSalary = new javax.swing.JTextField();
+        txtImmediateSupervisor = new javax.swing.JTextField();
+        txtPosition = new javax.swing.JTextField();
+        txtStatus = new javax.swing.JTextField();
+        txtPagIbigNumber = new javax.swing.JTextField();
+        txtTinNumber = new javax.swing.JTextField();
+        txtPhilHealthNumber = new javax.swing.JTextField();
+        txtSssNumber = new javax.swing.JTextField();
+        txtAddress = new javax.swing.JTextField();
+        txtPhoneNumber = new javax.swing.JTextField();
+        txtBirthdate = new javax.swing.JTextField();
+        txtFirstName = new javax.swing.JTextField();
+        txtLastName = new javax.swing.JTextField();
         txtEmployeeNumber = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
-        jLabel23 = new javax.swing.JLabel();
+        lblBottomSeparator = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMain.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Leelawadee", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("MotorPH Payroll System");
-        jLabel1.setOpaque(true);
+        lblMotorPhHeader.setBackground(new java.awt.Color(255, 255, 255));
+        lblMotorPhHeader.setFont(new java.awt.Font("Leelawadee", 1, 18)); // NOI18N
+        lblMotorPhHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMotorPhHeader.setText("MotorPH Payroll System");
+        lblMotorPhHeader.setOpaque(true);
 
-        jLabel2.setBackground(new java.awt.Color(223, 54, 54));
-        jLabel2.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Employee Search");
-        jLabel2.setOpaque(true);
+        lblEmployeeSearchHeader.setBackground(new java.awt.Color(223, 54, 54));
+        lblEmployeeSearchHeader.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
+        lblEmployeeSearchHeader.setForeground(new java.awt.Color(255, 255, 255));
+        lblEmployeeSearchHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEmployeeSearchHeader.setText("Employee Search");
+        lblEmployeeSearchHeader.setOpaque(true);
 
-        jLabel3.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel3.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Last Name:");
-        jLabel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel3.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel3.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel3.setOpaque(true);
+        lblLastName.setBackground(new java.awt.Color(242, 242, 242));
+        lblLastName.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblLastName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLastName.setText("Last Name:");
+        lblLastName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblLastName.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblLastName.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblLastName.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblLastName.setOpaque(true);
 
-        jLabel4.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel4.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("First Name:");
-        jLabel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel4.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel4.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel4.setOpaque(true);
+        lblFirstName.setBackground(new java.awt.Color(242, 242, 242));
+        lblFirstName.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblFirstName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFirstName.setText("First Name:");
+        lblFirstName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblFirstName.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblFirstName.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblFirstName.setOpaque(true);
 
-        jLabel5.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel5.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Birthdate:");
-        jLabel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel5.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel5.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel5.setOpaque(true);
+        lblBirthdate.setBackground(new java.awt.Color(242, 242, 242));
+        lblBirthdate.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblBirthdate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBirthdate.setText("Birthdate:");
+        lblBirthdate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblBirthdate.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblBirthdate.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblBirthdate.setOpaque(true);
 
-        jLabel6.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel6.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Address:");
-        jLabel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel6.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel6.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel6.setOpaque(true);
+        lblAddress.setBackground(new java.awt.Color(242, 242, 242));
+        lblAddress.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblAddress.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAddress.setText("Address:");
+        lblAddress.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblAddress.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblAddress.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblAddress.setOpaque(true);
 
-        jLabel7.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel7.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Phone #:");
-        jLabel7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel7.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel7.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel7.setOpaque(true);
+        lblPhoneNumber.setBackground(new java.awt.Color(242, 242, 242));
+        lblPhoneNumber.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblPhoneNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPhoneNumber.setText("Phone #:");
+        lblPhoneNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblPhoneNumber.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblPhoneNumber.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblPhoneNumber.setOpaque(true);
 
-        jLabel8.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel8.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("SSS #:");
-        jLabel8.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel8.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel8.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel8.setOpaque(true);
+        lblSssNumber.setBackground(new java.awt.Color(242, 242, 242));
+        lblSssNumber.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblSssNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSssNumber.setText("SSS #:");
+        lblSssNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblSssNumber.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblSssNumber.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblSssNumber.setOpaque(true);
 
-        jLabel9.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel9.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Philhealth #:");
-        jLabel9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel9.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel9.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel9.setOpaque(true);
+        lblPhilHealthNumber.setBackground(new java.awt.Color(242, 242, 242));
+        lblPhilHealthNumber.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblPhilHealthNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPhilHealthNumber.setText("PhilHealth #:");
+        lblPhilHealthNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblPhilHealthNumber.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblPhilHealthNumber.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblPhilHealthNumber.setOpaque(true);
 
-        jLabel10.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel10.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("TIN #:");
-        jLabel10.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel10.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel10.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel10.setOpaque(true);
+        lblTinNumber.setBackground(new java.awt.Color(242, 242, 242));
+        lblTinNumber.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblTinNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTinNumber.setText("TIN #:");
+        lblTinNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblTinNumber.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblTinNumber.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblTinNumber.setOpaque(true);
 
-        jLabel11.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel11.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Pag-IBIG #:");
-        jLabel11.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel11.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel11.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel11.setOpaque(true);
+        lblPagIbigNumber.setBackground(new java.awt.Color(242, 242, 242));
+        lblPagIbigNumber.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblPagIbigNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPagIbigNumber.setText("Pag-IBIG #:");
+        lblPagIbigNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblPagIbigNumber.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblPagIbigNumber.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblPagIbigNumber.setOpaque(true);
 
-        jLabel12.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel12.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Status:");
-        jLabel12.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel12.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel12.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel12.setOpaque(true);
+        lblStatus.setBackground(new java.awt.Color(242, 242, 242));
+        lblStatus.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblStatus.setText("Status:");
+        lblStatus.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblStatus.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblStatus.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblStatus.setOpaque(true);
 
-        jLabel13.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel13.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Position:");
-        jLabel13.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel13.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel13.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel13.setOpaque(true);
+        lblPosition.setBackground(new java.awt.Color(242, 242, 242));
+        lblPosition.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblPosition.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPosition.setText("Position:");
+        lblPosition.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblPosition.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblPosition.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblPosition.setOpaque(true);
 
-        jLabel14.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel14.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Immediate Supervisor:");
-        jLabel14.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel14.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel14.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel14.setOpaque(true);
+        lblImmediateSupervisor.setBackground(new java.awt.Color(242, 242, 242));
+        lblImmediateSupervisor.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblImmediateSupervisor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImmediateSupervisor.setText("Immediate Supervisor:");
+        lblImmediateSupervisor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblImmediateSupervisor.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblImmediateSupervisor.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblImmediateSupervisor.setOpaque(true);
 
-        jLabel15.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel15.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("Basic Salary:");
-        jLabel15.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel15.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel15.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel15.setOpaque(true);
+        lblBasicSalary.setBackground(new java.awt.Color(242, 242, 242));
+        lblBasicSalary.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblBasicSalary.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBasicSalary.setText("Basic Salary:");
+        lblBasicSalary.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblBasicSalary.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblBasicSalary.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblBasicSalary.setOpaque(true);
 
-        jLabel16.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel16.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Rice Subsidy:");
-        jLabel16.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel16.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel16.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel16.setOpaque(true);
+        lblRiceSubsidy.setBackground(new java.awt.Color(242, 242, 242));
+        lblRiceSubsidy.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblRiceSubsidy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRiceSubsidy.setText("Rice Subsidy:");
+        lblRiceSubsidy.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblRiceSubsidy.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblRiceSubsidy.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblRiceSubsidy.setOpaque(true);
 
-        jLabel17.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel17.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("Phone Allowance:");
-        jLabel17.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel17.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel17.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel17.setOpaque(true);
+        lblPhoneAllowance.setBackground(new java.awt.Color(242, 242, 242));
+        lblPhoneAllowance.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblPhoneAllowance.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPhoneAllowance.setText("Phone Allowance:");
+        lblPhoneAllowance.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblPhoneAllowance.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblPhoneAllowance.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblPhoneAllowance.setOpaque(true);
 
-        jLabel18.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel18.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("Clothing Allowance:");
-        jLabel18.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel18.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel18.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel18.setOpaque(true);
+        lblClothingAllowance.setBackground(new java.awt.Color(242, 242, 242));
+        lblClothingAllowance.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblClothingAllowance.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblClothingAllowance.setText("Clothing Allowance:");
+        lblClothingAllowance.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblClothingAllowance.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblClothingAllowance.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblClothingAllowance.setOpaque(true);
 
-        jLabel19.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel19.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("Gross Semi-monthly Rate:");
-        jLabel19.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel19.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel19.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel19.setOpaque(true);
+        lblGrossSemimonthlyRate.setBackground(new java.awt.Color(242, 242, 242));
+        lblGrossSemimonthlyRate.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblGrossSemimonthlyRate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblGrossSemimonthlyRate.setText("Gross Semi-monthly Rate:");
+        lblGrossSemimonthlyRate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblGrossSemimonthlyRate.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblGrossSemimonthlyRate.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblGrossSemimonthlyRate.setOpaque(true);
 
-        jTextField18.setEditable(false);
-        jTextField18.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField18.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField18.setText("jTextField1");
-        jTextField18.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField18.setFocusable(false);
+        txtHourlyRate.setEditable(false);
+        txtHourlyRate.setBackground(new java.awt.Color(242, 242, 242));
+        txtHourlyRate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtHourlyRate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtHourlyRate.setFocusable(false);
 
-        jLabel20.setBackground(new java.awt.Color(242, 242, 242));
-        jLabel20.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel20.setText("Hourly Rate:");
-        jLabel20.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel20.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel20.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel20.setOpaque(true);
+        lblHourlyRate.setBackground(new java.awt.Color(242, 242, 242));
+        lblHourlyRate.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblHourlyRate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHourlyRate.setText("Hourly Rate:");
+        lblHourlyRate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblHourlyRate.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblHourlyRate.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblHourlyRate.setOpaque(true);
 
-        jLabel21.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel21.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("Employee #:");
-        jLabel21.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jLabel21.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel21.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel21.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel21.setOpaque(true);
+        lblEmployeeNumber.setBackground(new java.awt.Color(255, 255, 255));
+        lblEmployeeNumber.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblEmployeeNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEmployeeNumber.setText("Employee #:");
+        lblEmployeeNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        lblEmployeeNumber.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblEmployeeNumber.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblEmployeeNumber.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblEmployeeNumber.setOpaque(true);
 
-        jLabel22.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel22.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setOpaque(true);
+        lblTopSeparator.setBackground(new java.awt.Color(51, 51, 51));
+        lblTopSeparator.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
+        lblTopSeparator.setForeground(new java.awt.Color(255, 255, 255));
+        lblTopSeparator.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTopSeparator.setOpaque(true);
 
-        jTextField19.setEditable(false);
-        jTextField19.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField19.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField19.setText("jTextField1");
-        jTextField19.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField19.setFocusable(false);
+        txtGrossSemimonthlyRate.setEditable(false);
+        txtGrossSemimonthlyRate.setBackground(new java.awt.Color(242, 242, 242));
+        txtGrossSemimonthlyRate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtGrossSemimonthlyRate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtGrossSemimonthlyRate.setFocusable(false);
 
-        jTextField20.setEditable(false);
-        jTextField20.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField20.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField20.setText("jTextField1");
-        jTextField20.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField20.setFocusable(false);
+        txtClothingAllowance.setEditable(false);
+        txtClothingAllowance.setBackground(new java.awt.Color(242, 242, 242));
+        txtClothingAllowance.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtClothingAllowance.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtClothingAllowance.setFocusable(false);
 
-        jTextField21.setEditable(false);
-        jTextField21.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField21.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField21.setText("jTextField1");
-        jTextField21.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField21.setFocusable(false);
+        txtPhoneAllowance.setEditable(false);
+        txtPhoneAllowance.setBackground(new java.awt.Color(242, 242, 242));
+        txtPhoneAllowance.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtPhoneAllowance.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtPhoneAllowance.setFocusable(false);
 
-        jTextField22.setEditable(false);
-        jTextField22.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField22.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField22.setText("jTextField1");
-        jTextField22.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField22.setFocusable(false);
+        txtRiceSubsidy.setEditable(false);
+        txtRiceSubsidy.setBackground(new java.awt.Color(242, 242, 242));
+        txtRiceSubsidy.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtRiceSubsidy.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtRiceSubsidy.setFocusable(false);
 
-        jTextField23.setEditable(false);
-        jTextField23.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField23.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField23.setText("jTextField1");
-        jTextField23.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField23.setFocusable(false);
+        txtBasicSalary.setEditable(false);
+        txtBasicSalary.setBackground(new java.awt.Color(242, 242, 242));
+        txtBasicSalary.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBasicSalary.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtBasicSalary.setFocusable(false);
 
-        jTextField24.setEditable(false);
-        jTextField24.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField24.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField24.setText("jTextField1");
-        jTextField24.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField24.setFocusable(false);
+        txtImmediateSupervisor.setEditable(false);
+        txtImmediateSupervisor.setBackground(new java.awt.Color(242, 242, 242));
+        txtImmediateSupervisor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtImmediateSupervisor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtImmediateSupervisor.setFocusable(false);
 
-        jTextField25.setEditable(false);
-        jTextField25.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField25.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField25.setText("jTextField1");
-        jTextField25.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField25.setFocusable(false);
+        txtPosition.setEditable(false);
+        txtPosition.setBackground(new java.awt.Color(242, 242, 242));
+        txtPosition.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtPosition.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtPosition.setFocusable(false);
 
-        jTextField26.setEditable(false);
-        jTextField26.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField26.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField26.setText("jTextField1");
-        jTextField26.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField26.setFocusable(false);
+        txtStatus.setEditable(false);
+        txtStatus.setBackground(new java.awt.Color(242, 242, 242));
+        txtStatus.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtStatus.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtStatus.setFocusable(false);
 
-        jTextField27.setEditable(false);
-        jTextField27.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField27.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField27.setText("jTextField1");
-        jTextField27.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField27.setFocusable(false);
+        txtPagIbigNumber.setEditable(false);
+        txtPagIbigNumber.setBackground(new java.awt.Color(242, 242, 242));
+        txtPagIbigNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtPagIbigNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtPagIbigNumber.setFocusable(false);
 
-        jTextField28.setEditable(false);
-        jTextField28.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField28.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField28.setText("jTextField1");
-        jTextField28.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField28.setFocusable(false);
+        txtTinNumber.setEditable(false);
+        txtTinNumber.setBackground(new java.awt.Color(242, 242, 242));
+        txtTinNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTinNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtTinNumber.setFocusable(false);
 
-        jTextField29.setEditable(false);
-        jTextField29.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField29.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField29.setText("jTextField1");
-        jTextField29.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField29.setFocusable(false);
+        txtPhilHealthNumber.setEditable(false);
+        txtPhilHealthNumber.setBackground(new java.awt.Color(242, 242, 242));
+        txtPhilHealthNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtPhilHealthNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtPhilHealthNumber.setFocusable(false);
 
-        jTextField30.setEditable(false);
-        jTextField30.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField30.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField30.setText("jTextField1");
-        jTextField30.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField30.setFocusable(false);
+        txtSssNumber.setEditable(false);
+        txtSssNumber.setBackground(new java.awt.Color(242, 242, 242));
+        txtSssNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtSssNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtSssNumber.setFocusable(false);
 
-        jTextField31.setEditable(false);
-        jTextField31.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField31.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField31.setText("jTextField1");
-        jTextField31.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField31.setFocusable(false);
+        txtAddress.setEditable(false);
+        txtAddress.setBackground(new java.awt.Color(242, 242, 242));
+        txtAddress.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtAddress.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtAddress.setFocusable(false);
 
-        jTextField32.setEditable(false);
-        jTextField32.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField32.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField32.setText("jTextField1");
-        jTextField32.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField32.setFocusable(false);
+        txtPhoneNumber.setEditable(false);
+        txtPhoneNumber.setBackground(new java.awt.Color(242, 242, 242));
+        txtPhoneNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtPhoneNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtPhoneNumber.setFocusable(false);
 
-        jTextField33.setEditable(false);
-        jTextField33.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField33.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField33.setText("jTextField1");
-        jTextField33.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField33.setFocusable(false);
+        txtBirthdate.setEditable(false);
+        txtBirthdate.setBackground(new java.awt.Color(242, 242, 242));
+        txtBirthdate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBirthdate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtBirthdate.setFocusable(false);
 
-        jTextField34.setEditable(false);
-        jTextField34.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField34.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField34.setText("jTextField1");
-        jTextField34.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField34.setFocusable(false);
+        txtFirstName.setEditable(false);
+        txtFirstName.setBackground(new java.awt.Color(242, 242, 242));
+        txtFirstName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtFirstName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtFirstName.setFocusable(false);
 
-        jTextField35.setEditable(false);
-        jTextField35.setBackground(new java.awt.Color(242, 242, 242));
-        jTextField35.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField35.setText("jTextField1");
-        jTextField35.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jTextField35.setFocusable(false);
+        txtLastName.setEditable(false);
+        txtLastName.setBackground(new java.awt.Color(242, 242, 242));
+        txtLastName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtLastName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtLastName.setFocusable(false);
 
         txtEmployeeNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtEmployeeNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         txtEmployeeNumber.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtEmployeeNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmployeeNumberActionPerformed(evt);
+            }
+        });
 
         btnSearch.setBackground(new java.awt.Color(255, 255, 255));
         btnSearch.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
@@ -407,6 +401,9 @@ public class SearchEmployeeGUI extends javax.swing.JFrame {
         btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSearch.setFocusable(false);
         btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSearchMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnSearchMouseEntered(evt);
             }
@@ -415,11 +412,11 @@ public class SearchEmployeeGUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel23.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel23.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setOpaque(true);
+        lblBottomSeparator.setBackground(new java.awt.Color(51, 51, 51));
+        lblBottomSeparator.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
+        lblBottomSeparator.setForeground(new java.awt.Color(255, 255, 255));
+        lblBottomSeparator.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBottomSeparator.setOpaque(true);
 
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
         btnExit.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
@@ -433,6 +430,11 @@ public class SearchEmployeeGUI extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnExitMouseExited(evt);
+            }
+        });
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
             }
         });
 
@@ -450,69 +452,74 @@ public class SearchEmployeeGUI extends javax.swing.JFrame {
                 btnBackMouseExited(evt);
             }
         });
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlMainLayout = new javax.swing.GroupLayout(pnlMain);
+        pnlMain.setLayout(pnlMainLayout);
+        pnlMainLayout.setHorizontalGroup(
+            pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblMotorPhHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+            .addComponent(lblEmployeeSearchHeader, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblTopSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblBottomSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnlMainLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlMainLayout.createSequentialGroup()
+                        .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblClothingAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblGrossSemimonthlyRate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblHourlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField18)
-                            .addComponent(jTextField19, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField20, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtHourlyRate)
+                            .addComponent(txtGrossSemimonthlyRate, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtClothingAllowance, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(pnlMainLayout.createSequentialGroup()
+                        .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblLastName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblSssNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblTinNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblImmediateSupervisor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblRiceSubsidy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblPhoneAllowance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblBasicSalary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblPosition, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblPagIbigNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblPhilHealthNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblBirthdate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblEmployeeNumber, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField21)
-                            .addComponent(jTextField22, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField23, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField24, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField25, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField26, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField27, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField28, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField29)
-                            .addComponent(jTextField30, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField31, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField32, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField33)
-                            .addComponent(jTextField34, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField35, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPhoneAllowance)
+                            .addComponent(txtRiceSubsidy, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtBasicSalary, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtImmediateSupervisor, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtPosition, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtStatus, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtPagIbigNumber, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtTinNumber, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtPhilHealthNumber)
+                            .addComponent(txtSssNumber, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtAddress, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtPhoneNumber, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtBirthdate)
+                            .addComponent(txtFirstName, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtLastName, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlMainLayout.createSequentialGroup()
                                 .addComponent(txtEmployeeNumber)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainLayout.createSequentialGroup()
                         .addGap(116, 116, 116)
                         .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -520,111 +527,111 @@ public class SearchEmployeeGUI extends javax.swing.JFrame {
                         .addGap(116, 116, 116)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlMainLayout.setVerticalGroup(
+            pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlMainLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblMotorPhHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(lblEmployeeSearchHeader)
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
-                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTopSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jTextField35))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(txtLastName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField31, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField32, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField30, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSssNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSssNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPhilHealthNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPhilHealthNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField28, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTinNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTinNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPagIbigNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPagIbigNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField26, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField25, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblImmediateSupervisor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtImmediateSupervisor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBasicSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBasicSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRiceSubsidy, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRiceSubsidy, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPhoneAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPhoneAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblClothingAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtClothingAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGrossSemimonthlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGrossSemimonthlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHourlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHourlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
-                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(lblBottomSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
                     .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
-                .addGap(17, 17, 17))
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -661,6 +668,60 @@ public class SearchEmployeeGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnExitMouseExited
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void txtEmployeeNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmployeeNumberActionPerformed
+        // TODO add your handling code here:
+        showEmployeeInformation();
+    }//GEN-LAST:event_txtEmployeeNumberActionPerformed
+
+    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
+        // TODO add your handling code here:
+        showEmployeeInformation();
+    }//GEN-LAST:event_btnSearchMouseClicked
+
+    /**
+     * Shows information about an employee.
+     */
+    public void showEmployeeInformation() {
+        try {
+            int employeeNumber = Integer.parseInt(txtEmployeeNumber.getText());
+
+            // Assign the information of the employee with the inputted employee number to a variable
+            List<String> employeeInfo = new EmployeeInformation().showEmployeeInformation(employeeNumber);
+
+            // Populate empty textboxes of employee information
+            txtLastName.setText(employeeInfo.get(0));
+            txtFirstName.setText(employeeInfo.get(1));
+            txtBirthdate.setText(employeeInfo.get(2));
+            txtAddress.setText(employeeInfo.get(3));
+            txtPhoneNumber.setText(employeeInfo.get(4));
+            txtSssNumber.setText(employeeInfo.get(5));
+            txtPhilHealthNumber.setText(employeeInfo.get(16));
+            txtTinNumber.setText(employeeInfo.get(7));
+            txtPagIbigNumber.setText(employeeInfo.get(8));
+            txtStatus.setText(employeeInfo.get(9));
+            txtPosition.setText(employeeInfo.get(10));
+            txtImmediateSupervisor.setText(employeeInfo.get(11));
+            txtBasicSalary.setText(employeeInfo.get(12));
+            txtRiceSubsidy.setText(employeeInfo.get(13));
+            txtPhoneAllowance.setText(employeeInfo.get(14));
+            txtClothingAllowance.setText(employeeInfo.get(15));
+            txtGrossSemimonthlyRate.setText(employeeInfo.get(16));
+            txtHourlyRate.setText(employeeInfo.get(17));
+        } catch (IOException | ParseException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(pnlMain, e, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -701,48 +762,48 @@ public class SearchEmployeeGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField18;
-    private javax.swing.JTextField jTextField19;
-    private javax.swing.JTextField jTextField20;
-    private javax.swing.JTextField jTextField21;
-    private javax.swing.JTextField jTextField22;
-    private javax.swing.JTextField jTextField23;
-    private javax.swing.JTextField jTextField24;
-    private javax.swing.JTextField jTextField25;
-    private javax.swing.JTextField jTextField26;
-    private javax.swing.JTextField jTextField27;
-    private javax.swing.JTextField jTextField28;
-    private javax.swing.JTextField jTextField29;
-    private javax.swing.JTextField jTextField30;
-    private javax.swing.JTextField jTextField31;
-    private javax.swing.JTextField jTextField32;
-    private javax.swing.JTextField jTextField33;
-    private javax.swing.JTextField jTextField34;
-    private javax.swing.JTextField jTextField35;
+    private javax.swing.JLabel lblAddress;
+    private javax.swing.JLabel lblBasicSalary;
+    private javax.swing.JLabel lblBirthdate;
+    private javax.swing.JLabel lblBottomSeparator;
+    private javax.swing.JLabel lblClothingAllowance;
+    private javax.swing.JLabel lblEmployeeNumber;
+    private javax.swing.JLabel lblEmployeeSearchHeader;
+    private javax.swing.JLabel lblFirstName;
+    private javax.swing.JLabel lblGrossSemimonthlyRate;
+    private javax.swing.JLabel lblHourlyRate;
+    private javax.swing.JLabel lblImmediateSupervisor;
+    private javax.swing.JLabel lblLastName;
+    private javax.swing.JLabel lblMotorPhHeader;
+    private javax.swing.JLabel lblPagIbigNumber;
+    private javax.swing.JLabel lblPhilHealthNumber;
+    private javax.swing.JLabel lblPhoneAllowance;
+    private javax.swing.JLabel lblPhoneNumber;
+    private javax.swing.JLabel lblPosition;
+    private javax.swing.JLabel lblRiceSubsidy;
+    private javax.swing.JLabel lblSssNumber;
+    private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblTinNumber;
+    private javax.swing.JLabel lblTopSeparator;
+    private javax.swing.JPanel pnlMain;
+    private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtBasicSalary;
+    private javax.swing.JTextField txtBirthdate;
+    private javax.swing.JTextField txtClothingAllowance;
     private javax.swing.JTextField txtEmployeeNumber;
+    private javax.swing.JTextField txtFirstName;
+    private javax.swing.JTextField txtGrossSemimonthlyRate;
+    private javax.swing.JTextField txtHourlyRate;
+    private javax.swing.JTextField txtImmediateSupervisor;
+    private javax.swing.JTextField txtLastName;
+    private javax.swing.JTextField txtPagIbigNumber;
+    private javax.swing.JTextField txtPhilHealthNumber;
+    private javax.swing.JTextField txtPhoneAllowance;
+    private javax.swing.JTextField txtPhoneNumber;
+    private javax.swing.JTextField txtPosition;
+    private javax.swing.JTextField txtRiceSubsidy;
+    private javax.swing.JTextField txtSssNumber;
+    private javax.swing.JTextField txtStatus;
+    private javax.swing.JTextField txtTinNumber;
     // End of variables declaration//GEN-END:variables
 }

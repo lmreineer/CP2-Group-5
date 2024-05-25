@@ -227,7 +227,7 @@ public class MotorPHMenuGUI extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
-        dispose();
+        System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnSearchEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchEmployeeActionPerformed
@@ -270,7 +270,7 @@ public class MotorPHMenuGUI extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void setFrameIconImage() {
         String pathToImageIcon = "C:\\Users\\Lance1\\Desktop\\projects\\java\\CP2\\CP2-Group-5\\src\\main\\resources\\images\\motorph-logo.jpg";
         ImageIcon img = new ImageIcon(pathToImageIcon);

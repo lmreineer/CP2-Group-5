@@ -128,7 +128,7 @@ public class MotorPHManager {
 
             // Discard any remaining input and prompt the user to go back to the main menu
             scanner.nextLine();
-            
+
             // Prompt the user to go back to the main smenu
             promptToGoBackToMainMenu(scanner);
         } catch (RuntimeException e) {

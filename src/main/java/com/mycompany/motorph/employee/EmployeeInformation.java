@@ -28,11 +28,12 @@ public class EmployeeInformation {
      * Displays employee information with the inputted employee number.
      *
      * @param employeeNumber The employee number to search for
+     * @return The employee information in a List
      * @throws IOException If an I/O error occurs while reading the file
      * @throws ParseException If a parsing error occurs
      */
-    public void showEmployeeInformation(int employeeNumber) throws IOException, ParseException {
-        // Create instance of EmployeeDataReader
+    public List<String> showEmployeeInformation(int employeeNumber) throws IOException, ParseException {
+        // Create an instance of EmployeeDataReader
         EmployeeDataReader employeeDataReader = new EmployeeDataReader();
 
         // Read the list of employees from the data file
@@ -41,15 +42,15 @@ public class EmployeeInformation {
         // Find the employee with the inputted employee number
         Employee foundEmployee = findEmployeeByNumber(employees, employeeNumber);
 
-        // If employee is found with the inputted employee number
+        // If an employee is found with the inputted employee number
         if (foundEmployee != null) {
-            // Display information of the employee
-            foundEmployee.displayEmployeeInformation();
+            // Return the information of the employee
+            return foundEmployee.getEmployeeInformation();
 
             // Else
         } else {
-            // Throw exception
-            throw new RuntimeException("Employee not found.");
+            // Throw employee is not found exception
+            throw new NullPointerException("Employee is not found.");
         }
     }
 
