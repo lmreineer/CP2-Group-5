@@ -24,15 +24,15 @@ public class EmployeeDataReader {
     private static final SimpleDateFormat BIRTHDATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
     // Expected total number of values per row from the data
-    private static final int EXPECTED_ROW_LENGTH = 19;
+    private static final int EXPECTED_COL_LENGTH = 19;
 
     /**
      * Reads employee data from the data file and returns list of employees.
      *
      * @param filePath Path to the employee_information data file
      * @return List of employees read from the file
-     * @throws IOException If I/O error happen while reading the file
-     * @throws ParseException If parsing error happen while parsing
+     * @throws IOException If an I/O error happens while reading the file
+     * @throws ParseException If a parsing error happens while parsing
      */
     public List<Employee> readEmployees(String filePath) throws IOException, ParseException {
         List<Employee> employees = new ArrayList<>();
@@ -42,10 +42,10 @@ public class EmployeeDataReader {
             String line;
             // Read each line from the file
             while ((line = reader.readLine()) != null) {
-                // Split the line into employee data using "|" as delimiter
+                // Split the line into employee data using "|" as a delimiter
                 String[] employeeData = line.split("\\|");
                 // If the line has the expected length
-                if (employeeData.length >= EXPECTED_ROW_LENGTH) {
+                if (employeeData.length >= EXPECTED_COL_LENGTH) {
                     // Create an employee object from the data and add it to the list
                     employees.add(createEmployeeFromData(employeeData));
                 }
@@ -54,36 +54,6 @@ public class EmployeeDataReader {
 
         // Return the list of employees
         return employees;
-    }
-
-    /**
-     * Gets information for the employee with the inputted employee number.
-     *
-     * @param employeeNumber Employee number to search for in the data file
-     * @param filePath Path to the employee_information data file
-     * @return Employee object containing the information of the employee with
-     * the inputted employee number. Null if no employee is found
-     * @throws IOException If an I/O error occurs while reading the file
-     * @throws ParseException If a parsing error occurs
-     */
-    public Employee getEmployeeInfo(int employeeNumber, String filePath) throws IOException, ParseException {
-        // Open the file for reading
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            // Read each line from the file
-            while ((line = reader.readLine()) != null) {
-                // Split the line into employee data using "|" as delimiter
-                String[] employeeData = line.split("\\|");
-                // Check if the line has the expected length and matches the inputted employee number
-                if (employeeData.length == EXPECTED_ROW_LENGTH && Integer.parseInt(employeeData[0]) == employeeNumber) {
-                    // Create an employee object from the data and return it
-                    return createEmployeeFromData(employeeData);
-                }
-            }
-        }
-
-        // Return null if employee is not found
-        return null;
     }
 
     /**

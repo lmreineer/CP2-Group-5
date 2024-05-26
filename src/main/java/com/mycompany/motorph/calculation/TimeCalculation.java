@@ -41,7 +41,7 @@ public class TimeCalculation {
 
         // Iterate through each line of attendance data
         for (String attendanceLine : attendanceDataList) {
-            // Split the line into attendance data using "|" as delimiter
+            // Split the line into attendance data using "|" as a delimiter
             String[] attendanceData = attendanceLine.split("\\|");
 
             // If the line matches the expected format and employee number
@@ -86,7 +86,7 @@ public class TimeCalculation {
         long startMillis = dateRange.getStartDate().getTime();
         long endMillis = dateRange.getEndDate().getTime();
 
-        // If start date is before or equal to end date
+        // If the start date is before or equal to the end date
         if (startMillis > endMillis) {
             throw new IllegalArgumentException("Start date cannot be after end date");
         }

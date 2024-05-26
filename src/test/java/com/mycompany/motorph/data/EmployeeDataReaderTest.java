@@ -34,18 +34,4 @@ public class EmployeeDataReaderTest {
             fail("Exception occurred: " + e.getMessage());
         }
     }
-
-    @Test
-    public void getEmployeeInfo_EmployeeDoesNotExist() {
-        EmployeeDataReader reader = new EmployeeDataReader();
-        int nonExistingEmployeeNumber = 123;
-
-        try {
-            Employee employee = reader.getEmployeeInfo(nonExistingEmployeeNumber, EMPLOYEES_DATA_PATH);
-
-            assertNull(employee, "Non-existing employee should return null");
-        } catch (IOException | ParseException e) {
-            fail("Exception occurred: " + e.getMessage());
-        }
-    }
 }

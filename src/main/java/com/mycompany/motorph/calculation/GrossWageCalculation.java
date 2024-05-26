@@ -6,6 +6,7 @@ package com.mycompany.motorph.calculation;
 
 import com.mycompany.motorph.model.DateRange;
 import com.mycompany.motorph.util.CurrencyUtil;
+import java.util.ArrayList;
 
 import java.util.List;
 
@@ -20,25 +21,6 @@ import java.util.List;
  * @author Lance1
  */
 public class GrossWageCalculation extends WageCalculation {
-
-    private final String lastName;
-    private final String firstName;
-    private final String birthdate;
-
-    /**
-     * Constructor for GrossWageCalculation.
-     *
-     * @param employeeNumber The employee number
-     * @param lastName The last name of the employee
-     * @param firstName The first name of the employee
-     * @param birthdate The birthdate of the employee
-     */
-    public GrossWageCalculation(int employeeNumber, String lastName, String firstName, String birthdate) {
-        // Initialize employee details
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.birthdate = birthdate;
-    }
 
     /**
      * Mock-up implementation for late arrival deduction calculation, as it is
@@ -75,16 +57,14 @@ public class GrossWageCalculation extends WageCalculation {
      * @param employeeNumber The employee number
      */
     @Override
-    protected void displayWage(int employeeNumber, double hourlyRate, double hoursWorked, double lateArrivalDeduction) {
+    protected List<String> getWageInformation(int employeeNumber, double hourlyRate, double hoursWorked, double lateArrivalDeduction) {
+        List<String> wageInfo = new ArrayList<>();
+
         // Calculate gross wage
         double grossWage = calculateWage(hourlyRate, hoursWorked, lateArrivalDeduction);
 
-        System.out.println("================================");
-        System.out.println("Employee #: " + employeeNumber);
-        System.out.println("Employee Name: " + firstName + " " + lastName);
-        System.out.println("Birthdate: " + birthdate);
-        System.out.println("--------------------------------");
-        System.out.println("Gross Wage: PHP " + CurrencyUtil.formatCurrency(grossWage));
-        System.out.println("================================");
+        wageInfo.add(CurrencyUtil.formatCurrency(grossWage));
+
+        return wageInfo;
     }
 }

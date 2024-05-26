@@ -27,8 +27,8 @@ public class GrossWageCalculationTest {
         double hoursWorked = 40.0;
         double lateArrivalDeduction = 0.0;
 
-        // Create instance of GrossWageCalculation
-        GrossWageCalculation grossWageCalculation = new GrossWageCalculation(123, "Doe", "John", "01/01/1990");
+        // Create an instance of GrossWageCalculation
+        GrossWageCalculation grossWageCalculation = new GrossWageCalculation();
 
         double grossWage = grossWageCalculation.calculateWage(hourlyRate, hoursWorked, lateArrivalDeduction);
 
@@ -42,11 +42,11 @@ public class GrossWageCalculationTest {
         double hoursWorked = 40.0;
         double lateArrivalDeduction = 0.0;
 
-        // Create instance of GrossWageCalculation
-        GrossWageCalculation grossWageCalculation = new GrossWageCalculation(123, "Doe", "John", "01/01/1990");
+        // Create an instance of GrossWageCalculation
+        GrossWageCalculation grossWageCalculation = new GrossWageCalculation();
 
         // Capture console output when displaying the wage information
-        String[] lines = captureConsoleOutput(() -> grossWageCalculation.displayWage(123, hourlyRate, hoursWorked, lateArrivalDeduction));
+        String[] lines = captureConsoleOutput(() -> grossWageCalculation.getWageInformation(123, hourlyRate, hoursWorked, lateArrivalDeduction));
 
         assertEquals("================================", lines[0].trim());
         assertEquals("Employee #: 123", lines[1].trim());
@@ -65,8 +65,8 @@ public class GrossWageCalculationTest {
         int employeeNumber = 123;
         DateRange dateRange = new DateRange(new Date(), new Date());
 
-        // Create instance of GrossWageCalculation
-        GrossWageCalculation grossWageCalculation = new GrossWageCalculation(123, "Doe", "John", "01/01/1990");
+        // Create an instance of GrossWageCalculation
+        GrossWageCalculation grossWageCalculation = new GrossWageCalculation();
 
         assertEquals(0.0, grossWageCalculation.calculateLateArrivalDeduction(attendanceDataList, employeeNumber, dateRange));
     }

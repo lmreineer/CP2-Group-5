@@ -31,7 +31,7 @@ public abstract class WageCalculation {
     private static final String ATTENDANCE_DATA_PATH = "C:\\Users\\Lance1\\Documents\\MO-IT101-Group1\\src\\main\\resources\\data\\employee_attendance.txt";
 
     // Expected total number of values per row from the data
-    private static final int EXPECTED_ROW_LENGTH = 18;
+    private static final int EXPECTED_COL_LENGTH = 18;
 
     /**
      * Constructor for WageCalculation.
@@ -47,10 +47,11 @@ public abstract class WageCalculation {
      *
      * @param employeeNumber Employee number for which wage is calculated
      * @param dateRange Date range for which wage is calculated
+     * @return
      * @throws IOException If an I/O error occurs
      * @throws ParseException If a date parsing error occurs
      */
-    public void showWage(int employeeNumber, DateRange dateRange) throws IOException, ParseException {
+    public List<String> showWage(int employeeNumber, DateRange dateRange) throws IOException, ParseException {
         // Read attendance data
         List<String> attendanceDataList = readAttendanceData();
 
@@ -66,16 +67,14 @@ public abstract class WageCalculation {
         // Calculate late arrival deduction
         double lateArrivalDeduction = calculateLateArrivalDeduction(attendanceDataList, employeeNumber, dateRange);
 
-        // If employee with the inputted employee number is found in the attendance data
+        // If an employee with the inputted employee number is found in the attendance data
         if (hoursWorked > 0) {
             // Calculate wage based on hours worked from the attendance data
-            displayWage(employeeNumber, hourlyRate, hoursWorked, lateArrivalDeduction);
-
-            // Else
-        } else {
-            // Use assumed hours worked of 9.0 per day to calculate wage
-            displayWage(employeeNumber, hourlyRate, assumedHoursWorked, lateArrivalDeduction);
+            getWageInformation(employeeNumber, hourlyRate, hoursWorked, lateArrivalDeduction);
         }
+
+        // Else, use assumed hours worked of 9.0 per day to calculate wage
+        return getWageInformation(employeeNumber, hourlyRate, assumedHoursWorked, lateArrivalDeduction);
     }
 
     /**
@@ -106,8 +105,9 @@ public abstract class WageCalculation {
      * @param hourlyRate Hourly rate
      * @param hoursWorked Hours worked
      * @param lateArrivalDeduction Late arrival deduction for the employee
+     * @return
      */
-    protected abstract void displayWage(int employeeNumber, double hourlyRate, double hoursWorked, double lateArrivalDeduction);
+    protected abstract List<String> getWageInformation(int employeeNumber, double hourlyRate, double hoursWorked, double lateArrivalDeduction);
 
     /**
      * Gets the hourly rate of an employee from the employee data file.
@@ -121,12 +121,12 @@ public abstract class WageCalculation {
             String line;
             // Iterate through each line of the employee information data file
             while ((line = reader.readLine()) != null) {
-                // Split the attendance data using "|" as delimiter
+                // Split the attendance data using "|" as a delimiter
                 String[] employeeData = line.split("\\|");
-                // If the data field has the expected length and matches the inputted employee number
-                if (employeeData.length >= EXPECTED_ROW_LENGTH && Integer.parseInt(employeeData[0]) == employeeNumber) {
+                // If the columns from the data has the expected length and match the inputted employee number
+                if (employeeData.length >= EXPECTED_COL_LENGTH && Integer.parseInt(employeeData[0]) == employeeNumber) {
                     // Return the hourly rate of the employee
-                    return Double.parseDouble(employeeData[EXPECTED_ROW_LENGTH]);
+                    return Double.parseDouble(employeeData[EXPECTED_COL_LENGTH]);
                 }
             }
         }
@@ -136,7 +136,7 @@ public abstract class WageCalculation {
     }
 
     /**
-     * Calculates the total hours worked by an employee within a inputted date
+     * Calculates the total hours worked by an employee within an inputted date
      * range.
      *
      * @param attendanceDataList Attendance data

@@ -129,7 +129,7 @@ public class NetWageCalculation extends WageCalculation {
      * @param employeeNumber Employee number
      */
     @Override
-    protected void displayWage(int employeeNumber, double hourlyRate, double hoursWorked, double lateArrivalDeduction) {
+    protected List<String> getWageInformation(int employeeNumber, double hourlyRate, double hoursWorked, double lateArrivalDeduction) {
         // Calculate gross wage
         double grossWage = hourlyRate * hoursWorked;
         // Calculate net wage
@@ -150,6 +150,8 @@ public class NetWageCalculation extends WageCalculation {
         System.out.println("--------------------------------");
         System.out.println("Net Wage: PHP " + CurrencyUtil.formatCurrency(netWage));
         System.out.println("================================");
+
+        return null;
     }
 
     /**

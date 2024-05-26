@@ -56,28 +56,23 @@ public class DateRange {
      * @param startDateString The start date string
      * @param endDateString The end date string
      * @return A DateRange object representing the specified date range
-     * @throws ParseException If parsing error occurs
+     * @throws ParseException If a parsing error occurs
      */
     public static DateRange createDateRange(String startDateString, String endDateString) throws ParseException {
-        try {
-            // Set leniency to false to strictly match the pattern
-            DATE_FORMAT.setLenient(false);
+        // Set leniency to false to strictly match the pattern
+        DATE_FORMAT.setLenient(false);
 
-            // Parse the start and end dates
-            Date start = DATE_FORMAT.parse(startDateString);
-            Date end = DATE_FORMAT.parse(endDateString);
+        // Parse the start and end dates
+        Date start = DATE_FORMAT.parse(startDateString);
+        Date end = DATE_FORMAT.parse(endDateString);
 
-            // If the end date is before the start date
-            if (end.before(start)) {
-                // Throw IllegalArgumentException with an error message
-                throw new IllegalArgumentException("Invalid date sequence. End date must be on or after the start date.");
-            }
-
-            // Create a DateRange object with the parsed start and end dates
-            return new DateRange(start, end);
-        } catch (ParseException e) {
-            // Throw ParseException with an error message
-            throw new ParseException("Invalid date. Dates must be valid or in mm/dd format.", e.getErrorOffset());
+        // If the end date is before the start date
+        if (end.before(start)) {
+            // Throw IllegalArgumentException with an error message
+            throw new IllegalArgumentException("Invalid date sequence. End date must be on or after the start date.");
         }
+
+        // Create a DateRange object with the parsed start and end dates
+        return new DateRange(start, end);
     }
 }

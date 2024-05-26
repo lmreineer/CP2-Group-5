@@ -8,20 +8,18 @@ import com.mycompany.motorph.employee.EmployeeInformation;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Lance1
  */
-public class EmployeeSearch extends javax.swing.JFrame {
+public class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformationPopulator {
 
     /**
      * Creates new form SearchEmployeeGUI
      */
-    public EmployeeSearch() {
+    public EmployeeSearchPage() {
         initComponents();
     }
 
@@ -401,14 +399,16 @@ public class EmployeeSearch extends javax.swing.JFrame {
         btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSearch.setFocusable(false);
         btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSearchMouseClicked(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnSearchMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnSearchMouseExited(evt);
+            }
+        });
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
             }
         });
 
@@ -640,66 +640,65 @@ public class EmployeeSearch extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseEntered
-        // TODO add your handling code here:
+        // Set the search button color to light blue on hover
         btnSearch.setBackground(new java.awt.Color(203, 203, 239));
     }//GEN-LAST:event_btnSearchMouseEntered
 
     private void btnSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseExited
-        // TODO add your handling code here:
+        // Set the search button color to white on hover exit
         btnSearch.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnSearchMouseExited
 
     private void btnBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseEntered
-        // TODO add your handling code here:
+        // Set the back button color to light blue on hover
         btnBack.setBackground(new java.awt.Color(203, 203, 239));
     }//GEN-LAST:event_btnBackMouseEntered
 
     private void btnBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseExited
-        // TODO add your handling code here:
+        // Set the back button color to white on hover exit
         btnBack.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnBackMouseExited
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
-        // TODO add your handling code here:
+        // Set the exit button color to red on hover
         btnExit.setBackground(new java.awt.Color(191, 47, 47));
     }//GEN-LAST:event_btnExitMouseEntered
 
     private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
-        // TODO add your handling code here:
+        // Set the exit button color to white on hover exit
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnExitMouseExited
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
+        // Close the current page
         dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
+        // Exit the application
         System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void txtEmployeeNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmployeeNumberActionPerformed
-        // TODO add your handling code here:
-        showEmployeeInformation();
+        populateEmployeeInformation();
     }//GEN-LAST:event_txtEmployeeNumberActionPerformed
 
-    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
-        // TODO add your handling code here:
-        showEmployeeInformation();
-    }//GEN-LAST:event_btnSearchMouseClicked
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        populateEmployeeInformation();
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
-     * Shows information about an employee.
+     * Populates employee information based on the provided employee number.
      */
-    public void showEmployeeInformation() {
+    @Override
+    public void populateEmployeeInformation() {
         try {
             int employeeNumber = Integer.parseInt(txtEmployeeNumber.getText());
 
-            // Assign the information of the employee with the inputted employee number to a variable
+            // Retrieve employee information
             List<String> employeeInfo = new EmployeeInformation().showEmployeeInformation(employeeNumber);
 
-            // Populate empty textboxes of employee information
+            // Populate text fields with employee details
             txtLastName.setText(employeeInfo.get(0));
             txtFirstName.setText(employeeInfo.get(1));
             txtBirthdate.setText(employeeInfo.get(2));
@@ -718,8 +717,9 @@ public class EmployeeSearch extends javax.swing.JFrame {
             txtClothingAllowance.setText(employeeInfo.get(15));
             txtGrossSemimonthlyRate.setText(employeeInfo.get(16));
             txtHourlyRate.setText(employeeInfo.get(17));
-        } catch (IOException | ParseException | NumberFormatException e) {
-            JOptionPane.showMessageDialog(pnlMain, e, "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException | ParseException | NumberFormatException | NullPointerException e) {
+            // Handle exceptions by showing an error message
+            JOptionPane.showMessageDialog(pnlMain, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -740,21 +740,23 @@ public class EmployeeSearch extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EmployeeSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeSearchPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EmployeeSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeSearchPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EmployeeSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeSearchPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EmployeeSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeSearchPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EmployeeSearch().setVisible(true);
+                new EmployeeSearchPage().setVisible(true);
             }
         });
     }
@@ -807,4 +809,9 @@ public class EmployeeSearch extends javax.swing.JFrame {
     private javax.swing.JTextField txtStatus;
     private javax.swing.JTextField txtTinNumber;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void populateWageInformation() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

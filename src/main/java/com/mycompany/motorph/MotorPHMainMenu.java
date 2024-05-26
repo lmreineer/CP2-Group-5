@@ -10,12 +10,12 @@ import javax.swing.ImageIcon;
  *
  * @author Lance1
  */
-public class MotorPH extends javax.swing.JFrame {
+public class MotorPHMainMenu extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame
      */
-    public MotorPH() {
+    public MotorPHMainMenu() {
         setFrameIconImage();
         initComponents();
     }
@@ -39,6 +39,7 @@ public class MotorPH extends javax.swing.JFrame {
         btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -67,6 +68,11 @@ public class MotorPH extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnCalculateGrossWageMouseExited(evt);
+            }
+        });
+        btnCalculateGrossWage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalculateGrossWageActionPerformed(evt);
             }
         });
 
@@ -232,8 +238,19 @@ public class MotorPH extends javax.swing.JFrame {
 
     private void btnSearchEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchEmployeeActionPerformed
         // TODO add your handling code here:
-        new SearchEmployeeGUI().setVisible(true);
+        new EmployeeSearchPage().setVisible(true);
     }//GEN-LAST:event_btnSearchEmployeeActionPerformed
+
+    private void btnCalculateGrossWageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateGrossWageActionPerformed
+        // TODO add your handling code here:
+        new GrossWageCalculationPage().setVisible(true);
+    }//GEN-LAST:event_btnCalculateGrossWageActionPerformed
+
+    private void setFrameIconImage() {
+        String pathToImageIcon = "C:\\Users\\Lance1\\Desktop\\projects\\java\\CP2\\CP2-Group-5\\src\\main\\resources\\images\\motorph-logo.jpg";
+        ImageIcon img = new ImageIcon(pathToImageIcon);
+        setIconImage(img.getImage());
+    }
 
     /**
      * @param args the command line arguments
@@ -252,14 +269,18 @@ public class MotorPH extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MotorPH.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MotorPHMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MotorPH.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MotorPHMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MotorPH.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MotorPHMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MotorPH.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MotorPHMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -268,15 +289,9 @@ public class MotorPH extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MotorPH().setVisible(true);
+                new MotorPHMainMenu().setVisible(true);
             }
         });
-    }
-
-    private void setFrameIconImage() {
-        String pathToImageIcon = "C:\\Users\\Lance1\\Desktop\\projects\\java\\CP2\\CP2-Group-5\\src\\main\\resources\\images\\motorph-logo.jpg";
-        ImageIcon img = new ImageIcon(pathToImageIcon);
-        setIconImage(img.getImage());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

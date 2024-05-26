@@ -202,7 +202,7 @@ public class Employee {
      */
     public String getBirthdateAsString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        return dateFormat.format(birthdate);
+        return dateFormat.format(getBirthdate());
     }
 
     /**
@@ -213,24 +213,24 @@ public class Employee {
     public List<String> getEmployeeInformation() {
         List<String> employeeInfo = new ArrayList<>();
 
-        employeeInfo.add(lastName);
-        employeeInfo.add(firstName);
+        employeeInfo.add(getLastName());
+        employeeInfo.add(getFirstName());
         employeeInfo.add(getBirthdateAsString());
-        employeeInfo.add(address);
-        employeeInfo.add(phoneNumber);
-        employeeInfo.add(sssNumber);
-        employeeInfo.add(philHealthNumber);
-        employeeInfo.add(tinNumber);
-        employeeInfo.add(pagIbigNumber);
-        employeeInfo.add(status);
-        employeeInfo.add(position);
-        employeeInfo.add(immediateSupervisor);
-        employeeInfo.add(CurrencyUtil.formatCurrency(basicSalary));
-        employeeInfo.add(CurrencyUtil.formatCurrency(riceSubsidy));
-        employeeInfo.add(CurrencyUtil.formatCurrency(phoneAllowance));
-        employeeInfo.add(CurrencyUtil.formatCurrency(clothingAllowance));
-        employeeInfo.add(CurrencyUtil.formatCurrency(grossSemimonthlyRate));
-        employeeInfo.add(CurrencyUtil.formatCurrency(hourlyRate));
+        employeeInfo.add(getAddress());
+        employeeInfo.add(getPhoneNumber());
+        employeeInfo.add(getSssNumber());
+        employeeInfo.add(getPhilHealthNumber());
+        employeeInfo.add(getTinNumber());
+        employeeInfo.add(getPagIbigNumber());
+        employeeInfo.add(getStatus());
+        employeeInfo.add(getPosition());
+        employeeInfo.add(getImmediateSupervisor());
+        employeeInfo.add(CurrencyUtil.formatCurrency(getBasicSalary()));
+        employeeInfo.add(CurrencyUtil.formatCurrency(getRiceSubsidy()));
+        employeeInfo.add(CurrencyUtil.formatCurrency(getPhoneAllowance()));
+        employeeInfo.add(CurrencyUtil.formatCurrency(getClothingAllowance()));
+        employeeInfo.add(CurrencyUtil.formatCurrency(getGrossSemimonthlyRate()));
+        employeeInfo.add(CurrencyUtil.formatCurrency(getHourlyRate()));
 
         return employeeInfo;
     }
