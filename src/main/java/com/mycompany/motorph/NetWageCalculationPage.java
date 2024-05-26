@@ -4,7 +4,7 @@
  */
 package com.mycompany.motorph;
 
-import com.mycompany.motorph.calculation.GrossWageCalculation;
+import com.mycompany.motorph.calculation.NetWageCalculation;
 import com.mycompany.motorph.employee.EmployeeInformation;
 import com.mycompany.motorph.model.DateRange;
 import static com.mycompany.motorph.model.DateRange.createDateRange;
@@ -17,12 +17,12 @@ import javax.swing.JOptionPane;
  *
  * @author Lance1
  */
-public class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInformationPopulator {
+public class NetWageCalculationPage extends javax.swing.JFrame implements EmployeeInformationPopulator {
 
     /**
      * Creates new form GrossWageCalculationPage
      */
-    public GrossWageCalculationPage() {
+    public NetWageCalculationPage() {
         initComponents();
     }
 
@@ -51,7 +51,6 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
         lblFirstName = new javax.swing.JLabel();
         lblBirthdate = new javax.swing.JLabel();
         btnCalculate = new javax.swing.JButton();
-        lblBottomSeparator = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         txtGrossWage = new javax.swing.JTextField();
@@ -59,6 +58,21 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
         lblMidSeparator = new javax.swing.JLabel();
         txtStartDate = new javax.swing.JTextField();
         txtEndDate = new javax.swing.JTextField();
+        txtSssDeduction = new javax.swing.JTextField();
+        lblSssDeduction = new javax.swing.JLabel();
+        txtPhilHealthDeduction = new javax.swing.JTextField();
+        lblPhilHealthDeduction = new javax.swing.JLabel();
+        txtPagIbigDeduction = new javax.swing.JTextField();
+        lblPagIbigDeduction = new javax.swing.JLabel();
+        txtWithholdingTax = new javax.swing.JTextField();
+        lblWithholdingTax = new javax.swing.JLabel();
+        txtLateArrivalDeduction = new javax.swing.JTextField();
+        lblLateArrivalDeduction = new javax.swing.JLabel();
+        txtTotalDeductions = new javax.swing.JTextField();
+        lblTotalDeductions = new javax.swing.JLabel();
+        txtNetWage = new javax.swing.JTextField();
+        lblNetWage = new javax.swing.JLabel();
+        lblMidSeparator1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -74,7 +88,7 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
         lblGrossWageCalculationHeader.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
         lblGrossWageCalculationHeader.setForeground(new java.awt.Color(255, 255, 255));
         lblGrossWageCalculationHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblGrossWageCalculationHeader.setText("Gross Wage Calculation");
+        lblGrossWageCalculationHeader.setText("Net Wage Calculation");
         lblGrossWageCalculationHeader.setOpaque(true);
 
         lblEmployeeNumber.setBackground(new java.awt.Color(255, 255, 255));
@@ -205,12 +219,6 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
             }
         });
 
-        lblBottomSeparator.setBackground(new java.awt.Color(51, 51, 51));
-        lblBottomSeparator.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
-        lblBottomSeparator.setForeground(new java.awt.Color(255, 255, 255));
-        lblBottomSeparator.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBottomSeparator.setOpaque(true);
-
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
         btnExit.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
         btnExit.setText("Exit");
@@ -296,6 +304,117 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
             }
         });
 
+        txtSssDeduction.setEditable(false);
+        txtSssDeduction.setBackground(new java.awt.Color(242, 242, 242));
+        txtSssDeduction.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtSssDeduction.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtSssDeduction.setFocusable(false);
+
+        lblSssDeduction.setBackground(new java.awt.Color(242, 242, 242));
+        lblSssDeduction.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblSssDeduction.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSssDeduction.setText("SSS Deduction:");
+        lblSssDeduction.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblSssDeduction.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblSssDeduction.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblSssDeduction.setOpaque(true);
+
+        txtPhilHealthDeduction.setEditable(false);
+        txtPhilHealthDeduction.setBackground(new java.awt.Color(242, 242, 242));
+        txtPhilHealthDeduction.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtPhilHealthDeduction.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtPhilHealthDeduction.setFocusable(false);
+
+        lblPhilHealthDeduction.setBackground(new java.awt.Color(242, 242, 242));
+        lblPhilHealthDeduction.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblPhilHealthDeduction.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPhilHealthDeduction.setText("PhilHealth Deduction:");
+        lblPhilHealthDeduction.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblPhilHealthDeduction.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblPhilHealthDeduction.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblPhilHealthDeduction.setOpaque(true);
+
+        txtPagIbigDeduction.setEditable(false);
+        txtPagIbigDeduction.setBackground(new java.awt.Color(242, 242, 242));
+        txtPagIbigDeduction.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtPagIbigDeduction.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtPagIbigDeduction.setFocusable(false);
+
+        lblPagIbigDeduction.setBackground(new java.awt.Color(242, 242, 242));
+        lblPagIbigDeduction.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblPagIbigDeduction.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPagIbigDeduction.setText("Pag-IBIG Deduction:");
+        lblPagIbigDeduction.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblPagIbigDeduction.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblPagIbigDeduction.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblPagIbigDeduction.setOpaque(true);
+
+        txtWithholdingTax.setEditable(false);
+        txtWithholdingTax.setBackground(new java.awt.Color(242, 242, 242));
+        txtWithholdingTax.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtWithholdingTax.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtWithholdingTax.setFocusable(false);
+
+        lblWithholdingTax.setBackground(new java.awt.Color(242, 242, 242));
+        lblWithholdingTax.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblWithholdingTax.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblWithholdingTax.setText("Withholding Tax:");
+        lblWithholdingTax.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblWithholdingTax.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblWithholdingTax.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblWithholdingTax.setOpaque(true);
+
+        txtLateArrivalDeduction.setEditable(false);
+        txtLateArrivalDeduction.setBackground(new java.awt.Color(242, 242, 242));
+        txtLateArrivalDeduction.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtLateArrivalDeduction.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtLateArrivalDeduction.setFocusable(false);
+
+        lblLateArrivalDeduction.setBackground(new java.awt.Color(242, 242, 242));
+        lblLateArrivalDeduction.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblLateArrivalDeduction.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLateArrivalDeduction.setText("Late Arrival Deduction:");
+        lblLateArrivalDeduction.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblLateArrivalDeduction.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblLateArrivalDeduction.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblLateArrivalDeduction.setOpaque(true);
+
+        txtTotalDeductions.setEditable(false);
+        txtTotalDeductions.setBackground(new java.awt.Color(242, 242, 242));
+        txtTotalDeductions.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTotalDeductions.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtTotalDeductions.setFocusable(false);
+
+        lblTotalDeductions.setBackground(new java.awt.Color(242, 242, 242));
+        lblTotalDeductions.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblTotalDeductions.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotalDeductions.setText("Total Deductions:");
+        lblTotalDeductions.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblTotalDeductions.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblTotalDeductions.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblTotalDeductions.setOpaque(true);
+
+        txtNetWage.setEditable(false);
+        txtNetWage.setBackground(new java.awt.Color(242, 242, 242));
+        txtNetWage.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNetWage.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtNetWage.setFocusable(false);
+
+        lblNetWage.setBackground(new java.awt.Color(242, 242, 242));
+        lblNetWage.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblNetWage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNetWage.setText("Net Wage:");
+        lblNetWage.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblNetWage.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblNetWage.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblNetWage.setOpaque(true);
+
+        lblMidSeparator1.setBackground(new java.awt.Color(51, 51, 51));
+        lblMidSeparator1.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
+        lblMidSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+        lblMidSeparator1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMidSeparator1.setOpaque(true);
+
         javax.swing.GroupLayout pnlMainLayout = new javax.swing.GroupLayout(pnlMain);
         pnlMain.setLayout(pnlMainLayout);
         pnlMainLayout.setHorizontalGroup(
@@ -303,7 +422,7 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
             .addComponent(lblMotorPhHeader, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblGrossWageCalculationHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblTopSeparator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lblBottomSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblMidSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnlMainLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,7 +430,7 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
                     .addGroup(pnlMainLayout.createSequentialGroup()
                         .addComponent(lblEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEmployeeNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                        .addComponent(txtEmployeeNumber)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainLayout.createSequentialGroup()
@@ -339,15 +458,43 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
                     .addGroup(pnlMainLayout.createSequentialGroup()
                         .addComponent(lblGrossWage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtGrossWage, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtGrossWage, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlMainLayout.createSequentialGroup()
+                        .addComponent(lblSssDeduction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSssDeduction, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlMainLayout.createSequentialGroup()
+                        .addComponent(lblPhilHealthDeduction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPhilHealthDeduction, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlMainLayout.createSequentialGroup()
+                        .addComponent(lblPagIbigDeduction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPagIbigDeduction, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlMainLayout.createSequentialGroup()
+                        .addComponent(lblWithholdingTax, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtWithholdingTax, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlMainLayout.createSequentialGroup()
+                        .addComponent(lblLateArrivalDeduction, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtLateArrivalDeduction, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlMainLayout.createSequentialGroup()
+                        .addComponent(lblTotalDeductions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTotalDeductions, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlMainLayout.createSequentialGroup()
+                        .addComponent(lblNetWage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNetWage, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addComponent(lblMidSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
+            .addComponent(lblMidSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnlMainLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                .addGap(46, 46, 46))
         );
         pnlMainLayout.setVerticalGroup(
             pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,12 +538,40 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
                 .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtGrossWage, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblGrossWage, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSssDeduction, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSssDeduction, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPhilHealthDeduction, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPhilHealthDeduction, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPagIbigDeduction, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPagIbigDeduction, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtWithholdingTax, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblWithholdingTax, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtLateArrivalDeduction, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLateArrivalDeduction, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTotalDeductions, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTotalDeductions, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNetWage, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNetWage, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
-                .addComponent(lblBottomSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblMidSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
+                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                    .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
         );
 
@@ -404,13 +579,11 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(pnlMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -437,6 +610,36 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
         btnCalculate.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnCalculateMouseExited
 
+    private void btnBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseEntered
+        // Set the back button color to light blue on hover
+        btnBack.setBackground(new java.awt.Color(203, 203, 239));
+    }//GEN-LAST:event_btnBackMouseEntered
+
+    private void btnBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseExited
+        // Set the back button color to white on hover exit
+        btnBack.setBackground(new java.awt.Color(255, 255, 255));
+    }//GEN-LAST:event_btnBackMouseExited
+
+    private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
+        // Set the exit button color to red on hover
+        btnExit.setBackground(new java.awt.Color(191, 47, 47));
+    }//GEN-LAST:event_btnExitMouseEntered
+
+    private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
+        // Set the exit button color to white on hover exit
+        btnExit.setBackground(new java.awt.Color(255, 255, 255));
+    }//GEN-LAST:event_btnExitMouseExited
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // Close the current page
+        dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // Exit the application
+        System.exit(0);
+    }//GEN-LAST:event_btnExitActionPerformed
+
     private void txtEmployeeNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmployeeNumberActionPerformed
         populateEmployeeInformation();
     }//GEN-LAST:event_txtEmployeeNumberActionPerformed
@@ -456,36 +659,6 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
     private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
         populateWageInformation();
     }//GEN-LAST:event_btnCalculateActionPerformed
-
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // Exit the application
-        System.exit(0);
-    }//GEN-LAST:event_btnExitActionPerformed
-
-    private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
-        // Set the exit button color to white on hover exit
-        btnExit.setBackground(new java.awt.Color(255, 255, 255));
-    }//GEN-LAST:event_btnExitMouseExited
-
-    private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
-        // Set the exit button color to red on hover
-        btnExit.setBackground(new java.awt.Color(191, 47, 47));
-    }//GEN-LAST:event_btnExitMouseEntered
-
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // Close the current page
-        dispose();
-    }//GEN-LAST:event_btnBackActionPerformed
-
-    private void btnBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseExited
-        // Set the back button color to white on hover exit
-        btnBack.setBackground(new java.awt.Color(255, 255, 255));
-    }//GEN-LAST:event_btnBackMouseExited
-
-    private void btnBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseEntered
-        // Set the back button color to light blue on hover
-        btnBack.setBackground(new java.awt.Color(203, 203, 239));
-    }//GEN-LAST:event_btnBackMouseEntered
 
     /**
      * Populates employee information based on the provided employee number.
@@ -523,13 +696,20 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
             DateRange dateRange = createDateRange(startDate, endDate);
 
             // Initialize an instance of GrossWageCalculation
-            GrossWageCalculation wageCalculation = new GrossWageCalculation();
+            NetWageCalculation wageCalculation = new NetWageCalculation();
 
             // Retrieve wage information for the given employee number and date range
             List<String> wageInfo = wageCalculation.showWage(employeeNumber, dateRange);
 
             // Display the gross wage in the appropriate text field
             txtGrossWage.setText(wageInfo.get(0));
+            txtSssDeduction.setText(wageInfo.get(1));
+            txtPhilHealthDeduction.setText(wageInfo.get(2));
+            txtPagIbigDeduction.setText(wageInfo.get(3));
+            txtWithholdingTax.setText(wageInfo.get(4));
+            txtLateArrivalDeduction.setText(wageInfo.get(5));
+            txtTotalDeductions.setText(wageInfo.get(6));
+            txtNetWage.setText(wageInfo.get(7));
         } catch (IOException | ParseException | IllegalArgumentException e) {
             // Handle exceptions by showing an error message
             showErrorDialog("Error fetching wage information: " + e.getMessage());
@@ -569,20 +749,23 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GrossWageCalculationPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NetWageCalculationPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GrossWageCalculationPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NetWageCalculationPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GrossWageCalculationPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NetWageCalculationPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GrossWageCalculationPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NetWageCalculationPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GrossWageCalculationPage().setVisible(true);
+                new NetWageCalculationPage().setVisible(true);
             }
         });
     }
@@ -593,17 +776,24 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnSearch;
     private javax.swing.JLabel lblBirthdate;
-    private javax.swing.JLabel lblBottomSeparator;
     private javax.swing.JLabel lblEmployeeNumber;
     private javax.swing.JLabel lblEndDate;
     private javax.swing.JLabel lblFirstName;
     private javax.swing.JLabel lblGrossWage;
     private javax.swing.JLabel lblGrossWageCalculationHeader;
     private javax.swing.JLabel lblLastName;
+    private javax.swing.JLabel lblLateArrivalDeduction;
     private javax.swing.JLabel lblMidSeparator;
+    private javax.swing.JLabel lblMidSeparator1;
     private javax.swing.JLabel lblMotorPhHeader;
+    private javax.swing.JLabel lblNetWage;
+    private javax.swing.JLabel lblPagIbigDeduction;
+    private javax.swing.JLabel lblPhilHealthDeduction;
+    private javax.swing.JLabel lblSssDeduction;
     private javax.swing.JLabel lblStartDate;
     private javax.swing.JLabel lblTopSeparator;
+    private javax.swing.JLabel lblTotalDeductions;
+    private javax.swing.JLabel lblWithholdingTax;
     private javax.swing.JPanel pnlMain;
     private javax.swing.JTextField txtBirthdate;
     private javax.swing.JTextField txtEmployeeNumber;
@@ -611,6 +801,13 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtGrossWage;
     private javax.swing.JTextField txtLastName;
+    private javax.swing.JTextField txtLateArrivalDeduction;
+    private javax.swing.JTextField txtNetWage;
+    private javax.swing.JTextField txtPagIbigDeduction;
+    private javax.swing.JTextField txtPhilHealthDeduction;
+    private javax.swing.JTextField txtSssDeduction;
     private javax.swing.JTextField txtStartDate;
+    private javax.swing.JTextField txtTotalDeductions;
+    private javax.swing.JTextField txtWithholdingTax;
     // End of variables declaration//GEN-END:variables
 }

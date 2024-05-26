@@ -5,7 +5,6 @@
 package com.mycompany.motorph.calculation;
 
 import com.mycompany.motorph.model.DateRange;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,7 +21,7 @@ public class TimeCalculation {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd");
     private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
 
-    private static final int ATTENDANCE_DATA_EXPECTED_LENGTH = 6;
+    private static final int ATTENDANCE_EXPECTED_COL_LENGTH = 6;
 
     /**
      * Calculates the total hours worked by the employee, late arrival deduction
@@ -45,7 +44,7 @@ public class TimeCalculation {
             String[] attendanceData = attendanceLine.split("\\|");
 
             // If the line matches the expected format and employee number
-            if (attendanceData.length == ATTENDANCE_DATA_EXPECTED_LENGTH && Integer.parseInt(attendanceData[0]) == employeeNumber) {
+            if (attendanceData.length == ATTENDANCE_EXPECTED_COL_LENGTH && Integer.parseInt(attendanceData[0]) == employeeNumber) {
                 // Parse attendance date, time in, and time out from the data
                 Date attendanceDate = DATE_FORMAT.parse(attendanceData[3]);
                 Date attendanceTimeIn = TIME_FORMAT.parse(attendanceData[4]);

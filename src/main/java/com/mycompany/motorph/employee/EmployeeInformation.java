@@ -6,7 +6,6 @@ package com.mycompany.motorph.employee;
 
 import com.mycompany.motorph.model.Employee;
 import com.mycompany.motorph.data.EmployeeDataReader;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;

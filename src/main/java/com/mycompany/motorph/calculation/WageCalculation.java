@@ -5,7 +5,6 @@
 package com.mycompany.motorph.calculation;
 
 import com.mycompany.motorph.model.DateRange;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -31,7 +30,7 @@ public abstract class WageCalculation {
     private static final String ATTENDANCE_DATA_PATH = "C:\\Users\\Lance1\\Documents\\MO-IT101-Group1\\src\\main\\resources\\data\\employee_attendance.txt";
 
     // Expected total number of values per row from the data
-    private static final int EXPECTED_COL_LENGTH = 18;
+    private static final int EMPLOYEE_EXPECTED_COL_LENGTH = 18;
 
     /**
      * Constructor for WageCalculation.
@@ -124,9 +123,9 @@ public abstract class WageCalculation {
                 // Split the attendance data using "|" as a delimiter
                 String[] employeeData = line.split("\\|");
                 // If the columns from the data has the expected length and match the inputted employee number
-                if (employeeData.length >= EXPECTED_COL_LENGTH && Integer.parseInt(employeeData[0]) == employeeNumber) {
+                if (employeeData.length >= EMPLOYEE_EXPECTED_COL_LENGTH && Integer.parseInt(employeeData[0]) == employeeNumber) {
                     // Return the hourly rate of the employee
-                    return Double.parseDouble(employeeData[EXPECTED_COL_LENGTH]);
+                    return Double.parseDouble(employeeData[EMPLOYEE_EXPECTED_COL_LENGTH]);
                 }
             }
         }

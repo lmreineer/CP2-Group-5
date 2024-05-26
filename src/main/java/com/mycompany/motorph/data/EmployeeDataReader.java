@@ -24,7 +24,7 @@ public class EmployeeDataReader {
     private static final SimpleDateFormat BIRTHDATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
     // Expected total number of values per row from the data
-    private static final int EXPECTED_COL_LENGTH = 19;
+    private static final int EMPLOYEE_EXPECTED_COL_LENGTH = 19;
 
     /**
      * Reads employee data from the data file and returns list of employees.
@@ -45,7 +45,7 @@ public class EmployeeDataReader {
                 // Split the line into employee data using "|" as a delimiter
                 String[] employeeData = line.split("\\|");
                 // If the line has the expected length
-                if (employeeData.length >= EXPECTED_COL_LENGTH) {
+                if (employeeData.length >= EMPLOYEE_EXPECTED_COL_LENGTH) {
                     // Create an employee object from the data and add it to the list
                     employees.add(createEmployeeFromData(employeeData));
                 }

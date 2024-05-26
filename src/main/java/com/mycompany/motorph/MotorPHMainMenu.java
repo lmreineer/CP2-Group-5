@@ -110,6 +110,11 @@ public class MotorPHMainMenu extends javax.swing.JFrame {
                 btnCalculateNetWageMouseExited(evt);
             }
         });
+        btnCalculateNetWage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalculateNetWageActionPerformed(evt);
+            }
+        });
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
@@ -245,6 +250,11 @@ public class MotorPHMainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         new GrossWageCalculationPage().setVisible(true);
     }//GEN-LAST:event_btnCalculateGrossWageActionPerformed
+
+    private void btnCalculateNetWageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateNetWageActionPerformed
+        // TODO add your handling code here:
+        new NetWageCalculationPage().setVisible(true);
+    }//GEN-LAST:event_btnCalculateNetWageActionPerformed
 
     private void setFrameIconImage() {
         String pathToImageIcon = "C:\\Users\\Lance1\\Desktop\\projects\\java\\CP2\\CP2-Group-5\\src\\main\\resources\\images\\motorph-logo.jpg";

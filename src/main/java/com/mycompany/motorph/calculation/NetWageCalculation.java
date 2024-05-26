@@ -6,9 +6,9 @@ package com.mycompany.motorph.calculation;
 
 import com.mycompany.motorph.model.DateRange;
 import com.mycompany.motorph.util.CurrencyUtil;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -26,9 +26,6 @@ import java.util.List;
  */
 public class NetWageCalculation extends WageCalculation {
 
-    private final String lastName;
-    private final String firstName;
-    private final String birthdate;
     private final SSSDeduction sssDeduction;
     private final HealthInsurancesDeduction healthInsurancesDeduction;
     private final WithholdingTaxCalculation withholdingTaxCalculation;
@@ -36,7 +33,7 @@ public class NetWageCalculation extends WageCalculation {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd");
     private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
 
-    private static final int ATTENDANCE_DATA_EXPECTED_LENGTH = 6;
+    private static final int ATTENDANCE_EXPECTED_COL_LENGTH = 6;
     private static final double LATE_ARRIVAL_DEDUCTION_PER_MINUTE = 1.66;
     private static final int LATE_HOUR_START = 8;
     private static final int LATE_MINUTE_START = 11;
@@ -44,26 +41,12 @@ public class NetWageCalculation extends WageCalculation {
 
     /**
      * Constructor for NetWageCalculation.
-     *
-     * @param employeeNumber Employee number
-     * @param lastName Last name of the employee
-     * @param firstName First name of the employee
-     * @param birthdate Birthdate of the employee
-     * @param sssDeduction SSS deduction instance
-     * @param healthInsurancesDeduction Health insurances deduction instance
-     * @param withholdingTaxCalculation Withholding tax calculation instance
      */
-    public NetWageCalculation(int employeeNumber, String lastName, String firstName, String birthdate,
-            SSSDeduction sssDeduction, HealthInsurancesDeduction healthInsurancesDeduction,
-            WithholdingTaxCalculation withholdingTaxCalculation) {
-        // Initialize employee details
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.birthdate = birthdate;
+    public NetWageCalculation() {
         // Initialize dependencies
-        this.sssDeduction = sssDeduction;
-        this.healthInsurancesDeduction = healthInsurancesDeduction;
-        this.withholdingTaxCalculation = withholdingTaxCalculation;
+        this.sssDeduction = new SSSDeduction();
+        this.healthInsurancesDeduction = new HealthInsurancesDeduction();
+        this.withholdingTaxCalculation = new WithholdingTaxCalculation();
     }
 
     /**
@@ -85,7 +68,7 @@ public class NetWageCalculation extends WageCalculation {
             String[] attendanceData = attendanceLine.split("\\|");
 
             // If the line matches the expected format and employee number
-            if (attendanceData.length == ATTENDANCE_DATA_EXPECTED_LENGTH && Integer.parseInt(attendanceData[0]) == employeeNumber) {
+            if (attendanceData.length == ATTENDANCE_EXPECTED_COL_LENGTH && Integer.parseInt(attendanceData[0]) == employeeNumber) {
                 // Parse attendance date, time in, and time out from the data
                 Date attendanceDate = DATE_FORMAT.parse(attendanceData[3]);
                 Date attendanceTimeIn = TIME_FORMAT.parse(attendanceData[4]);
@@ -135,23 +118,18 @@ public class NetWageCalculation extends WageCalculation {
         // Calculate net wage
         double netWage = calculateWage(hourlyRate, hoursWorked, lateArrivalDeduction);
 
-        System.out.println("================================");
-        System.out.println("Employee #: " + employeeNumber);
-        System.out.println("Employee Name: " + firstName + " " + lastName);
-        System.out.println("Birthdate: " + birthdate);
-        System.out.println("--------------------------------");
-        System.out.println("Gross Wage: PHP " + CurrencyUtil.formatCurrency(grossWage));
-        System.out.println("SSS Deduction: PHP " + CurrencyUtil.formatCurrency(sssDeduction.calculateSssDeduction(grossWage)));
-        System.out.println("PhilHealth Deduction: PHP " + CurrencyUtil.formatCurrency(healthInsurancesDeduction.calculatePhilHealthDeduction(grossWage)));
-        System.out.println("Pag-IBIG Deduction: PHP " + CurrencyUtil.formatCurrency(healthInsurancesDeduction.calculatePagIbigDeduction(grossWage)));
-        System.out.println("Withholding Tax: PHP " + CurrencyUtil.formatCurrency(withholdingTaxCalculation.calculateWithholdingTax(grossWage)));
-        System.out.println("Late Arrival Deduction: PHP " + CurrencyUtil.formatCurrency(lateArrivalDeduction));
-        System.out.println("Total Deductions: PHP " + CurrencyUtil.formatCurrency(calculateTotalDeductions(grossWage, lateArrivalDeduction)));
-        System.out.println("--------------------------------");
-        System.out.println("Net Wage: PHP " + CurrencyUtil.formatCurrency(netWage));
-        System.out.println("================================");
+        List<String> wageInfo = new ArrayList<>();
 
-        return null;
+        wageInfo.add(CurrencyUtil.formatCurrency(grossWage));
+        wageInfo.add(CurrencyUtil.formatCurrency(this.sssDeduction.calculateSssDeduction(grossWage)));
+        wageInfo.add(CurrencyUtil.formatCurrency(healthInsurancesDeduction.calculatePhilHealthDeduction(grossWage)));
+        wageInfo.add(CurrencyUtil.formatCurrency(healthInsurancesDeduction.calculatePagIbigDeduction(grossWage)));
+        wageInfo.add(CurrencyUtil.formatCurrency(withholdingTaxCalculation.calculateWithholdingTax(grossWage)));
+        wageInfo.add(CurrencyUtil.formatCurrency(lateArrivalDeduction));
+        wageInfo.add(CurrencyUtil.formatCurrency(calculateTotalDeductions(grossWage, lateArrivalDeduction)));
+        wageInfo.add(CurrencyUtil.formatCurrency(netWage));
+
+        return wageInfo;
     }
 
     /**

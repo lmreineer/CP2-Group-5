@@ -7,7 +7,6 @@ package com.mycompany.motorph.calculation;
 import com.mycompany.motorph.model.DateRange;
 import com.mycompany.motorph.util.CurrencyUtil;
 import java.util.ArrayList;
-
 import java.util.List;
 
 /**

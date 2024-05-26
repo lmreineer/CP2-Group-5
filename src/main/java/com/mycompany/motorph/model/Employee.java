@@ -5,7 +5,6 @@
 package com.mycompany.motorph.model;
 
 import com.mycompany.motorph.util.CurrencyUtil;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
