@@ -8,6 +8,6 @@ MotorPH's basic payroll application using Java
     - WageCalculation
     - EmployeeInformation
 
-> _Example file path format: "C:\\Users\\Lance\\Documents\\MO-IT101-Group1\\src\\main\\resources\\data\\file-path.txt"._
+> _Example file path format: "C:\\Users\\Lance1\\Documents\\CP2-Group-5\\src\\main\\resources\\data\\file-path.txt"._
 
 #### 2. Run the program to see the output.
