@@ -9,7 +9,7 @@ package com.mycompany.motorph.calculation;
  *
  * @author Lance1
  */
-public class HealthInsurancesDeduction {
+class HealthInsurancesDeduction {
 
     // Constants for PhilHealth calculation
     private static final double MIN_PHILHEALTH_DEDUCTION = 300;

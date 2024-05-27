@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author Lance1
  */
-public abstract class WageCalculation {
+abstract class WageCalculation {
 
     private final TimeCalculation timeCalculation;
 

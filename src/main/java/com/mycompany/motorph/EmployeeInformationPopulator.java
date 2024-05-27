@@ -10,9 +10,27 @@ package com.mycompany.motorph;
  *
  * @author Lance1
  */
-public interface EmployeeInformationPopulator {
+interface EmployeeInformationPopulator {
 
+    /**
+     * Populates the employee information fields.
+     */
     void populateEmployeeInformation();
 
+    /**
+     * Enables the date input fields.
+     */
+    void enableDateInputs();
+
+    /**
+     * Populates the wage information fields.
+     */
     void populateWageInformation();
+
+    /**
+     * Displays an error dialog with the provided error message.
+     *
+     * @param errorMessage The message to be displayed in the error dialog.
+     */
+    void showErrorDialog(String errorMessage);
 }

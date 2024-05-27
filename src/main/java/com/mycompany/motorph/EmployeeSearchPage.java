@@ -11,13 +11,20 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
+ * A class that represents the Employee Search Page of the MotorPH application.
+ * <p>
+ * It allows users to search for employee information based on their employee
+ * number. Implements the EmployeeInformationPopulator interface.
+ * <p>
+ * This class includes methods to set the frame icon, populate employee and wage
+ * information, enable date inputs, and display error dialog.
  *
  * @author Lance1
  */
-public class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformationPopulator {
+class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformationPopulator {
 
     /**
-     * Creates new form SearchEmployeeGUI
+     * Creates new form EmployeeSearchPage and initializes its components
      */
     public EmployeeSearchPage() {
         initComponents();
@@ -639,56 +646,99 @@ public class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeIn
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Handles mouse hover event on the search button by changing its background
+     * color.
+     */
     private void btnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseEntered
-        // Set the search button color to light blue on hover
+        // Light blue
         btnSearch.setBackground(new java.awt.Color(203, 203, 239));
     }//GEN-LAST:event_btnSearchMouseEntered
 
+    /**
+     * Handles mouse exit event on the search button by resetting its background
+     * color.
+     */
     private void btnSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseExited
-        // Set the search button color to white on hover exit
+        // White
         btnSearch.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnSearchMouseExited
 
+    /**
+     * Handles mouse hover event on the back button by changing its background
+     * color.
+     */
     private void btnBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseEntered
-        // Set the back button color to light blue on hover
+        // Light blue
         btnBack.setBackground(new java.awt.Color(203, 203, 239));
     }//GEN-LAST:event_btnBackMouseEntered
 
+    /**
+     * Handles mouse exit event on the back button by resetting its background
+     * color.
+     */
     private void btnBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseExited
-        // Set the back button color to white on hover exit
+        // White
         btnBack.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnBackMouseExited
 
+    /**
+     * Handles mouse hover event on the exit button by changing its background
+     * color.
+     */
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
-        // Set the exit button color to red on hover
+        // Red
         btnExit.setBackground(new java.awt.Color(191, 47, 47));
     }//GEN-LAST:event_btnExitMouseEntered
 
+    /**
+     * Handles mouse exit event on the exit button by resetting its background
+     * color.
+     */
     private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
-        // Set the exit button color to white on hover exit
+        // White
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnExitMouseExited
 
+    /**
+     * Handles the action event of the back button to close the current page.
+     */
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // Close the current page
         dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
+    /**
+     * Handles the action event of the exit button to exit the application.
+     */
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // Exit the application
         System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
 
+    /**
+     * Handles the action event of the employee number text field to populate
+     * employee information.
+     */
     private void txtEmployeeNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmployeeNumberActionPerformed
+        // Populate employee information
         populateEmployeeInformation();
     }//GEN-LAST:event_txtEmployeeNumberActionPerformed
 
+    /**
+     * Handles the action event of the search button to populate employee
+     * information.
+     */
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // Populate employee information
         populateEmployeeInformation();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * Populates employee information based on the provided employee number.
+     * Retrieves data from the EmployeeInformation class and fills the
+     * appropriate text fields.
+     *
      */
     @Override
     public void populateEmployeeInformation() {
@@ -721,6 +771,16 @@ public class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeIn
             // Handle exceptions by showing an error message
             JOptionPane.showMessageDialog(pnlMain, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    /**
+     * Displays an error dialog with the provided error message.
+     *
+     * @param errorMessage The message to be displayed in the error dialog.
+     */
+    @Override
+    public void showErrorDialog(String errorMessage) {
+        JOptionPane.showMessageDialog(pnlMain, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     /**
@@ -810,8 +870,19 @@ public class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeIn
     private javax.swing.JTextField txtTinNumber;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Populates wage information. This method is not yet supported.
+     */
     @Override
     public void populateWageInformation() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Method not yet implemented
+    }
+
+    /**
+     * Enables date input fields. This method is not yet supported.
+     */
+    @Override
+    public void enableDateInputs() {
+        throw new UnsupportedOperationException("Not supported yet."); // Method not yet implemented
     }
 }

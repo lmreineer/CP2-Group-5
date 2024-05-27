@@ -14,10 +14,16 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
+ * A class that represents the Gross Wage Calculation Page of the MotorPH
+ * application.
+ * <p>
+ * It allows users to calculate gross wages for an employee based on their
+ * employee number and a specified date range. Implements the
+ * EmployeeInformationPopulator interface.
  *
  * @author Lance1
  */
-public class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInformationPopulator {
+class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInformationPopulator {
 
     /**
      * Creates new form GrossWageCalculationPage
@@ -417,78 +423,144 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Handles mouse hover event on the search button by changing its background
+     * color.
+     */
     private void btnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseEntered
-        // Set the search button color to light blue on hover
+        // Light blue
         btnSearch.setBackground(new java.awt.Color(203, 203, 239));
     }//GEN-LAST:event_btnSearchMouseEntered
 
+    /**
+     * Handles mouse exit event on the search button by resetting its background
+     * color.
+     */
     private void btnSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseExited
-        // Set the search button color to white on hover exit
+        // White
         btnCalculate.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnSearchMouseExited
 
+    /**
+     * Handles mouse hover event on the calculate button by changing its
+     * background color.
+     */
     private void btnCalculateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalculateMouseEntered
-        // Set the calculate button color to light blue on hover
+        // Light blue
         btnCalculate.setBackground(new java.awt.Color(203, 203, 239));
     }//GEN-LAST:event_btnCalculateMouseEntered
 
+    /**
+     * Handles mouse exit event on the calculate button by resetting its
+     * background color.
+     */
     private void btnCalculateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalculateMouseExited
-        // Set the calculate button color to white on hover exit
+        // White
         btnCalculate.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnCalculateMouseExited
 
+    /**
+     * Handles the action event of the employee number text field to populate
+     * employee information.
+     */
     private void txtEmployeeNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmployeeNumberActionPerformed
+        // Populate employee information
         populateEmployeeInformation();
     }//GEN-LAST:event_txtEmployeeNumberActionPerformed
 
+    /**
+     * Handles the action event of the search button to populate employee
+     * information.
+     */
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // Populate employee information
         populateEmployeeInformation();
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    /**
+     * Handles the action event of the start date text field to populate wage
+     * information.
+     */
     private void txtStartDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStartDateActionPerformed
+        // Populate wage information
         populateWageInformation();
     }//GEN-LAST:event_txtStartDateActionPerformed
 
+    /**
+     * Handles the action event of the end date text field to populate wage
+     * information.
+     */
     private void txtEndDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEndDateActionPerformed
+        // Populate wage information
         populateWageInformation();
     }//GEN-LAST:event_txtEndDateActionPerformed
 
+    /**
+     * Handles the action event of the calculate button to populate wage
+     * information.
+     */
     private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
+        // Populate wage information
         populateWageInformation();
     }//GEN-LAST:event_btnCalculateActionPerformed
 
+    /**
+     * Handles the action event of the exit button to exit the application.
+     */
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // Exit the application
         System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
 
+    /**
+     * Handles mouse exit event on the exit button by resetting its background
+     * color.
+     */
     private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
-        // Set the exit button color to white on hover exit
+        // White
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnExitMouseExited
 
+    /**
+     * Handles mouse hover event on the exit button by changing its background
+     * color.
+     */
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
-        // Set the exit button color to red on hover
+        // Red
         btnExit.setBackground(new java.awt.Color(191, 47, 47));
     }//GEN-LAST:event_btnExitMouseEntered
 
+    /**
+     * Handles the action event of the back button to close the current page.
+     */
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // Close the current page
         dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
+    /**
+     * Handles mouse exit event on the back button by resetting its background
+     * color.
+     */
     private void btnBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseExited
-        // Set the back button color to white on hover exit
+        // White
         btnBack.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnBackMouseExited
 
+    /**
+     * Handles mouse hover event on the back button by changing its background
+     * color.
+     */
     private void btnBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseEntered
-        // Set the back button color to light blue on hover
+        // Light blue
         btnBack.setBackground(new java.awt.Color(203, 203, 239));
     }//GEN-LAST:event_btnBackMouseEntered
 
     /**
      * Populates employee information based on the provided employee number.
+     * Retrieves data from the EmployeeInformation class and fills the
+     * appropriate text fields.
+     *
      */
     @Override
     public void populateEmployeeInformation() {
@@ -503,6 +575,7 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
             txtFirstName.setText(employeeInfo.get(1));
             txtBirthdate.setText(employeeInfo.get(2));
 
+            // Enable date inputs after populating employee information
             enableDateInputs();
         } catch (IOException | ParseException e) {
             showErrorDialog("Error fetching employee information: " + e.getMessage());
@@ -510,7 +583,22 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
     }
 
     /**
-     * Populates wage information based on employee info.
+     * Enables start and end date input fields for wage calculation.
+     */
+    @Override
+    public void enableDateInputs() {
+        txtStartDate.setEditable(true);
+        txtEndDate.setEditable(true);
+        txtStartDate.setBackground(new java.awt.Color(255, 255, 255));
+        txtEndDate.setBackground(new java.awt.Color(255, 255, 255));
+        txtStartDate.setFocusable(true);
+        txtEndDate.setFocusable(true);
+    }
+
+    /**
+     * Populates wage information based on the provided employee number and date
+     * range. Retrieves data from the GrossWageCalculation class and fills the
+     * appropriate text fields.
      */
     @Override
     public void populateWageInformation() {
@@ -531,24 +619,18 @@ public class GrossWageCalculationPage extends javax.swing.JFrame implements Empl
             // Display the gross wage in the appropriate text field
             txtGrossWage.setText(wageInfo.get(0));
         } catch (IOException | ParseException | IllegalArgumentException e) {
-            // Handle exceptions by showing an error message
+            // Show error dialog with the exception message
             showErrorDialog("Error fetching wage information: " + e.getMessage());
         }
     }
 
     /**
-     * Enables start and date inputs.
+     * Displays an error dialog with the provided error message.
+     *
+     * @param errorMessage The message to be displayed in the error dialog.
      */
-    private void enableDateInputs() {
-        txtStartDate.setEditable(true);
-        txtEndDate.setEditable(true);
-        txtStartDate.setBackground(new java.awt.Color(255, 255, 255));
-        txtEndDate.setBackground(new java.awt.Color(255, 255, 255));
-        txtStartDate.setFocusable(true);
-        txtEndDate.setFocusable(true);
-    }
-
-    private void showErrorDialog(String errorMessage) {
+    @Override
+    public void showErrorDialog(String errorMessage) {
         JOptionPane.showMessageDialog(pnlMain, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
     }
 

@@ -4,19 +4,20 @@
  */
 package com.mycompany.motorph;
 
-import javax.swing.ImageIcon;
-
 /**
+ * Main Menu for the MotorPH application.
+ * <p>
+ * Provides navigation to employee search, gross wage calculation, and net wage
+ * calculation pages.
  *
  * @author Lance1
  */
-public class MotorPHMainMenu extends javax.swing.JFrame {
+class MotorPHMainMenu extends javax.swing.JFrame {
 
     /**
-     * Creates new form NewJFrame
+     * Creates new form MotorPHMainMenu
      */
     public MotorPHMainMenu() {
-        setFrameIconImage();
         initComponents();
     }
 
@@ -196,71 +197,112 @@ public class MotorPHMainMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Handles mouse hover event on the search employee button by changing its
+     * background color.
+     */
     private void btnSearchEmployeeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchEmployeeMouseEntered
-        // TODO add your handling code here:
+        // Light blue
         btnSearchEmployee.setBackground(new java.awt.Color(203, 203, 239));
     }//GEN-LAST:event_btnSearchEmployeeMouseEntered
 
+    /**
+     * Handles mouse exit event on the search employee button by resetting its
+     * background color.
+     */
     private void btnSearchEmployeeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchEmployeeMouseExited
-        // TODO add your handling code here:
+        // White
         btnSearchEmployee.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnSearchEmployeeMouseExited
 
+    /**
+     * Handles mouse hover event on the calculate gross wage button by changing
+     * its background color.
+     */
     private void btnCalculateGrossWageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalculateGrossWageMouseEntered
-        // TODO add your handling code here:
+        // Light blue
         btnCalculateGrossWage.setBackground(new java.awt.Color(203, 203, 239));
     }//GEN-LAST:event_btnCalculateGrossWageMouseEntered
 
+    /**
+     * Handles mouse exit event on the calculate gross wage button by resetting
+     * its background color.
+     */
     private void btnCalculateGrossWageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalculateGrossWageMouseExited
-        // TODO add your handling code here:
+        // White
         btnCalculateGrossWage.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnCalculateGrossWageMouseExited
 
+    /**
+     * Handles mouse hover event on the calculate net wage button by changing
+     * its background color.
+     */
     private void btnCalculateNetWageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalculateNetWageMouseEntered
-        // TODO add your handling code here:
+        // Light blue
         btnCalculateNetWage.setBackground(new java.awt.Color(203, 203, 239));
     }//GEN-LAST:event_btnCalculateNetWageMouseEntered
 
+    /**
+     * Handles mouse exit event on the calculate net wage button by resetting
+     * its background color.
+     */
     private void btnCalculateNetWageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalculateNetWageMouseExited
-        // TODO add your handling code here:
+        // White
         btnCalculateNetWage.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnCalculateNetWageMouseExited
 
+    /**
+     * Handles mouse hover event on the exit button by changing its background
+     * color.
+     */
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
-        // TODO add your handling code here:
+        // Red
         btnExit.setBackground(new java.awt.Color(191, 47, 47));
     }//GEN-LAST:event_btnExitMouseEntered
 
+    /**
+     * Handles mouse exit event on the exit button by resetting its background
+     * color.
+     */
     private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
-        // TODO add your handling code here:
+        // White
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnExitMouseExited
 
+    /**
+     * Handles the action event of the exit button to exit the application.
+     */
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
+        // Exit the application
         System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
 
+    /**
+     * Handles the action event of the search employee button to open the
+     * employee search page.
+     */
     private void btnSearchEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchEmployeeActionPerformed
-        // TODO add your handling code here:
+        // Open EmployeeSearchPage
         new EmployeeSearchPage().setVisible(true);
     }//GEN-LAST:event_btnSearchEmployeeActionPerformed
 
+    /**
+     * Handles the action event of the calculate gross wage button to open the
+     * gross wage calculation page.
+     */
     private void btnCalculateGrossWageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateGrossWageActionPerformed
-        // TODO add your handling code here:
+        // Open GrossWageCalculationPage
         new GrossWageCalculationPage().setVisible(true);
     }//GEN-LAST:event_btnCalculateGrossWageActionPerformed
 
+    /**
+     * Handles the action event of the calculate net wage button to open the net
+     * wage calculation page.
+     */
     private void btnCalculateNetWageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateNetWageActionPerformed
-        // TODO add your handling code here:
+        // Open NetWageCalculationPage
         new NetWageCalculationPage().setVisible(true);
     }//GEN-LAST:event_btnCalculateNetWageActionPerformed
-
-    private void setFrameIconImage() {
-        String pathToImageIcon = "C:\\Users\\Lance1\\Desktop\\projects\\java\\CP2\\CP2-Group-5\\src\\main\\resources\\images\\motorph-logo.jpg";
-        ImageIcon img = new ImageIcon(pathToImageIcon);
-        setIconImage(img.getImage());
-    }
 
     /**
      * @param args the command line arguments

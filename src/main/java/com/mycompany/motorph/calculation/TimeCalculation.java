@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Lance1
  */
-public class TimeCalculation {
+class TimeCalculation {
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd");
     private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");

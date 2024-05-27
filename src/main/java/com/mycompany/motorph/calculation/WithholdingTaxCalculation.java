@@ -9,7 +9,7 @@ package com.mycompany.motorph.calculation;
  *
  * @author Lance1
  */
-public class WithholdingTaxCalculation {
+class WithholdingTaxCalculation {
 
     private final SSSDeduction sssDeduction;
     private final HealthInsurancesDeduction healthInsuranceDeduction;
