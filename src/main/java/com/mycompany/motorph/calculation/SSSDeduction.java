@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Lance1
  */
-public class SSSDeduction {
+class SSSDeduction {
 
     // Path to the SSS deductions data file
     private static final String SSS_DEDUCTIONS_PATH = "C:\\Users\\Lance1\\Documents\\MO-IT101-Group1\\src\\main\\resources\\data\\sss_deduction.txt";

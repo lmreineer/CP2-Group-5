@@ -5,9 +5,10 @@
 package com.mycompany.motorph.model;
 
 import com.mycompany.motorph.util.CurrencyUtil;
-
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Represents an employee.
@@ -200,33 +201,36 @@ public class Employee {
      */
     public String getBirthdateAsString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        return dateFormat.format(birthdate);
+        return dateFormat.format(getBirthdate());
     }
 
     /**
-     * Displays employee information.
+     * Returns employee information.
+     *
+     * @return The employee information in a List
      */
-    public void displayEmployeeInformation() {
-        System.out.println("================================");
-        System.out.println("Employee #: " + employeeNumber);
-        System.out.println("Last Name: " + lastName);
-        System.out.println("First Name: " + firstName);
-        System.out.println("Birthdate: " + getBirthdateAsString());
-        System.out.println("Address: " + address);
-        System.out.println("Phone Number: " + phoneNumber);
-        System.out.println("SSS #: " + sssNumber);
-        System.out.println("PhilHealth #: " + philHealthNumber);
-        System.out.println("TIN #: " + tinNumber);
-        System.out.println("Pag-IBIG #: " + pagIbigNumber);
-        System.out.println("Status: " + status);
-        System.out.println("Position: " + position);
-        System.out.println("Immediate Supervisor: " + immediateSupervisor);
-        System.out.println("Basic Salary: PHP " + CurrencyUtil.formatCurrency(basicSalary));
-        System.out.println("Rice Subsidy: PHP " + CurrencyUtil.formatCurrency(riceSubsidy));
-        System.out.println("Phone Allowance: PHP " + CurrencyUtil.formatCurrency(phoneAllowance));
-        System.out.println("Clothing Allowance: PHP " + CurrencyUtil.formatCurrency(clothingAllowance));
-        System.out.println("Gross Semi-monthly Rate: PHP " + CurrencyUtil.formatCurrency(grossSemimonthlyRate));
-        System.out.println("Hourly Rate: PHP " + CurrencyUtil.formatCurrency(hourlyRate));
-        System.out.println("================================");
+    public List<String> getEmployeeInformation() {
+        List<String> employeeInfo = new ArrayList<>();
+
+        employeeInfo.add(getLastName());
+        employeeInfo.add(getFirstName());
+        employeeInfo.add(getBirthdateAsString());
+        employeeInfo.add(getAddress());
+        employeeInfo.add(getPhoneNumber());
+        employeeInfo.add(getSssNumber());
+        employeeInfo.add(getPhilHealthNumber());
+        employeeInfo.add(getTinNumber());
+        employeeInfo.add(getPagIbigNumber());
+        employeeInfo.add(getStatus());
+        employeeInfo.add(getPosition());
+        employeeInfo.add(getImmediateSupervisor());
+        employeeInfo.add(CurrencyUtil.formatCurrency(getBasicSalary()));
+        employeeInfo.add(CurrencyUtil.formatCurrency(getRiceSubsidy()));
+        employeeInfo.add(CurrencyUtil.formatCurrency(getPhoneAllowance()));
+        employeeInfo.add(CurrencyUtil.formatCurrency(getClothingAllowance()));
+        employeeInfo.add(CurrencyUtil.formatCurrency(getGrossSemimonthlyRate()));
+        employeeInfo.add(CurrencyUtil.formatCurrency(getHourlyRate()));
+
+        return employeeInfo;
     }
 }

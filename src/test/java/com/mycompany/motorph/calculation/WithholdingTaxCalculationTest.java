@@ -23,7 +23,7 @@ public class WithholdingTaxCalculationTest {
         // Create a sample gross wage that is not eligible to get a withholding tax
         double grossWage = 20000.0;
 
-        WithholdingTaxCalculation withholdingTaxCalculation = new WithholdingTaxCalculation(new SSSDeduction(), new HealthInsurancesDeduction());
+        WithholdingTaxCalculation withholdingTaxCalculation = new WithholdingTaxCalculation();
         double withholdingTax = withholdingTaxCalculation.calculateWithholdingTax(grossWage);
 
         // Assert that the withholding tax calculated is zero
@@ -35,7 +35,7 @@ public class WithholdingTaxCalculationTest {
         // Create a sample gross wage that is assigned to the maximum taxable income range eligible for deductions
         double grossWage = MAX_TAXABLE_INCOME;
 
-        WithholdingTaxCalculation withholdingTaxCalculation = new WithholdingTaxCalculation(new SSSDeduction(), new HealthInsurancesDeduction());
+        WithholdingTaxCalculation withholdingTaxCalculation = new WithholdingTaxCalculation();
         double withholdingTax = withholdingTaxCalculation.calculateWithholdingTax(grossWage);
 
         // Assert that the withholding tax calculated is greater than zero

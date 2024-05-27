@@ -37,7 +37,7 @@ public class EmployeeTest {
         Employee employee = createSampleEmployee();
 
         // Assert that calling displayEmployeeInformation does not throw any exceptions
-        assertDoesNotThrow(() -> employee.displayEmployeeInformation(), "Displaying employee information should not throw any exceptions");
+        assertDoesNotThrow(() -> employee.getEmployeeInformation(), "Displaying employee information should not throw any exceptions");
     }
 
     // Helper method to create a sample employee information for testing

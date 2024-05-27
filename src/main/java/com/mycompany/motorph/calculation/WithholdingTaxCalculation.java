@@ -9,21 +9,18 @@ package com.mycompany.motorph.calculation;
  *
  * @author Lance1
  */
-public class WithholdingTaxCalculation {
+class WithholdingTaxCalculation {
 
     private final SSSDeduction sssDeduction;
     private final HealthInsurancesDeduction healthInsuranceDeduction;
 
     /**
      * Constructor for WithholdingTaxCalculation.
-     *
-     * @param sssDeduction SSS deduction calculator
-     * @param healthInsuranceDeduction Health insurances deduction instance
      */
-    public WithholdingTaxCalculation(SSSDeduction sssDeduction, HealthInsurancesDeduction healthInsuranceDeduction) {
+    public WithholdingTaxCalculation() {
         // Initialize deductions
-        this.sssDeduction = sssDeduction;
-        this.healthInsuranceDeduction = healthInsuranceDeduction;
+        this.sssDeduction = new SSSDeduction();
+        this.healthInsuranceDeduction = new HealthInsurancesDeduction();
     }
 
     /**

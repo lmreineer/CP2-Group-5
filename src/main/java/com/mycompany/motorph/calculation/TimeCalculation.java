@@ -5,7 +5,6 @@
 package com.mycompany.motorph.calculation;
 
 import com.mycompany.motorph.model.DateRange;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,12 +16,12 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Lance1
  */
-public class TimeCalculation {
+class TimeCalculation {
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd");
     private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
 
-    private static final int ATTENDANCE_DATA_EXPECTED_LENGTH = 6;
+    private static final int ATTENDANCE_EXPECTED_COL_LENGTH = 6;
 
     /**
      * Calculates the total hours worked by the employee, late arrival deduction
@@ -41,11 +40,11 @@ public class TimeCalculation {
 
         // Iterate through each line of attendance data
         for (String attendanceLine : attendanceDataList) {
-            // Split the line into attendance data using "|" as delimiter
+            // Split the line into attendance data using "|" as a delimiter
             String[] attendanceData = attendanceLine.split("\\|");
 
             // If the line matches the expected format and employee number
-            if (attendanceData.length == ATTENDANCE_DATA_EXPECTED_LENGTH && Integer.parseInt(attendanceData[0]) == employeeNumber) {
+            if (attendanceData.length == ATTENDANCE_EXPECTED_COL_LENGTH && Integer.parseInt(attendanceData[0]) == employeeNumber) {
                 // Parse attendance date, time in, and time out from the data
                 Date attendanceDate = DATE_FORMAT.parse(attendanceData[3]);
                 Date attendanceTimeIn = TIME_FORMAT.parse(attendanceData[4]);
@@ -86,7 +85,7 @@ public class TimeCalculation {
         long startMillis = dateRange.getStartDate().getTime();
         long endMillis = dateRange.getEndDate().getTime();
 
-        // If start date is before or equal to end date
+        // If the start date is before or equal to the end date
         if (startMillis > endMillis) {
             throw new IllegalArgumentException("Start date cannot be after end date");
         }

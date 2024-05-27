@@ -53,9 +53,6 @@ public class NetWageCalculationTest {
     }
 
     private NetWageCalculation createNetWageCalculation() {
-        return new NetWageCalculation(
-                123, "Doe", "John", "01/01/1990",
-                new SSSDeduction(), new HealthInsurancesDeduction(), new WithholdingTaxCalculation(new SSSDeduction(), new HealthInsurancesDeduction())
-        );
+        return new NetWageCalculation();
     }
 }
