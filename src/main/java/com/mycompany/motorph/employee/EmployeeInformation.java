@@ -21,7 +21,7 @@ import java.util.List;
 public class EmployeeInformation {
 
     // Path to the employee data file
-    private static final String EMPLOYEES_DATA_PATH = "C:\\Users\\Lance1\\Documents\\MO-IT101-Group1\\src\\main\\resources\\data\\employee_information.txt";
+    private static final String EMPLOYEES_DATA_PATH = "C:\\Users\\Lance1\\Documents\\CP2-Group-5\\src\\main\\resources\\data\\employee_information.txt";
 
     /**
      * Displays employee information with the inputted employee number.

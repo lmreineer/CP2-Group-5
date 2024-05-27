@@ -26,8 +26,8 @@ abstract class WageCalculation {
     private final TimeCalculation timeCalculation;
 
     // Paths to data files
-    private static final String EMPLOYEES_DATA_PATH = "C:\\Users\\Lance1\\Documents\\MO-IT101-Group1\\src\\main\\resources\\data\\employee_information.txt";
-    private static final String ATTENDANCE_DATA_PATH = "C:\\Users\\Lance1\\Documents\\MO-IT101-Group1\\src\\main\\resources\\data\\employee_attendance.txt";
+    private static final String EMPLOYEES_DATA_PATH = "C:\\Users\\Lance1\\Documents\\CP2-Group-5\\src\\main\\resources\\data\\employee_information.txt";
+    private static final String ATTENDANCE_DATA_PATH = "C:\\Users\\Lance1\\Documents\\CP2-Group-5\\src\\main\\resources\\data\\employee_attendance.txt";
 
     // Expected total number of values per row from the data
     private static final int EMPLOYEE_EXPECTED_COL_LENGTH = 18;
