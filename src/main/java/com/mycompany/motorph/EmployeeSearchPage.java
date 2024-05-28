@@ -87,6 +87,7 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
 
         pnlMain.setBackground(new java.awt.Color(255, 255, 255));
 

@@ -67,6 +67,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
         txtEndDate = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
 
         pnlMain.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -564,9 +565,9 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
      */
     @Override
     public void populateEmployeeInformation() {
-        int employeeNumber = Integer.parseInt(txtEmployeeNumber.getText());
-
         try {
+            int employeeNumber = Integer.parseInt(txtEmployeeNumber.getText());
+
             // Retrieve employee information
             List<String> employeeInfo = new EmployeeInformation().showEmployeeInformation(employeeNumber);
 
@@ -577,7 +578,8 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
 
             // Enable date inputs after populating employee information
             enableDateInputs();
-        } catch (IOException | ParseException e) {
+        } catch (IOException | ParseException | NullPointerException | NumberFormatException e) {
+            // Show error dialog with the exception message
             showErrorDialog("Error fetching employee information: " + e.getMessage());
         }
     }
