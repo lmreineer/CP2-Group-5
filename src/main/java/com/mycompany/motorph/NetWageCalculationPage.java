@@ -777,11 +777,11 @@ class NetWageCalculationPage extends javax.swing.JFrame implements EmployeeInfor
      */
     @Override
     public void populateWageInformation() {
-        int employeeNumber = Integer.parseInt(txtEmployeeNumber.getText());
-        String startDate = txtStartDate.getText();
-        String endDate = txtEndDate.getText();
-
         try {
+            int employeeNumber = Integer.parseInt(txtEmployeeNumber.getText());
+            String startDate = txtStartDate.getText();
+            String endDate = txtEndDate.getText();
+
             // Create a DateRange object based on the start and end dates
             DateRange dateRange = createDateRange(startDate, endDate);
 
