@@ -142,7 +142,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
         txtFirstName.setFocusable(false);
 
         lblStartDate.setBackground(new java.awt.Color(242, 242, 242));
-        lblStartDate.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblStartDate.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
         lblStartDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblStartDate.setText("Start Date (MM/DD):");
         lblStartDate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -151,7 +151,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
         lblStartDate.setOpaque(true);
 
         lblEndDate.setBackground(new java.awt.Color(242, 242, 242));
-        lblEndDate.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblEndDate.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
         lblEndDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEndDate.setText("End Date (MM/DD):");
         lblEndDate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -166,7 +166,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
         txtLastName.setFocusable(false);
 
         lblLastName.setBackground(new java.awt.Color(242, 242, 242));
-        lblLastName.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblLastName.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
         lblLastName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLastName.setText("Last Name:");
         lblLastName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -175,7 +175,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
         lblLastName.setOpaque(true);
 
         lblFirstName.setBackground(new java.awt.Color(242, 242, 242));
-        lblFirstName.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblFirstName.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
         lblFirstName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFirstName.setText("First Name:");
         lblFirstName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -184,7 +184,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
         lblFirstName.setOpaque(true);
 
         lblBirthdate.setBackground(new java.awt.Color(242, 242, 242));
-        lblBirthdate.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblBirthdate.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
         lblBirthdate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBirthdate.setText("Birthdate:");
         lblBirthdate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -265,7 +265,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
         txtGrossWage.setFocusable(false);
 
         lblGrossWage.setBackground(new java.awt.Color(242, 242, 242));
-        lblGrossWage.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        lblGrossWage.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
         lblGrossWage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblGrossWage.setText("Gross Wage:");
         lblGrossWage.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -317,9 +317,9 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
                     .addComponent(btnCalculate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlMainLayout.createSequentialGroup()
                         .addComponent(lblEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEmployeeNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(6, 6, 6)
+                        .addComponent(txtEmployeeNumber)
+                        .addGap(6, 6, 6)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainLayout.createSequentialGroup()
                         .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,7 +344,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
                             .addComponent(txtStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
                             .addComponent(txtEndDate)))
                     .addGroup(pnlMainLayout.createSequentialGroup()
-                        .addComponent(lblGrossWage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblGrossWage, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtGrossWage, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -411,7 +411,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
