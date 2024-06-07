@@ -22,33 +22,28 @@ class TimeCalculation {
     private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
 
     private static final int ATTENDANCE_EXPECTED_COL_LENGTH = 6;
+    private static final double ASSUMED_HOURS_PER_DAY = 9.0;
 
     /**
      * Calculates the total hours worked by the employee, late arrival deduction
      * if applicable, within the inputted date range.
      *
-     * @param attendanceDataList A list containing attendance data
-     * @param employeeNumber Employee number for which hours are to be
-     * calculated
-     * @param dateRange Date range within which to calculate total hours worked
-     * @return A pair containing the total hours worked and late arrival
-     * deduction amount
+     * @param attendanceDataList The list containing attendance data
+     * @param employeeNumber The employee number
+     * @param dateRange The date range
      * @throws ParseException If there is an error parsing dates
      */
-    double calculateTotalHoursWorked(List<String> attendanceDataList, int employeeNumber, DateRange dateRange) throws ParseException {
+    double calculateTotalHoursWorked(List<String[]> attendanceDataList, int employeeNumber, DateRange dateRange) throws ParseException {
         double totalHoursWorked = 0.0;
 
-        // Iterate through each line of attendance data
-        for (String attendanceLine : attendanceDataList) {
-            // Split the line into attendance data using "|" as a delimiter
-            String[] attendanceData = attendanceLine.split("\\|");
-
-            // If the line matches the expected format and employee number
-            if (attendanceData.length == ATTENDANCE_EXPECTED_COL_LENGTH && Integer.parseInt(attendanceData[0]) == employeeNumber) {
+        // Iterate through each row of attendance data
+        for (String[] data : attendanceDataList) {
+            // If the data has the expected length per row and has the matching employee number from the inputted one
+            if (data.length == ATTENDANCE_EXPECTED_COL_LENGTH && Integer.parseInt(data[0]) == employeeNumber) {
                 // Parse attendance date, time in, and time out from the data
-                Date attendanceDate = DATE_FORMAT.parse(attendanceData[3]);
-                Date attendanceTimeIn = TIME_FORMAT.parse(attendanceData[4]);
-                Date attendanceTimeOut = TIME_FORMAT.parse(attendanceData[5]);
+                Date attendanceDate = DATE_FORMAT.parse(data[3]);
+                Date attendanceTimeIn = TIME_FORMAT.parse(data[4]);
+                Date attendanceTimeOut = TIME_FORMAT.parse(data[5]);
 
                 // If the attendance date is within the inputted date range
                 if (dateRange.isWithinDateRange(attendanceDate)) {
@@ -64,15 +59,15 @@ class TimeCalculation {
     /**
      * Calculates assumed hours worked based on the inputted date range.
      *
-     * @param dateRange Date range inputted
-     * @return Assumed hours worked
+     * @param dateRange The date range
+     * @return The assumed hours worked
      */
     double calculateAssumedHoursWorked(DateRange dateRange) {
         // Calculate the number of days within the date range
         long numberOfDays = calculateNumberOfDays(dateRange);
 
         // Assume 9 hours per day
-        return 9.0 * numberOfDays;
+        return ASSUMED_HOURS_PER_DAY * numberOfDays;
     }
 
     /**
@@ -84,11 +79,6 @@ class TimeCalculation {
     private long calculateNumberOfDays(DateRange dateRange) {
         long startMillis = dateRange.getStartDate().getTime();
         long endMillis = dateRange.getEndDate().getTime();
-
-        // If the start date is before or equal to the end date
-        if (startMillis > endMillis) {
-            throw new IllegalArgumentException("Start date cannot be after end date");
-        }
 
         // Calculate the difference in milliseconds
         long durationInMillis = endMillis - startMillis;

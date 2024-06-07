@@ -5,11 +5,9 @@
 package com.mycompany.motorph.calculation;
 
 import com.mycompany.motorph.model.DateRange;
+import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
-//import java.io.ByteArrayOutputStream;
-//import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -57,11 +55,10 @@ public class GrossWageCalculationTest {
 //        assertEquals("Gross Wage: PHP 400.00", lines[5].trim());
 //        assertEquals("================================", lines[6].trim());
 //    }
-
     @Test
     public void calculateLateArrivalDeduction_IsNotSupported() {
         // Test data
-        List<String> attendanceDataList = new ArrayList<>();
+        List<String[]> attendanceDataList = new ArrayList<>();
         int employeeNumber = 123;
         DateRange dateRange = new DateRange(new Date(), new Date());
 

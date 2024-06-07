@@ -6,11 +6,9 @@ package com.mycompany.motorph.calculation;
 
 import com.mycompany.motorph.model.DateRange;
 import org.junit.jupiter.api.Test;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -25,11 +23,11 @@ public class NetWageCalculationTest {
     public void calculateLateArrivalDeduction_CalculatesCorrectDeduction() throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd");
 
-        List<String> attendanceDataList = new ArrayList<>();
+        List<String[]> attendanceDataList = new ArrayList<>();
+        String[] arr = new String[]{"123|John|Doe|01/01|9:11|17:00", "456|Jane|Doe|01/01|08:00|17:00"};
+
         // Late arrival attendance
-        attendanceDataList.add("123|John|Doe|01/01|9:11|17:00");
-        // On-time arrival attendance
-        attendanceDataList.add("456|Jane|Doe|01/01|08:00|17:00");
+        attendanceDataList.add(arr);
 
         NetWageCalculation netWageCalculation = createNetWageCalculation();
 

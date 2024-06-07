@@ -6,6 +6,7 @@ package com.mycompany.motorph.employee;
 
 import com.mycompany.motorph.model.Employee;
 import com.mycompany.motorph.data.EmployeeDataReader;
+import com.opencsv.exceptions.CsvValidationException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
@@ -21,17 +22,18 @@ import java.util.List;
 public class EmployeeInformation {
 
     // Path to the employee data file
-    private static final String EMPLOYEES_DATA_PATH = "C:\\Users\\Lance1\\Documents\\CP2-Group-5\\src\\main\\resources\\data\\employee_information.txt";
+    private static final String EMPLOYEES_DATA_PATH = "src\\main\\resources\\data\\employee_information.csv";
 
     /**
      * Displays employee information with the inputted employee number.
      *
      * @param employeeNumber The employee number to search for
-     * @return The employee information in a List
+     * @return The list containing employee information
      * @throws IOException If an I/O error occurs while reading the file
-     * @throws ParseException If a parsing error occurs
+     * @throws CsvValidationException If data from a row is invalid
+     * @throws ParseException If parsing error occurs
      */
-    public List<String> showEmployeeInformation(int employeeNumber) throws IOException, ParseException {
+    public List<String> showEmployeeInformation(int employeeNumber) throws IOException, CsvValidationException, ParseException {
         // Create an instance of EmployeeDataReader
         EmployeeDataReader employeeDataReader = new EmployeeDataReader();
 
@@ -45,11 +47,9 @@ public class EmployeeInformation {
         if (foundEmployee != null) {
             // Return the information of the employee
             return foundEmployee.getEmployeeInformation();
-
-            // Else
         } else {
-            // Throw employee is not found exception
-            throw new NullPointerException("Employee is not found.");
+            // Throw IllegalArgumentException with the exception message
+            throw new IllegalArgumentException("Employee is not found.");
         }
     }
 

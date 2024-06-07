@@ -6,7 +6,6 @@ package com.mycompany.motorph.calculation;
 
 import com.mycompany.motorph.model.DateRange;
 import org.junit.jupiter.api.Test;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,9 +24,10 @@ public class TimeCalculationTest {
 
     @Test
     public void calculateTotalHoursWorked_ReturnsCorrectTotalHours() throws ParseException {
-        List<String> attendanceDataList = new ArrayList<>();
-        attendanceDataList.add("123|John|Doe|01/01|08:00|17:00");
-        attendanceDataList.add("123|John|Doe|01/02|09:00|17:00");
+        List<String[]> attendanceDataList = new ArrayList<>();
+        String[] arr = new String[]{"123|John|Doe|01/01|9:11|17:00", "456|Jane|Doe|01/01|08:00|17:00"};
+
+        attendanceDataList.add(arr);
         int employeeNumber = 123;
         DateRange dateRange = new DateRange(dateFormat.parse("01/01"), dateFormat.parse("01/02"));
         TimeCalculation timeCalculation = new TimeCalculation();

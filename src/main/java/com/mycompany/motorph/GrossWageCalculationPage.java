@@ -8,9 +8,11 @@ import com.mycompany.motorph.calculation.GrossWageCalculation;
 import com.mycompany.motorph.employee.EmployeeInformation;
 import com.mycompany.motorph.model.DateRange;
 import static com.mycompany.motorph.model.DateRange.createDateRange;
+import com.opencsv.exceptions.CsvValidationException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,11 +21,15 @@ import javax.swing.JOptionPane;
  * <p>
  * It allows users to calculate gross wages for an employee based on their
  * employee number and a specified date range. Implements the
- * EmployeeInformationPopulator interface.
+ * EmployeeInformationManager interface.
  *
  * @author Lance1
  */
-class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInformationPopulator {
+class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInformationManager {
+
+    private static final java.awt.Color LIGHT_BLUE = new java.awt.Color(203, 203, 239);
+    private static final java.awt.Color WHITE = new java.awt.Color(255, 255, 255);
+    private static final java.awt.Color RED = new java.awt.Color(191, 47, 47);
 
     /**
      * Creates new form GrossWageCalculationPage
@@ -429,8 +435,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
      * color.
      */
     private void btnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseEntered
-        // Light blue
-        btnSearch.setBackground(new java.awt.Color(203, 203, 239));
+        onButtonMouseEntered(evt, btnSearch, LIGHT_BLUE);
     }//GEN-LAST:event_btnSearchMouseEntered
 
     /**
@@ -438,8 +443,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
      * color.
      */
     private void btnSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseExited
-        // White
-        btnCalculate.setBackground(new java.awt.Color(255, 255, 255));
+        onButtonMouseExited(evt, btnSearch);
     }//GEN-LAST:event_btnSearchMouseExited
 
     /**
@@ -447,8 +451,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
      * background color.
      */
     private void btnCalculateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalculateMouseEntered
-        // Light blue
-        btnCalculate.setBackground(new java.awt.Color(203, 203, 239));
+        onButtonMouseEntered(evt, btnCalculate, LIGHT_BLUE);
     }//GEN-LAST:event_btnCalculateMouseEntered
 
     /**
@@ -456,8 +459,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
      * background color.
      */
     private void btnCalculateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalculateMouseExited
-        // White
-        btnCalculate.setBackground(new java.awt.Color(255, 255, 255));
+        onButtonMouseExited(evt, btnCalculate);
     }//GEN-LAST:event_btnCalculateMouseExited
 
     /**
@@ -518,8 +520,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
      * color.
      */
     private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
-        // White
-        btnExit.setBackground(new java.awt.Color(255, 255, 255));
+        onButtonMouseExited(evt, btnExit);
     }//GEN-LAST:event_btnExitMouseExited
 
     /**
@@ -527,8 +528,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
      * color.
      */
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
-        // Red
-        btnExit.setBackground(new java.awt.Color(191, 47, 47));
+        onButtonMouseEntered(evt, btnExit, RED);
     }//GEN-LAST:event_btnExitMouseEntered
 
     /**
@@ -544,8 +544,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
      * color.
      */
     private void btnBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseExited
-        // White
-        btnBack.setBackground(new java.awt.Color(255, 255, 255));
+        onButtonMouseExited(evt, btnBack);
     }//GEN-LAST:event_btnBackMouseExited
 
     /**
@@ -553,15 +552,29 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
      * color.
      */
     private void btnBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseEntered
-        // Light blue
-        btnBack.setBackground(new java.awt.Color(203, 203, 239));
+        onButtonMouseEntered(evt, btnExit, LIGHT_BLUE);
     }//GEN-LAST:event_btnBackMouseEntered
+
+    /**
+     * Handles mouse hover event by changing the background color of the button.
+     */
+    @Override
+    public void onButtonMouseEntered(java.awt.event.MouseEvent evt, JButton button, java.awt.Color color) {
+        button.setBackground(color);
+    }
+
+    /**
+     * Handles mouse exit event by resetting the background color of the button.
+     */
+    @Override
+    public void onButtonMouseExited(java.awt.event.MouseEvent evt, JButton button) {
+        button.setBackground(WHITE);
+    }
 
     /**
      * Populates employee information based on the provided employee number.
      * Retrieves data from the EmployeeInformation class and fills the
      * appropriate text fields.
-     *
      */
     @Override
     public void populateEmployeeInformation() {
@@ -572,16 +585,26 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
             List<String> employeeInfo = new EmployeeInformation().showEmployeeInformation(employeeNumber);
 
             // Populate text fields with employee details
-            txtLastName.setText(employeeInfo.get(0));
-            txtFirstName.setText(employeeInfo.get(1));
-            txtBirthdate.setText(employeeInfo.get(2));
+            updateEmployeeInformationFields(employeeInfo);
 
             // Enable date inputs after populating employee information
             enableDateInputs();
-        } catch (IOException | ParseException | NullPointerException | NumberFormatException e) {
+        } catch (IOException | ParseException | CsvValidationException | IllegalArgumentException e) {
             // Show error dialog with the exception message
             showErrorDialog("Error fetching employee information: " + e.getMessage());
         }
+    }
+
+    /**
+     * Updates the employee information text fields for the searched employee.
+     *
+     * @param employeeInfo The information of the employee.
+     */
+    @Override
+    public void updateEmployeeInformationFields(List<String> employeeInfo) {
+        txtLastName.setText(employeeInfo.get(0));
+        txtFirstName.setText(employeeInfo.get(1));
+        txtBirthdate.setText(employeeInfo.get(2));
     }
 
     /**
@@ -591,8 +614,8 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
     public void enableDateInputs() {
         txtStartDate.setEditable(true);
         txtEndDate.setEditable(true);
-        txtStartDate.setBackground(new java.awt.Color(255, 255, 255));
-        txtEndDate.setBackground(new java.awt.Color(255, 255, 255));
+        txtStartDate.setBackground(WHITE);
+        txtEndDate.setBackground(WHITE);
         txtStartDate.setFocusable(true);
         txtEndDate.setFocusable(true);
     }
@@ -609,6 +632,9 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
             String startDate = txtStartDate.getText();
             String endDate = txtEndDate.getText();
 
+            // Retrieve employee information to verify employee number
+            new EmployeeInformation().showEmployeeInformation(employeeNumber);
+
             // Create a DateRange object based on the start and end dates
             DateRange dateRange = createDateRange(startDate, endDate);
 
@@ -619,11 +645,21 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
             List<String> wageInfo = wageCalculation.showWage(employeeNumber, dateRange);
 
             // Display the gross wage in the appropriate text field
-            txtGrossWage.setText(wageInfo.get(0));
-        } catch (IOException | ParseException | IllegalArgumentException e) {
+            updateWageInformationFields(wageInfo);
+        } catch (ParseException | IOException | CsvValidationException | IllegalArgumentException e) {
             // Show error dialog with the exception message
             showErrorDialog("Error fetching wage information: " + e.getMessage());
         }
+    }
+
+    /**
+     * Updates the wage information text fields for the searched employee.
+     *
+     * @param wageInfo The wage information of the employee.
+     */
+    @Override
+    public void updateWageInformationFields(List<String> wageInfo) {
+        txtGrossWage.setText(wageInfo.get(0));
     }
 
     /**

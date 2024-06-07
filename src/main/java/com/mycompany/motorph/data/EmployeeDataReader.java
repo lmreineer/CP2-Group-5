@@ -5,8 +5,8 @@
 package com.mycompany.motorph.data;
 
 import com.mycompany.motorph.model.Employee;
-
-import java.io.BufferedReader;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
@@ -23,31 +23,35 @@ public class EmployeeDataReader {
 
     private static final SimpleDateFormat BIRTHDATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
-    // Expected total number of values per row from the data
-    private static final int EMPLOYEE_EXPECTED_COL_LENGTH = 19;
+    // Expected total number of data per row from the data
+    private static final int EMPLOYEE_EXPECTED_DATA_LENGTH = 19;
 
     /**
-     * Reads employee data from the data file and returns list of employees.
+     * Reads employee data from the data file and returns a list of employees.
      *
-     * @param filePath Path to the employee_information data file
-     * @return List of employees read from the file
-     * @throws IOException If an I/O error happens while reading the file
-     * @throws ParseException If a parsing error happens while parsing
+     * @param filePath The path to the employee_information data file
+     * @return The list of employee data read from the file
+     * @throws IOException If an I/O error occurs while reading the file
+     * @throws CsvValidationException If data from a row is invalid
+     * @throws ParseException If parsing error occurs
      */
-    public List<Employee> readEmployees(String filePath) throws IOException, ParseException {
+    public List<Employee> readEmployees(String filePath) throws IOException, CsvValidationException, ParseException {
         List<Employee> employees = new ArrayList<>();
 
         // Open the file for reading
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            // Read each line from the file
-            while ((line = reader.readLine()) != null) {
-                // Split the line into employee data using "|" as a delimiter
-                String[] employeeData = line.split("\\|");
-                // If the line has the expected length
-                if (employeeData.length >= EMPLOYEE_EXPECTED_COL_LENGTH) {
+        try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
+            String[] data;
+            // Skip header
+            reader.readNext();
+            // Read data per row from the file
+            while ((data = reader.readNext()) != null) {
+                // If the data has the expected length per row
+                if (data.length == EMPLOYEE_EXPECTED_DATA_LENGTH) {
                     // Create an employee object from the data and add it to the list
-                    employees.add(createEmployeeFromData(employeeData));
+                    employees.add(createEmployeeFromData(data));
+                } else {
+                    // Throw IllegalArgumentException with the exception message
+                    throw new IllegalArgumentException("Invalid data length: " + data.length + " in row: " + data[0] + ".");
                 }
             }
         }
@@ -59,8 +63,8 @@ public class EmployeeDataReader {
     /**
      * Creates an Employee object from an array of employee data.
      *
-     * @param employeeData Array containing employee data
-     * @return Employee object created with the data
+     * @param employeeData The array containing employee data
+     * @return The employee object created with the data
      * @throws ParseException If a parsing error occurs
      */
     private Employee createEmployeeFromData(String[] employeeData) throws ParseException {
@@ -79,13 +83,23 @@ public class EmployeeDataReader {
         employee.setStatus(employeeData[10]);
         employee.setPosition(employeeData[11]);
         employee.setImmediateSupervisor(employeeData[12]);
-        employee.setBasicSalary(Double.parseDouble(employeeData[13]));
-        employee.setRiceSubsidy(Double.parseDouble(employeeData[14]));
-        employee.setPhoneAllowance(Double.parseDouble(employeeData[15]));
-        employee.setClothingAllowance(Double.parseDouble(employeeData[16]));
-        employee.setGrossSemimonthlyRate(Double.parseDouble(employeeData[17]));
-        employee.setHourlyRate(Double.parseDouble(employeeData[18]));
+        employee.setBasicSalary(parseDouble(employeeData[13]));
+        employee.setRiceSubsidy(parseDouble(employeeData[14]));
+        employee.setPhoneAllowance(parseDouble(employeeData[15]));
+        employee.setClothingAllowance(parseDouble(employeeData[16]));
+        employee.setGrossSemimonthlyRate(parseDouble(employeeData[17]));
+        employee.setHourlyRate(parseDouble(employeeData[18]));
 
         return employee;
+    }
+
+    /**
+     * Removes commas from a String value then parses it to double.
+     *
+     * @param value The value to be parsed
+     * @return The parsed double value
+     */
+    private double parseDouble(String value) {
+        return Double.parseDouble(value.replaceAll(",", ""));
     }
 }

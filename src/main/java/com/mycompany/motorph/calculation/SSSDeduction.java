@@ -4,11 +4,15 @@
  */
 package com.mycompany.motorph.calculation;
 
-import java.io.BufferedReader;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A class that calculates SSS deductions based on gross wage.
@@ -18,25 +22,19 @@ import java.util.List;
 class SSSDeduction {
 
     // Path to the SSS deductions data file
-    private static final String SSS_DEDUCTIONS_PATH = "C:\\Users\\Lance1\\Documents\\CP2-Group-5\\src\\main\\resources\\data\\sss_deduction.txt";
+    private static final String SSS_DEDUCTIONS_PATH = "src\\main\\resources\\data\\sss_deduction.csv";
 
     private static final double MIN_COMPENSATION_RANGE = 3250.00;
     private static final double MAX_COMPENSATION_RANGE = 24750.00;
     private static final double MIN_DEDUCTION = 135.00;
     private static final double MAX_DEDUCTION = 1125.00;
-    private static final double SSS_DEDUCTION_DATA_LENGTH = 3;
+    private static final int SSS_DEDUCTION_EXPECTED_DATA_LENGTH = 3;
 
     private final List<double[]> sssCompensationRanges = new ArrayList<>();
     private final List<Double> sssDeductions = new ArrayList<>();
+    private boolean dataLoaded = false;
 
-    /**
-     * Constructor for SSSDeduction.
-     * <p>
-     * Reads SSS deductions data from the data file.
-     */
-    public SSSDeduction() {
-        readSSSDeductions();
-    }
+    private static final Logger LOGGER = Logger.getLogger(SSSDeduction.class.getName());
 
     /**
      * Calculates SSS deduction.
@@ -45,6 +43,12 @@ class SSSDeduction {
      * @return SSS deduction amount
      */
     double calculateSssDeduction(double grossWage) {
+        // Lazy loading of data
+        if (!dataLoaded) {
+            readSSSDeductions();
+            dataLoaded = true;
+        }
+
         // If gross wage is below the lower limit
         if (grossWage < MIN_COMPENSATION_RANGE) {
             return MIN_DEDUCTION;
@@ -65,7 +69,7 @@ class SSSDeduction {
             }
         }
 
-        // Default value if no matching range is found
+        // Return default value if no matching range is found
         return 0.0;
     }
 
@@ -73,32 +77,30 @@ class SSSDeduction {
      * Reads SSS deductions data from the data file and populates.
      */
     private void readSSSDeductions() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(SSS_DEDUCTIONS_PATH))) {
-            String line;
-
-            // Read each line from the data file
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split("\\|");
-
-                // If the line has the normal length
-                if (parts.length == SSS_DEDUCTION_DATA_LENGTH) {
-                    double lowerRange = Double.parseDouble(parts[0]);
-                    double upperRange = Double.parseDouble(parts[1]);
-                    double sssDeduction = Double.parseDouble(parts[2]);
+        // Open the file for reading
+        try (CSVReader reader = new CSVReader(new FileReader(SSS_DEDUCTIONS_PATH))) {
+            String[] data;
+            // Skip header
+            reader.readNext();
+            // Read data per row from the file
+            while ((data = reader.readNext()) != null) {
+                // If the data has the expected length per row
+                if (data.length == SSS_DEDUCTION_EXPECTED_DATA_LENGTH) {
+                    double lowerRange = Double.parseDouble(data[0]);
+                    double upperRange = Double.parseDouble(data[1]);
+                    double sssDeduction = Double.parseDouble(data[2]);
 
                     // Add the parsed values to their own lists
                     sssCompensationRanges.add(new double[]{lowerRange, upperRange});
                     sssDeductions.add(sssDeduction);
-
-                    // Else
                 } else {
-                    // Print error message for invalid length
-                    System.err.println("Formatting error in sss_deduction file.");
+                    // Throw IllegalArgumentException with the exception message
+                    throw new IllegalArgumentException("Invalid data length: " + data.length + " in row: " + Arrays.toString(data) + " of the SSS deductions data.");
                 }
             }
-        } catch (IOException | NumberFormatException e) {
-            // Catch exceptions and print error message
-            System.err.println("Error reading SSS Deductions file: " + e.getMessage());
+        } catch (IOException | CsvValidationException e) {
+            // Log the error with an error message
+            LOGGER.log(Level.SEVERE, "Error fetching SSS deduction information", e);
         }
     }
 }

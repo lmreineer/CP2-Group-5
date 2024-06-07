@@ -207,7 +207,7 @@ public class Employee {
     /**
      * Returns employee information.
      *
-     * @return The employee information in a List
+     * @return The list containing employee information
      */
     public List<String> getEmployeeInformation() {
         List<String> employeeInfo = new ArrayList<>();

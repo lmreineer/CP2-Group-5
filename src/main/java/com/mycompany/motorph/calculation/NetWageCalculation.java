@@ -52,28 +52,25 @@ public class NetWageCalculation extends WageCalculation {
     /**
      * Calculates late arrival deduction for an employee.
      *
-     * @param attendanceDataList Attendance data
-     * @param employeeNumber Employee number
-     * @param dateRange Date range
-     * @return Late arrival deduction amount
+     * @param attendanceDataList The list containing attendance data
+     * @param employeeNumber The employee number
+     * @param dateRange The date range
+     * @return The late arrival deduction amount
      * @throws ParseException If a date parsing error occurs
      */
     @Override
-    protected double calculateLateArrivalDeduction(List<String> attendanceDataList, int employeeNumber, DateRange dateRange) throws ParseException {
+    protected double calculateLateArrivalDeduction(List<String[]> attendanceDataList, int employeeNumber, DateRange dateRange) throws ParseException {
         double totalLateArrivalDeduction = 0.0;
 
-        // Iterate through each line of attendance data
-        for (String attendanceLine : attendanceDataList) {
-            // Split the line into attendance data using "|" as delimiter
-            String[] attendanceData = attendanceLine.split("\\|");
-
-            // If the line matches the expected format and employee number
-            if (attendanceData.length == ATTENDANCE_EXPECTED_COL_LENGTH && Integer.parseInt(attendanceData[0]) == employeeNumber) {
+        // Iterate through each row of attendance data
+        for (String[] data : attendanceDataList) {
+            // If the data has the expected length per row and has the matching employee number from the inputted one
+            if (data.length == ATTENDANCE_EXPECTED_COL_LENGTH && Integer.parseInt(data[0]) == employeeNumber) {
                 // Parse attendance date, time in, and time out from the data
-                Date attendanceDate = DATE_FORMAT.parse(attendanceData[3]);
-                Date attendanceTimeIn = TIME_FORMAT.parse(attendanceData[4]);
+                Date attendanceDate = DATE_FORMAT.parse(data[3]);
+                Date attendanceTimeIn = TIME_FORMAT.parse(data[4]);
 
-                // If the attendance date is within the inputted date range
+                // If the attendance date is within the inputted date range and the employee arrived late
                 if (dateRange.isWithinDateRange(attendanceDate) && arrivedLate(attendanceTimeIn)) {
                     // Calculate late arrival duration in minutes
                     int lateArrivalMinutes = calculateLateArrivalMinutes(attendanceTimeIn);
@@ -84,15 +81,17 @@ public class NetWageCalculation extends WageCalculation {
                 }
             }
         }
+
         return totalLateArrivalDeduction;
     }
 
     /**
      * Calculates net wage by subtracting total deductions from gross wage.
      *
-     * @param hourlyRate Hourly rate for the employee
-     * @param hoursWorked Hours worked by the employee
-     * @return Calculated net wage
+     * @param hourlyRate The hourly rate
+     * @param hoursWorked The hours worked
+     * @param lateArrivalDeduction The late arrival deduction for the employee
+     * @return The calculated wage
      */
     @Override
     protected double calculateWage(double hourlyRate, double hoursWorked, double lateArrivalDeduction) {
@@ -109,7 +108,11 @@ public class NetWageCalculation extends WageCalculation {
     /**
      * Displays the employee's net wage with other information.
      *
-     * @param employeeNumber Employee number
+     * @param employeeNumber The employee number
+     * @param hourlyRate The hourly rate
+     * @param hoursWorked The hours worked
+     * @param lateArrivalDeduction The late arrival deduction
+     * @return A list of strings containing wage information
      */
     @Override
     protected List<String> getWageInformation(int employeeNumber, double hourlyRate, double hoursWorked, double lateArrivalDeduction) {
@@ -119,9 +122,8 @@ public class NetWageCalculation extends WageCalculation {
         double netWage = calculateWage(hourlyRate, hoursWorked, lateArrivalDeduction);
 
         List<String> wageInfo = new ArrayList<>();
-
         wageInfo.add(CurrencyUtil.formatCurrency(grossWage));
-        wageInfo.add(CurrencyUtil.formatCurrency(this.sssDeduction.calculateSssDeduction(grossWage)));
+        wageInfo.add(CurrencyUtil.formatCurrency(sssDeduction.calculateSssDeduction(grossWage)));
         wageInfo.add(CurrencyUtil.formatCurrency(healthInsurancesDeduction.calculatePhilHealthDeduction(grossWage)));
         wageInfo.add(CurrencyUtil.formatCurrency(healthInsurancesDeduction.calculatePagIbigDeduction(grossWage)));
         wageInfo.add(CurrencyUtil.formatCurrency(withholdingTaxCalculation.calculateWithholdingTax(grossWage)));
@@ -135,7 +137,7 @@ public class NetWageCalculation extends WageCalculation {
     /**
      * Checks if the given time indicates a late arrival for the employee.
      *
-     * @param timeIn Time of arrival
+     * @param timeIn The time of arrival
      * @return True if the arrival is considered late. Otherwise, false
      */
     private boolean arrivedLate(Date timeIn) {
@@ -147,16 +149,16 @@ public class NetWageCalculation extends WageCalculation {
         int arrivalHour = cal.get(Calendar.HOUR_OF_DAY);
         int arrivalMinute = cal.get(Calendar.MINUTE);
 
-        // Check if the arrival hour is after 8 AM, or if it's 8 AM and the minutes are 11 or later
+        // Return true if the arrival hour is after 8 AM, or if it's 8 AM and the minutes are 11 or later
         return arrivalHour > LATE_HOUR_START || (arrivalHour == LATE_HOUR_START && arrivalMinute >= LATE_MINUTE_START);
     }
 
     /**
-     * Calculates the duration of late arrival in minutes based on the time in
-     * time.
+     * Calculates the duration of late arrival in minutes based on the time of
+     * arrival.
      *
-     * @param timeIn Time of arrival
-     * @return Duration of late arrival in minutes
+     * @param timeIn The time of arrival
+     * @return The duration of late arrival in minutes
      */
     private int calculateLateArrivalMinutes(Date timeIn) {
         // Create a Calendar instance and set it to the specified arrival time
@@ -176,30 +178,24 @@ public class NetWageCalculation extends WageCalculation {
     /**
      * Calculates total deductions.
      *
-     * @param grossWage Gross wage before deductions
-     * @return Total deductions
+     * @param grossWage The gross wage before deductions
+     * @param lateArrivalDeduction The late arrival deduction
+     * @return The total deductions
      */
     private double calculateTotalDeductions(double grossWage, double lateArrivalDeduction) {
-        try {
-            // Calculate SSS deductions
-            double sssDeductions = sssDeduction.calculateSssDeduction(grossWage);
+        // Calculate SSS deductions
+        double sssDeductions = sssDeduction.calculateSssDeduction(grossWage);
 
-            // Calculate PhilHealth deductions
-            double philHealthDeductions = healthInsurancesDeduction.calculatePhilHealthDeduction(grossWage);
+        // Calculate PhilHealth deductions
+        double philHealthDeductions = healthInsurancesDeduction.calculatePhilHealthDeduction(grossWage);
 
-            // Calculate Pag-IBIG deductions
-            double pagIbigDeductions = healthInsurancesDeduction.calculatePagIbigDeduction(grossWage);
+        // Calculate Pag-IBIG deductions
+        double pagIbigDeductions = healthInsurancesDeduction.calculatePagIbigDeduction(grossWage);
 
-            // Calculate withholding tax
-            double withholdingTax = withholdingTaxCalculation.calculateWithholdingTax(grossWage);
+        // Calculate withholding tax
+        double withholdingTax = withholdingTaxCalculation.calculateWithholdingTax(grossWage);
 
-            // Return the sum of all deductions
-            return sssDeductions + philHealthDeductions + pagIbigDeductions + withholdingTax + lateArrivalDeduction;
-        } catch (Exception e) {
-            // Catch an exception if an error happens during the calculation and display error message
-            System.err.println("There was an error in calculating deductions: " + e.getMessage());
-            // Return 0.0
-            return 0.0;
-        }
+        // Return the sum of all deductions
+        return sssDeductions + philHealthDeductions + pagIbigDeductions + withholdingTax + lateArrivalDeduction;
     }
 }

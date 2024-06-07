@@ -55,7 +55,7 @@ public class DateRange {
      *
      * @param startDateString The start date string
      * @param endDateString The end date string
-     * @return A DateRange object representing the specified date range
+     * @return The DateRange object representing the specified date range
      * @throws ParseException If a parsing error occurs
      */
     public static DateRange createDateRange(String startDateString, String endDateString) throws ParseException {

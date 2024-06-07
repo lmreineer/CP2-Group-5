@@ -5,6 +5,7 @@
 package com.mycompany.motorph.data;
 
 import com.mycompany.motorph.model.Employee;
+import com.opencsv.exceptions.CsvValidationException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class EmployeeDataReaderTest {
     private static final int EXPECTED_EMPLOYEES_LENGTH = 34;
 
     @Test
-    public void readEmployees_ReturnsTotalNumberOfEmployees() {
+    public void readEmployees_ReturnsTotalNumberOfEmployees() throws CsvValidationException {
         EmployeeDataReader reader = new EmployeeDataReader();
 
         try {

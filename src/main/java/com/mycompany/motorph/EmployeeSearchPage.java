@@ -5,23 +5,29 @@
 package com.mycompany.motorph;
 
 import com.mycompany.motorph.employee.EmployeeInformation;
+import com.opencsv.exceptions.CsvValidationException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
  * A class that represents the Employee Search Page of the MotorPH application.
  * <p>
  * It allows users to search for employee information based on their employee
- * number. Implements the EmployeeInformationPopulator interface.
+ * number. Implements the EmployeeInformationManager interface.
  * <p>
  * This class includes methods to set the frame icon, populate employee and wage
  * information, enable date inputs, and display error dialog.
  *
  * @author Lance1
  */
-class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformationPopulator {
+class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformationManager {
+
+    private static final java.awt.Color LIGHT_BLUE = new java.awt.Color(203, 203, 239);
+    private static final java.awt.Color WHITE = new java.awt.Color(255, 255, 255);
+    private static final java.awt.Color RED = new java.awt.Color(191, 47, 47);
 
     /**
      * Creates new form EmployeeSearchPage and initializes its components
@@ -611,12 +617,13 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
                 .addGap(15, 15, 15)
                 .addComponent(lblTopSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(7, 7, 7)
                 .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -707,8 +714,7 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
      * color.
      */
     private void btnBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseExited
-        // White
-        btnBack.setBackground(new java.awt.Color(255, 255, 255));
+        onButtonMouseExited(evt, btnBack);
     }//GEN-LAST:event_btnBackMouseExited
 
     /**
@@ -716,8 +722,7 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
      * color.
      */
     private void btnBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseEntered
-        // Light blue
-        btnBack.setBackground(new java.awt.Color(203, 203, 239));
+        onButtonMouseEntered(evt, btnBack, LIGHT_BLUE);
     }//GEN-LAST:event_btnBackMouseEntered
 
     /**
@@ -733,8 +738,7 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
      * color.
      */
     private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
-        // White
-        btnExit.setBackground(new java.awt.Color(255, 255, 255));
+        onButtonMouseExited(evt, btnExit);
     }//GEN-LAST:event_btnExitMouseExited
 
     /**
@@ -742,8 +746,7 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
      * color.
      */
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
-        // Red
-        btnExit.setBackground(new java.awt.Color(191, 47, 47));
+        onButtonMouseEntered(evt, btnExit, RED);
     }//GEN-LAST:event_btnExitMouseEntered
 
     /**
@@ -760,8 +763,7 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
      * color.
      */
     private void btnSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseExited
-        // White
-        btnSearch.setBackground(new java.awt.Color(255, 255, 255));
+        onButtonMouseExited(evt, btnSearch);
     }//GEN-LAST:event_btnSearchMouseExited
 
     /**
@@ -769,8 +771,7 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
      * color.
      */
     private void btnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseEntered
-        // Light blue
-        btnSearch.setBackground(new java.awt.Color(203, 203, 239));
+        onButtonMouseEntered(evt, btnSearch, LIGHT_BLUE);
     }//GEN-LAST:event_btnSearchMouseEntered
 
     /**
@@ -783,10 +784,25 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
     }//GEN-LAST:event_txtEmployeeNumberActionPerformed
 
     /**
+     * Handles mouse hover event by changing the background color of the button.
+     */
+    @Override
+    public void onButtonMouseEntered(java.awt.event.MouseEvent evt, JButton button, java.awt.Color color) {
+        button.setBackground(color);
+    }
+
+    /**
+     * Handles mouse exit event by resetting the background color of the button.
+     */
+    @Override
+    public void onButtonMouseExited(java.awt.event.MouseEvent evt, JButton button) {
+        button.setBackground(WHITE);
+    }
+
+    /**
      * Populates employee information based on the provided employee number.
      * Retrieves data from the EmployeeInformation class and fills the
      * appropriate text fields.
-     *
      */
     @Override
     public void populateEmployeeInformation() {
@@ -797,28 +813,38 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
             List<String> employeeInfo = new EmployeeInformation().showEmployeeInformation(employeeNumber);
 
             // Populate text fields with employee details
-            txtLastName.setText(employeeInfo.get(0));
-            txtFirstName.setText(employeeInfo.get(1));
-            txtBirthdate.setText(employeeInfo.get(2));
-            txtAddress.setText(employeeInfo.get(3));
-            txtPhoneNumber.setText(employeeInfo.get(4));
-            txtSssNumber.setText(employeeInfo.get(5));
-            txtPhilHealthNumber.setText(employeeInfo.get(16));
-            txtTinNumber.setText(employeeInfo.get(7));
-            txtPagIbigNumber.setText(employeeInfo.get(8));
-            txtStatus.setText(employeeInfo.get(9));
-            txtPosition.setText(employeeInfo.get(10));
-            txtImmediateSupervisor.setText(employeeInfo.get(11));
-            txtBasicSalary.setText(employeeInfo.get(12));
-            txtRiceSubsidy.setText(employeeInfo.get(13));
-            txtPhoneAllowance.setText(employeeInfo.get(14));
-            txtClothingAllowance.setText(employeeInfo.get(15));
-            txtGrossSemimonthlyRate.setText(employeeInfo.get(16));
-            txtHourlyRate.setText(employeeInfo.get(17));
-        } catch (IOException | ParseException | NumberFormatException | NullPointerException e) {
-            // Handle exceptions by showing an error message
-            JOptionPane.showMessageDialog(pnlMain, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            updateEmployeeInformationFields(employeeInfo);
+        } catch (IOException | ParseException | CsvValidationException | IllegalArgumentException e) {
+            // Show error dialog with the exception message
+            showErrorDialog("Error fetching employee information: " + e.getMessage());
         }
+    }
+
+    /**
+     * Updates the employee information text fields for the searched employee.
+     *
+     * @param employeeInfo The information of the employee.
+     */
+    @Override
+    public void updateEmployeeInformationFields(List<String> employeeInfo) {
+        txtLastName.setText(employeeInfo.get(0));
+        txtFirstName.setText(employeeInfo.get(1));
+        txtBirthdate.setText(employeeInfo.get(2));
+        txtAddress.setText(employeeInfo.get(3));
+        txtPhoneNumber.setText(employeeInfo.get(4));
+        txtSssNumber.setText(employeeInfo.get(5));
+        txtPhilHealthNumber.setText(employeeInfo.get(16));
+        txtTinNumber.setText(employeeInfo.get(7));
+        txtPagIbigNumber.setText(employeeInfo.get(8));
+        txtStatus.setText(employeeInfo.get(9));
+        txtPosition.setText(employeeInfo.get(10));
+        txtImmediateSupervisor.setText(employeeInfo.get(11));
+        txtBasicSalary.setText(employeeInfo.get(12));
+        txtRiceSubsidy.setText(employeeInfo.get(13));
+        txtPhoneAllowance.setText(employeeInfo.get(14));
+        txtClothingAllowance.setText(employeeInfo.get(15));
+        txtGrossSemimonthlyRate.setText(employeeInfo.get(16));
+        txtHourlyRate.setText(employeeInfo.get(17));
     }
 
     /**
@@ -931,6 +957,16 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
      */
     @Override
     public void enableDateInputs() {
+        throw new UnsupportedOperationException("Not supported yet."); // Method not yet implemented
+    }
+
+    /**
+     * Updates the wage information text fields for the searched employee.
+     *
+     * @param wageInfo The wage information of the employee.
+     */
+    @Override
+    public void updateWageInformationFields(List<String> wageInfo) {
         throw new UnsupportedOperationException("Not supported yet."); // Method not yet implemented
     }
 }

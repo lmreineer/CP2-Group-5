@@ -1,0 +1,68 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.motorph;
+
+import java.util.List;
+import javax.swing.JButton;
+
+/**
+ * An interface for populating employee information based on the provided
+ * employee number.
+ *
+ * @author Lance1
+ */
+interface EmployeeInformationManager {
+
+    /**
+     * Handles mouse exit event by resetting the background color of the button.
+     */
+    void onButtonMouseEntered(java.awt.event.MouseEvent evt, JButton button, java.awt.Color color);
+
+    /**
+     * Handles mouse exit event by resetting the background color of the button.
+     */
+    void onButtonMouseExited(java.awt.event.MouseEvent evt, JButton button);
+
+    /**
+     * Populates employee information based on the provided employee number.
+     * Retrieves data from the EmployeeInformation class and fills the
+     * appropriate text fields.
+     */
+    void populateEmployeeInformation();
+
+    /**
+     * Updates the employee information text fields for the searched employee.
+     *
+     * @param employeeInfo The information of the employee.
+     */
+    void updateEmployeeInformationFields(List<String> employeeInfo);
+
+    /**
+     * Enables start and end date input fields for wage calculation.
+     */
+    void enableDateInputs();
+
+    /**
+     * Populates wage information based on the provided employee number and date
+     * range. Retrieves data from the NetWageCalculation class and fills the
+     * appropriate text fields.
+     */
+    void populateWageInformation();
+
+    /**
+     * Updates the wage information text fields for the searched employee.
+     *
+     * @param wageInfo The wage information of the employee.
+     */
+    void updateWageInformationFields(List<String> wageInfo);
+
+    /**
+     * Displays an error dialog with the provided error message.
+     *
+     * @param errorMessage The message to be displayed in the error dialog.
+     */
+    void showErrorDialog(String errorMessage
+    );
+}

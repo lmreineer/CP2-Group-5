@@ -5,7 +5,8 @@
 package com.mycompany.motorph.calculation;
 
 import com.mycompany.motorph.model.DateRange;
-import java.io.BufferedReader;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
@@ -26,11 +27,13 @@ abstract class WageCalculation {
     private final TimeCalculation timeCalculation;
 
     // Paths to data files
-    private static final String EMPLOYEES_DATA_PATH = "C:\\Users\\Lance1\\Documents\\CP2-Group-5\\src\\main\\resources\\data\\employee_information.txt";
-    private static final String ATTENDANCE_DATA_PATH = "C:\\Users\\Lance1\\Documents\\CP2-Group-5\\src\\main\\resources\\data\\employee_attendance.txt";
+    private static final String EMPLOYEES_DATA_PATH = "src\\main\\resources\\data\\employee_information.csv";
+    private static final String ATTENDANCE_DATA_PATH = "src\\main\\resources\\data\\employee_attendance.csv";
 
-    // Expected total number of values per row from the data
-    private static final int EMPLOYEE_EXPECTED_COL_LENGTH = 18;
+    // Expected total number of data per row from the data
+    private static final int EMPLOYEE_EXPECTED_DATA_LENGTH = 19;
+    private static final int EMPLOYEE_NUM_INDEX = 0;
+    private static final int HOURLY_RATE_INDEX = 18;
 
     /**
      * Constructor for WageCalculation.
@@ -44,15 +47,15 @@ abstract class WageCalculation {
     /**
      * Calculates and displays wage for an employee.
      *
-     * @param employeeNumber Employee number for which wage is calculated
-     * @param dateRange Date range for which wage is calculated
-     * @return
-     * @throws IOException If an I/O error occurs
-     * @throws ParseException If a date parsing error occurs
+     * @param employeeNumber The employee number for which wage is calculated
+     * @param dateRange The date range for which wage is calculated
+     * @return The wage information
+     * @throws IOException If an I/O error occurs while reading the file
+     * @throws CsvValidationException If data from a row is invalid
+     * @throws ParseException If parsing error occurs
      */
-    public List<String> showWage(int employeeNumber, DateRange dateRange) throws IOException, ParseException {
-        // Read attendance data
-        List<String> attendanceDataList = readAttendanceData();
+    public List<String> showWage(int employeeNumber, DateRange dateRange) throws IOException, CsvValidationException, ParseException {
+        List<String[]> attendanceDataList = readAttendanceData();
 
         // Calculate total hours worked 
         double hoursWorked = calculateTotalHoursWorked(attendanceDataList, employeeNumber, dateRange);
@@ -79,80 +82,83 @@ abstract class WageCalculation {
     /**
      * Abstract method to calculate late arrival deduction for an employee.
      *
-     * @param attendanceDataList Attendance data
-     * @param employeeNumber Employee number
-     * @param dateRange Date range
-     * @return Late arrival deduction amount
+     * @param attendanceDataList The list containing attendance data
+     * @param employeeNumber The employee number
+     * @param dateRange The date range
+     * @return The late arrival deduction amount
      * @throws ParseException If a date parsing error occurs
      */
-    protected abstract double calculateLateArrivalDeduction(List<String> attendanceDataList, int employeeNumber, DateRange dateRange) throws ParseException;
+    protected abstract double calculateLateArrivalDeduction(List<String[]> attendanceDataList, int employeeNumber, DateRange dateRange) throws ParseException;
 
     /**
      * Abstract method to calculate wage based on hourly rate and hours worked.
      *
-     * @param hourlyRate Hourly rate
-     * @param hoursWorked Hours worked
-     * @param lateArrivalDeduction Late arrival deduction for the employee
-     * @return Calculated wage
+     * @param hourlyRate The hourly rate
+     * @param hoursWorked The hours worked
+     * @param lateArrivalDeduction The late arrival deduction for the employee
+     * @return The calculated wage
      */
     protected abstract double calculateWage(double hourlyRate, double hoursWorked, double lateArrivalDeduction);
 
     /**
      * Abstract method to display wage for an employee.
      *
-     * @param employeeNumber Employee number
-     * @param hourlyRate Hourly rate
-     * @param hoursWorked Hours worked
-     * @param lateArrivalDeduction Late arrival deduction for the employee
-     * @return
+     * @param employeeNumber The employee number
+     * @param hourlyRate The hourly rate
+     * @param hoursWorked The hours worked
+     * @param lateArrivalDeduction The late arrival deduction
+     * @return A list of strings containing wage information
      */
     protected abstract List<String> getWageInformation(int employeeNumber, double hourlyRate, double hoursWorked, double lateArrivalDeduction);
 
     /**
      * Gets the hourly rate of an employee from the employee data file.
      *
-     * @param employeeNumber Employee number
-     * @return Hourly rate of the employee
-     * @throws IOException If an I/O error occurs
+     * @param employeeNumber The employee number
+     * @return The hourly rate of the employee
+     * @throws IOException If an I/O error occurs while reading the file
+     * @throws CsvValidationException If data from a row is invalid
+     * @throws ParseException If parsing error occurs
      */
-    private double getHourlyRate(int employeeNumber) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(EMPLOYEES_DATA_PATH))) {
-            String line;
-            // Iterate through each line of the employee information data file
-            while ((line = reader.readLine()) != null) {
-                // Split the attendance data using "|" as a delimiter
-                String[] employeeData = line.split("\\|");
-                // If the columns from the data has the expected length and match the inputted employee number
-                if (employeeData.length >= EMPLOYEE_EXPECTED_COL_LENGTH && Integer.parseInt(employeeData[0]) == employeeNumber) {
+    private double getHourlyRate(int employeeNumber) throws IOException, CsvValidationException, ParseException {
+        // Open the file for reading
+        try (CSVReader reader = new CSVReader(new FileReader(EMPLOYEES_DATA_PATH))) {
+            String[] data;
+            // Skip header
+            reader.readNext();
+            // Read data per row from the file
+            while ((data = reader.readNext()) != null) {
+                // If the data has the expected length per row and has the matching employee number from the inputted one
+                if (data.length == EMPLOYEE_EXPECTED_DATA_LENGTH && Integer.parseInt(data[EMPLOYEE_NUM_INDEX]) == employeeNumber) {
                     // Return the hourly rate of the employee
-                    return Double.parseDouble(employeeData[EMPLOYEE_EXPECTED_COL_LENGTH]);
+                    return Double.parseDouble(data[HOURLY_RATE_INDEX]);
                 }
             }
         }
 
-        // Throw an exception if the employee with the inputted employee number is not found in the employee database
-        throw new RuntimeException("Employee not found in the employee database");
+        // Return 0 as default if the employee is not found
+        return 0.0;
     }
 
     /**
      * Calculates the total hours worked by an employee within an inputted date
      * range.
      *
-     * @param attendanceDataList Attendance data
-     * @param employeeNumber Employee number
-     * @param dateRange Date range
-     * @return Total hours worked
+     * @param attendanceDataList The list containing attendance data
+     * @param employeeNumber The employee number
+     * @param dateRange The date range
+     * @return The total hours worked
      * @throws ParseException If a date parsing error occurs
      */
-    private double calculateTotalHoursWorked(List<String> attendanceDataList, int employeeNumber, DateRange dateRange) throws ParseException {
+    private double calculateTotalHoursWorked(List<String[]> attendanceDataList, int employeeNumber, DateRange dateRange) throws ParseException {
         return timeCalculation.calculateTotalHoursWorked(attendanceDataList, employeeNumber, dateRange);
     }
 
     /**
      * Calculates assumed hours worked based on a date range.
      *
-     * @param dateRange Date range
-     * @return Assumed hours worked
+     * @param dateRange The date range
+     * @return The assumed hours worked
      */
     private double calculateAssumedHoursWorked(DateRange dateRange) {
         return timeCalculation.calculateAssumedHoursWorked(dateRange);
@@ -161,19 +167,22 @@ abstract class WageCalculation {
     /**
      * Reads attendance data from the file and returns it as a list.
      *
-     * @return List of attendance data
+     * @return The list of attendance data
      * @throws IOException If an I/O error occurs
      */
-    private List<String> readAttendanceData() throws IOException {
+    private List<String[]> readAttendanceData() throws IOException, CsvValidationException {
         // Initialize a list
-        List<String> attendanceDataList = new ArrayList<>();
+        List<String[]> attendanceDataList = new ArrayList<>();
 
-        // Read attendance data from the file
-        try (BufferedReader attendanceReader = new BufferedReader(new FileReader(ATTENDANCE_DATA_PATH))) {
-            String attendanceLine;
-            while ((attendanceLine = attendanceReader.readLine()) != null) {
-                // Add each line of attendance data to the list
-                attendanceDataList.add(attendanceLine);
+        // Open the file for reading
+        try (CSVReader reader = new CSVReader(new FileReader(ATTENDANCE_DATA_PATH))) {
+            String[] data;
+            // Skip header
+            reader.readNext();
+            // Read data per row from the file
+            while ((data = reader.readNext()) != null) {
+                // Add each row of attendance data to the list
+                attendanceDataList.add(data);
             }
         }
 
