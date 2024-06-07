@@ -27,8 +27,8 @@ abstract class WageCalculation {
     private final TimeCalculation timeCalculation;
 
     // Paths to data files
-    private static final String EMPLOYEES_DATA_PATH = "src\\main\\resources\\data\\employee_information.csv";
-    private static final String ATTENDANCE_DATA_PATH = "src\\main\\resources\\data\\employee_attendance.csv";
+    private static final String EMPLOYEES_DATA_PATH = "src/main/resources/data/employee_information.csv";
+    private static final String ATTENDANCE_DATA_PATH = "src/main/resources/data/employee_attendance.csv";
 
     // Expected total number of data per row from the data
     private static final int EMPLOYEE_EXPECTED_DATA_LENGTH = 19;

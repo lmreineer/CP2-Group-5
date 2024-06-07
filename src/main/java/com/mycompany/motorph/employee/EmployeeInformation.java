@@ -22,7 +22,7 @@ import java.util.List;
 public class EmployeeInformation {
 
     // Path to the employee data file
-    private static final String EMPLOYEES_DATA_PATH = "src\\main\\resources\\data\\employee_information.csv";
+    private static final String EMPLOYEES_DATA_PATH = "src/main/resources/data/employee_information.csv";
 
     /**
      * Displays employee information with the inputted employee number.

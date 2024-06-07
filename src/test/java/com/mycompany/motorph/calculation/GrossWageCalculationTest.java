@@ -5,6 +5,7 @@
 package com.mycompany.motorph.calculation;
 
 import com.mycompany.motorph.model.DateRange;
+import java.text.ParseException;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
@@ -56,7 +57,7 @@ public class GrossWageCalculationTest {
 //        assertEquals("================================", lines[6].trim());
 //    }
     @Test
-    public void calculateLateArrivalDeduction_IsNotSupported() {
+    public void calculateLateArrivalDeduction_IsNotSupported() throws ParseException {
         // Test data
         List<String[]> attendanceDataList = new ArrayList<>();
         int employeeNumber = 123;

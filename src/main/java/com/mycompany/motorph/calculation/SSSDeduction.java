@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 class SSSDeduction {
 
     // Path to the SSS deductions data file
-    private static final String SSS_DEDUCTIONS_PATH = "src\\main\\resources\\data\\sss_deduction.csv";
+    private static final String SSS_DEDUCTIONS_PATH = "src/main/resources/data/sss_deduction.csv";
 
     private static final double MIN_COMPENSATION_RANGE = 3250.00;
     private static final double MAX_COMPENSATION_RANGE = 24750.00;
@@ -80,8 +80,6 @@ class SSSDeduction {
         // Open the file for reading
         try (CSVReader reader = new CSVReader(new FileReader(SSS_DEDUCTIONS_PATH))) {
             String[] data;
-            // Skip header
-            reader.readNext();
             // Read data per row from the file
             while ((data = reader.readNext()) != null) {
                 // If the data has the expected length per row
