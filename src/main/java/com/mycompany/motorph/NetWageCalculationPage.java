@@ -12,7 +12,6 @@ import com.opencsv.exceptions.CsvValidationException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,6 +26,7 @@ import javax.swing.JOptionPane;
  */
 class NetWageCalculationPage extends javax.swing.JFrame implements EmployeeInformationManager {
 
+    // Constants for button coloring changes
     private static final java.awt.Color LIGHT_BLUE = new java.awt.Color(203, 203, 239);
     private static final java.awt.Color WHITE = new java.awt.Color(255, 255, 255);
     private static final java.awt.Color RED = new java.awt.Color(191, 47, 47);
@@ -604,87 +604,6 @@ class NetWageCalculationPage extends javax.swing.JFrame implements EmployeeInfor
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Handles mouse hover event on the search button by changing its background
-     * color.
-     */
-    private void btnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseEntered
-        onButtonMouseEntered(evt, btnSearch, LIGHT_BLUE);
-    }//GEN-LAST:event_btnSearchMouseEntered
-
-    /**
-     * Handles mouse exit event on the search button by resetting its background
-     * color.
-     */
-    private void btnSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseExited
-        onButtonMouseExited(evt, btnSearch);
-    }//GEN-LAST:event_btnSearchMouseExited
-
-    /**
-     * Handles mouse hover event on the calculate button by changing its
-     * background color.
-     */
-    private void btnCalculateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalculateMouseEntered
-        onButtonMouseEntered(evt, btnCalculate, LIGHT_BLUE);
-    }//GEN-LAST:event_btnCalculateMouseEntered
-
-    /**
-     * Handles mouse exit event on the calculate button by resetting its
-     * background color.
-     */
-    private void btnCalculateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalculateMouseExited
-        onButtonMouseExited(evt, btnCalculate);
-    }//GEN-LAST:event_btnCalculateMouseExited
-
-    /**
-     * Handles mouse hover event on the back button by changing its background
-     * color.
-     */
-    private void btnBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseEntered
-        onButtonMouseEntered(evt, btnBack, LIGHT_BLUE);
-    }//GEN-LAST:event_btnBackMouseEntered
-
-    /**
-     * Handles mouse exit event on the back button by resetting its background
-     * color.
-     */
-    private void btnBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseExited
-        onButtonMouseExited(evt, btnBack);
-    }//GEN-LAST:event_btnBackMouseExited
-
-    /**
-     * Handles mouse hover event on the exit button by changing its background
-     * color.
-     */
-    private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
-        onButtonMouseEntered(evt, btnExit, RED);
-    }//GEN-LAST:event_btnExitMouseEntered
-
-    /**
-     * Handles mouse exit event on the exit button by resetting its background
-     * color.
-     */
-    private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
-        // White
-        onButtonMouseExited(evt, btnExit);
-    }//GEN-LAST:event_btnExitMouseExited
-
-    /**
-     * Handles the action event of the back button to close the current page.
-     */
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // Close the current page
-        dispose();
-    }//GEN-LAST:event_btnBackActionPerformed
-
-    /**
-     * Handles the action event of the exit button to exit the application.
-     */
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // Exit the application
-        System.exit(0);
-    }//GEN-LAST:event_btnExitActionPerformed
-
-    /**
      * Handles the action event of the employee number text field to populate
      * employee information.
      */
@@ -730,20 +649,84 @@ class NetWageCalculationPage extends javax.swing.JFrame implements EmployeeInfor
     }//GEN-LAST:event_btnCalculateActionPerformed
 
     /**
-     * Handles mouse hover event by changing the background color of the button.
+     * Handles mouse hover event on the search button by changing its background
+     * color.
      */
-    @Override
-    public void onButtonMouseEntered(java.awt.event.MouseEvent evt, JButton button, java.awt.Color color) {
-        button.setBackground(color);
-    }
+    private void btnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseEntered
+        btnSearch.setBackground(LIGHT_BLUE);
+    }//GEN-LAST:event_btnSearchMouseEntered
 
     /**
-     * Handles mouse exit event by resetting the background color of the button.
+     * Handles mouse exit event on the search button by resetting its background
+     * color.
      */
-    @Override
-    public void onButtonMouseExited(java.awt.event.MouseEvent evt, JButton button) {
-        button.setBackground(WHITE);
-    }
+    private void btnSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseExited
+        btnSearch.setBackground(WHITE);
+    }//GEN-LAST:event_btnSearchMouseExited
+
+    /**
+     * Handles mouse hover event on the calculate button by changing its
+     * background color.
+     */
+    private void btnCalculateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalculateMouseEntered
+        btnCalculate.setBackground(LIGHT_BLUE);
+    }//GEN-LAST:event_btnCalculateMouseEntered
+
+    /**
+     * Handles mouse exit event on the calculate button by resetting its
+     * background color.
+     */
+    private void btnCalculateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalculateMouseExited
+        btnCalculate.setBackground(WHITE);
+    }//GEN-LAST:event_btnCalculateMouseExited
+
+    /**
+     * Handles the action event of the back button to close the current page.
+     */
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // Close the current page
+        dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    /**
+     * Handles mouse hover event on the back button by changing its background
+     * color.
+     */
+    private void btnBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseEntered
+        btnBack.setBackground(LIGHT_BLUE);
+    }//GEN-LAST:event_btnBackMouseEntered
+
+    /**
+     * Handles mouse exit event on the back button by resetting its background
+     * color.
+     */
+    private void btnBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseExited
+        btnBack.setBackground(WHITE);
+    }//GEN-LAST:event_btnBackMouseExited
+
+    /**
+     * Handles the action event of the exit button to exit the application.
+     */
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // Exit the application
+        System.exit(0);
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    /**
+     * Handles mouse hover event on the exit button by changing its background
+     * color.
+     */
+    private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
+        btnExit.setBackground(RED);
+    }//GEN-LAST:event_btnExitMouseEntered
+
+    /**
+     * Handles mouse exit event on the exit button by resetting its background
+     * color.
+     */
+    private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
+        btnExit.setBackground(WHITE);
+    }//GEN-LAST:event_btnExitMouseExited
 
     /**
      * Populates employee information based on the provided employee number.

@@ -80,6 +80,8 @@ class SSSDeduction {
         // Open the file for reading
         try (CSVReader reader = new CSVReader(new FileReader(SSS_DEDUCTIONS_PATH))) {
             String[] data;
+            // Skip header
+            reader.readNext();
             // Read data per row from the file
             while ((data = reader.readNext()) != null) {
                 // If the data has the expected length per row

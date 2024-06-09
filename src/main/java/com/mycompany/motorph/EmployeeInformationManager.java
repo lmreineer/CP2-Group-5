@@ -5,7 +5,6 @@
 package com.mycompany.motorph;
 
 import java.util.List;
-import javax.swing.JButton;
 
 /**
  * An interface for populating employee information based on the provided
@@ -14,16 +13,6 @@ import javax.swing.JButton;
  * @author Lance1
  */
 interface EmployeeInformationManager {
-
-    /**
-     * Handles mouse exit event by resetting the background color of the button.
-     */
-    void onButtonMouseEntered(java.awt.event.MouseEvent evt, JButton button, java.awt.Color color);
-
-    /**
-     * Handles mouse exit event by resetting the background color of the button.
-     */
-    void onButtonMouseExited(java.awt.event.MouseEvent evt, JButton button);
 
     /**
      * Populates employee information based on the provided employee number.
@@ -63,6 +52,5 @@ interface EmployeeInformationManager {
      *
      * @param errorMessage The message to be displayed in the error dialog.
      */
-    void showErrorDialog(String errorMessage
-    );
+    void showErrorDialog(String errorMessage);
 }
