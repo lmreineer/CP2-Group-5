@@ -9,6 +9,7 @@ import com.mycompany.motorph.data.EmployeeDataReader;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -20,6 +21,8 @@ import java.util.List;
  * @author Lance1
  */
 public class EmployeeInformation {
+
+    private static final SimpleDateFormat BIRTHDATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
     // Path to the employee data file
     private static final String EMPLOYEES_DATA_PATH = "src/main/resources/data/employee_information.csv";
@@ -54,6 +57,33 @@ public class EmployeeInformation {
     }
 
     /**
+     * Updates employee information in the CSV file.
+     *
+     * @param employeeNumber The employee number to update
+     * @param updatedEmployeeInfo The updated information of the employee
+     * @throws IOException If an I/O error occurs while writing to the file
+     * @throws CsvValidationException If data validation fails
+     * @throws ParseException If parsing error occurs
+     */
+    public void updateEmployeeInformationInCsv(int employeeNumber, List<String> updatedEmployeeInfo) throws IOException, CsvValidationException, ParseException {
+        // Read employees from CSV file
+        EmployeeDataReader employeeDataReader = new EmployeeDataReader();
+        List<Employee> employees = employeeDataReader.readEmployees(EMPLOYEES_DATA_PATH);
+        // Loop through each employee information
+        for (Employee employee : employees) {
+            if (employee.getEmployeeNumber() == employeeNumber) {
+                // Update employee information
+                updateEmployee(employee, updatedEmployeeInfo);
+                // Exit loop after updating
+                break;
+            }
+        }
+
+        // Write updated employees back to CSV file
+        employeeDataReader.writeEmployees(EMPLOYEES_DATA_PATH, employees);
+    }
+
+    /**
      * Finds an employee by their employee number.
      *
      * @param employees The list of employees to search in
@@ -72,5 +102,33 @@ public class EmployeeInformation {
 
         // Return null if no matching employee is found
         return null;
+    }
+
+    /**
+     * Updates the given employee with the updated information.
+     *
+     * @param employee The employee to update
+     * @param updatedEmployeeInfo The updated information of the employee
+     */
+    private void updateEmployee(Employee employee, List<String> updatedEmployeeInfo) throws ParseException {
+        // Update employee information
+        employee.setLastName(updatedEmployeeInfo.get(0));
+        employee.setFirstName(updatedEmployeeInfo.get(1));
+        employee.setBirthdate(BIRTHDATE_FORMAT.parse(updatedEmployeeInfo.get(2)));
+        employee.setAddress(updatedEmployeeInfo.get(3));
+        employee.setPhoneNumber(updatedEmployeeInfo.get(4));
+        employee.setSssNumber(updatedEmployeeInfo.get(5));
+        employee.setPhilHealthNumber(updatedEmployeeInfo.get(6));
+        employee.setTinNumber(updatedEmployeeInfo.get(7));
+        employee.setPagIbigNumber(updatedEmployeeInfo.get(8));
+        employee.setStatus(updatedEmployeeInfo.get(9));
+        employee.setPosition(updatedEmployeeInfo.get(10));
+        employee.setImmediateSupervisor(updatedEmployeeInfo.get(11));
+        employee.setBasicSalary(Double.parseDouble(updatedEmployeeInfo.get(12).replace(",", "")));
+        employee.setRiceSubsidy(Double.parseDouble(updatedEmployeeInfo.get(13).replace(",", "")));
+        employee.setPhoneAllowance(Double.parseDouble(updatedEmployeeInfo.get(14).replace(",", "")));
+        employee.setClothingAllowance(Double.parseDouble(updatedEmployeeInfo.get(15).replace(",", "")));
+        employee.setGrossSemimonthlyRate(Double.parseDouble(updatedEmployeeInfo.get(16).replace(",", "")));
+        employee.setHourlyRate(Double.parseDouble(updatedEmployeeInfo.get(17).replace(",", "")));
     }
 }

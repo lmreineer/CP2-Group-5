@@ -5,9 +5,12 @@
 package com.mycompany.motorph.data;
 
 import com.mycompany.motorph.model.Employee;
+import com.mycompany.motorph.util.CurrencyUtil;
 import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -61,6 +64,67 @@ public class EmployeeDataReader {
     }
 
     /**
+     * Writes employee data to the specified file path.
+     *
+     * @param filePath The path to the employee data CSV file
+     * @param employees The list of Employee objects to write to the file
+     * @throws IOException If an I/O error occurs while writing to the file
+     */
+    public void writeEmployees(String filePath, List<Employee> employees) throws IOException {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(filePath))) {
+            // Write the header row
+            writer.writeNext(getHeader());
+            // Loop through each employee
+            for (Employee employee : employees) {
+                // Write data for each employee
+                writer.writeNext(getEmployeeData(employee));
+            }
+        }
+    }
+
+    /**
+     * Retrieves the header for the CSV file.
+     *
+     * @return An array containing the header fields
+     */
+    private String[] getHeader() {
+        return new String[]{"Employee #", "Last Name", "First Name", "Birthday", "Address", "Phone Number",
+            "SSS #", "Philhealth #", "TIN #", "Pag-ibig #", "Status", "Position", "Immediate Supervisor",
+            "Basic Salary", "Rice Subsidy", "Phone Allowance", "Clothing Allowance",
+            "Gross Semi-monthly Rate", "Hourly Rate"};
+    }
+
+    /**
+     * Retrieves the data for a specific employee in CSV format.
+     *
+     * @param employee The employee object to retrieve data from
+     * @return An array containing the employee's data
+     */
+    private String[] getEmployeeData(Employee employee) {
+        return new String[]{
+            String.valueOf(employee.getEmployeeNumber()),
+            employee.getLastName(),
+            employee.getFirstName(),
+            BIRTHDATE_FORMAT.format(employee.getBirthdate()),
+            employee.getAddress(),
+            employee.getPhoneNumber(),
+            employee.getSssNumber(),
+            employee.getPhilHealthNumber(),
+            employee.getTinNumber(),
+            employee.getPagIbigNumber(),
+            employee.getStatus(),
+            employee.getPosition(),
+            employee.getImmediateSupervisor(),
+            CurrencyUtil.formatCurrency(employee.getBasicSalary()),
+            CurrencyUtil.formatCurrency(employee.getRiceSubsidy()),
+            CurrencyUtil.formatCurrency(employee.getPhoneAllowance()),
+            CurrencyUtil.formatCurrency(employee.getClothingAllowance()),
+            CurrencyUtil.formatCurrency(employee.getGrossSemimonthlyRate()),
+            CurrencyUtil.formatCurrency(employee.getHourlyRate())
+        };
+    }
+
+    /**
      * Creates an Employee object from an array of employee data.
      *
      * @param employeeData The array containing employee data
@@ -102,4 +166,5 @@ public class EmployeeDataReader {
     private double parseDouble(String value) {
         return Double.parseDouble(value.replaceAll(",", ""));
     }
+
 }

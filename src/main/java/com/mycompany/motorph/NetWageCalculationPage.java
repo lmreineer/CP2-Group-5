@@ -833,6 +833,7 @@ class NetWageCalculationPage extends javax.swing.JFrame implements EmployeeInfor
      */
     @Override
     public void showErrorDialog(String errorMessage) {
+        // Show a dialog with the error message
         JOptionPane.showMessageDialog(pnlMain, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
