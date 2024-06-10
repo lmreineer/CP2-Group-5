@@ -92,13 +92,26 @@ public class EmployeeInformation {
     }
 
     /**
+     * Retrieves the list of all employees.
+     *
+     * @return The list of employees
+     * @throws IOException If an I/O error occurs while reading the file
+     * @throws CsvValidationException If data from a row is invalid
+     * @throws ParseException If parsing error occurs
+     */
+    public List<Employee> getAllEmployees() throws IOException, CsvValidationException, ParseException {
+        EmployeeDataReader employeeDataReader = new EmployeeDataReader();
+        return employeeDataReader.readEmployees(EMPLOYEES_DATA_PATH);
+    }
+
+    /**
      * Finds an employee by their employee number.
      *
      * @param employees The list of employees to search in
      * @param employeeNumber The employee number to search for
      * @return The found employee. If not found, return null
      */
-    private Employee findEmployeeByNumber(List<Employee> employees, int employeeNumber) {
+    public Employee findEmployeeByNumber(List<Employee> employees, int employeeNumber) {
         // Loop through the list of employees
         for (Employee employee : employees) {
             // If the employee's number matches the inputted number
