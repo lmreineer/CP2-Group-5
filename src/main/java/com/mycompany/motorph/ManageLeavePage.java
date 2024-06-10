@@ -214,7 +214,7 @@ public class ManageLeavePage extends javax.swing.JFrame {
      */
     private void btnLeaveBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeaveBalanceActionPerformed
         // Open LeaveBalancePage
-//        new LeaveBalancePage().setVisible(true);
+        new LeaveBalancePage().setVisible(true);
     }//GEN-LAST:event_btnLeaveBalanceActionPerformed
 
     /**

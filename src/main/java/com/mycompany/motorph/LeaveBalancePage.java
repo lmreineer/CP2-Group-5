@@ -4,6 +4,17 @@
  */
 package com.mycompany.motorph;
 
+import com.mycompany.motorph.data.LeaveDataManager;
+import com.mycompany.motorph.util.LeaveBalanceCalculator;
+import com.mycompany.motorph.model.Leave;
+import com.opencsv.exceptions.CsvValidationException;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lance1
@@ -287,14 +298,22 @@ public class LeaveBalancePage extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Handles the event triggered when the user presses Enter in the employee
+     * number text field.
+     */
     private void txtEmployeeNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmployeeNumberActionPerformed
-        // Populate employee information
+        populateLeaveBalanceInformation();
     }//GEN-LAST:event_txtEmployeeNumberActionPerformed
 
+    /**
+     * Handles the event triggered when the user clicks the search button.
+     */
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // Populate employee information
+        populateLeaveBalanceInformation();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
@@ -360,6 +379,39 @@ public class LeaveBalancePage extends javax.swing.JFrame {
     private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
         btnExit.setBackground(WHITE);
     }//GEN-LAST:event_btnExitMouseExited
+
+    /**
+     * Populates the leave balance information based on the employee number
+     * entered by the user.
+     */
+    private void populateLeaveBalanceInformation() {
+        try {
+            int employeeNumber = Integer.parseInt(txtEmployeeNumber.getText());
+
+            // Get the leave data with the employee number
+            List<Leave> leaves = new LeaveDataManager().getLeavesByEmployeeNumber(employeeNumber);
+
+            // Check if leave data is empty
+            if (leaves.isEmpty()) {
+                JOptionPane.showMessageDialog(pnlMain, "No leave applications found for employee number " + employeeNumber);
+                return;
+            }
+
+            // Calculate leave balances
+            int sickLeaveBalance = LeaveBalanceCalculator.getRemainingSickLeave(leaves);
+            int vacationLeaveBalance = LeaveBalanceCalculator.getRemainingVacationLeave(leaves);
+            int emergencyLeaveBalance = LeaveBalanceCalculator.getRemainingEmergencyLeave(leaves);
+
+            // Update text fields with leave balances
+            txtSickLeave.setText(String.valueOf(sickLeaveBalance));
+            txtVacationLeave.setText(String.valueOf(vacationLeaveBalance));
+            txtEmergencyLeave.setText(String.valueOf(emergencyLeaveBalance));
+
+        } catch (IOException | ParseException | CsvValidationException | IllegalArgumentException e) {
+            // Show error dialog with the exception message
+            JOptionPane.showMessageDialog(pnlMain, "Error populating leave balance information: " + e.getMessage());
+        }
+    }
 
     /**
      * @param args the command line arguments

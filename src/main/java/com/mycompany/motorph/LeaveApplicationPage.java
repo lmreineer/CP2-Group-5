@@ -4,6 +4,16 @@
  */
 package com.mycompany.motorph;
 
+import com.mycompany.motorph.data.LeaveDataManager;
+import com.mycompany.motorph.model.Leave;
+import com.opencsv.exceptions.CsvValidationException;
+import java.awt.HeadlessException;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lance1
@@ -80,11 +90,6 @@ public class LeaveApplicationPage extends javax.swing.JFrame {
         txtEmployeeNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtEmployeeNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         txtEmployeeNumber.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txtEmployeeNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmployeeNumberActionPerformed(evt);
-            }
-        });
 
         lblStartDate.setBackground(new java.awt.Color(255, 255, 255));
         lblStartDate.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
@@ -173,20 +178,10 @@ public class LeaveApplicationPage extends javax.swing.JFrame {
         txtStartDate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtStartDate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         txtStartDate.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txtStartDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtStartDateActionPerformed(evt);
-            }
-        });
 
         txtEndDate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtEndDate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         txtEndDate.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txtEndDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEndDateActionPerformed(evt);
-            }
-        });
 
         lblLeaveType.setBackground(new java.awt.Color(255, 255, 255));
         lblLeaveType.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
@@ -197,7 +192,7 @@ public class LeaveApplicationPage extends javax.swing.JFrame {
         lblLeaveType.setMinimumSize(new java.awt.Dimension(93, 25));
         lblLeaveType.setOpaque(true);
 
-        cmbLeaveType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbLeaveType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sick Leave", "Vacation Leave", "Emergency Leave" }));
 
         lblReasonForLeave.setBackground(new java.awt.Color(255, 255, 255));
         lblReasonForLeave.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
@@ -315,14 +310,6 @@ public class LeaveApplicationPage extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtEndDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEndDateActionPerformed
-        // Populate wage information
-    }//GEN-LAST:event_txtEndDateActionPerformed
-
-    private void txtStartDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStartDateActionPerformed
-        // Populate wage information
-    }//GEN-LAST:event_txtStartDateActionPerformed
-
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // Close the current page
         dispose();
@@ -349,10 +336,6 @@ public class LeaveApplicationPage extends javax.swing.JFrame {
         btnExit.setBackground(RED);
     }//GEN-LAST:event_btnExitMouseEntered
 
-    private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplyActionPerformed
-        // Populate wage information
-    }//GEN-LAST:event_btnApplyActionPerformed
-
     private void btnApplyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnApplyMouseExited
         btnApply.setBackground(WHITE);
     }//GEN-LAST:event_btnApplyMouseExited
@@ -361,9 +344,32 @@ public class LeaveApplicationPage extends javax.swing.JFrame {
         btnApply.setBackground(LIGHT_BLUE);
     }//GEN-LAST:event_btnApplyMouseEntered
 
-    private void txtEmployeeNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmployeeNumberActionPerformed
-        // Populate employee information
-    }//GEN-LAST:event_txtEmployeeNumberActionPerformed
+    private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplyActionPerformed
+        applyLeave();
+    }//GEN-LAST:event_btnApplyActionPerformed
+
+    private void applyLeave() {
+        try {
+            int employeeNumber = Integer.parseInt(txtEmployeeNumber.getText());
+            String leaveType = (String) cmbLeaveType.getSelectedItem();
+            String startDate = txtStartDate.getText();
+            String endDate = txtEndDate.getText();
+            String reason = txaReasonForLeave.getText();
+
+            // Create a Leave object
+            Leave leave = new Leave(employeeNumber, leaveType, startDate, endDate, reason);
+
+            // Save leave application
+            LeaveDataManager leaveDataManager = new LeaveDataManager();
+            leaveDataManager.saveLeaveApplication(leave);
+
+            // Show success message
+            JOptionPane.showMessageDialog(pnlMain, "Leave application submitted successfully.");
+        } catch (IOException | CsvValidationException | IllegalArgumentException e) {
+            // Show error dialog with the exception message
+            JOptionPane.showMessageDialog(pnlMain, "Error submitting leave application: " + e.getMessage());
+        }
+    }
 
     /**
      * @param args the command line arguments

@@ -5,6 +5,7 @@
 package com.mycompany.motorph.model;
 
 /**
+ * Represents a leave application.
  *
  * @author Lance1
  */
@@ -24,48 +25,51 @@ public class Leave {
         this.reason = reason;
     }
 
-    // Getters, and setters
+    // Getters and setters
     public int getEmployeeNumber() {
         return employeeNumber;
-    }
-
-    public void setEmployeeNumber(int employeeNumber) {
-        this.employeeNumber = employeeNumber;
     }
 
     public String getLeaveType() {
         return leaveType;
     }
 
-    public void setLeaveType(String leaveType) {
-        this.leaveType = leaveType;
-    }
-
     public String getStartDate() {
         return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
     }
 
     public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
     public String getReason() {
         return reason;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     public void setReason(String reason) {
         this.reason = reason;
     }
 
+    /**
+     * Converts the Leave object to an array of strings.
+     *
+     * @return An array of strings representing the Leave object
+     */
     public String[] toStringArray() {
-        return new String[]{String.valueOf(employeeNumber), leaveType, startDate, endDate, reason};
+        return new String[]{
+            String.valueOf(employeeNumber),
+            leaveType,
+            startDate,
+            endDate,
+            reason
+        };
     }
 }
