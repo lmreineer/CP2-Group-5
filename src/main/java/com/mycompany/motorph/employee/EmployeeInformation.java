@@ -66,21 +66,29 @@ public class EmployeeInformation {
      * @throws ParseException If parsing error occurs
      */
     public void updateEmployeeInformationInCsv(int employeeNumber, List<String> updatedEmployeeInfo) throws IOException, CsvValidationException, ParseException {
-        // Read employees from CSV file
+        // Create an instance of EmployeeDataReader
         EmployeeDataReader employeeDataReader = new EmployeeDataReader();
-        List<Employee> employees = employeeDataReader.readEmployees(EMPLOYEES_DATA_PATH);
-        // Loop through each employee information
-        for (Employee employee : employees) {
-            if (employee.getEmployeeNumber() == employeeNumber) {
-                // Update employee information
-                updateEmployee(employee, updatedEmployeeInfo);
-                // Exit loop after updating
-                break;
-            }
-        }
 
-        // Write updated employees back to CSV file
-        employeeDataReader.writeEmployees(EMPLOYEES_DATA_PATH, employees);
+        // Read the list of employees from the data file
+        List<Employee> employees = employeeDataReader.readEmployees(EMPLOYEES_DATA_PATH);
+
+        try {
+            // Loop through each employee information
+            for (Employee employee : employees) {
+                if (employee.getEmployeeNumber() == employeeNumber) {
+                    // Update employee information
+                    updateEmployee(employee, updatedEmployeeInfo);
+                    // Exit loop after updating
+                    break;
+                }
+            }
+
+            // Write updated employees back to CSV file
+            employeeDataReader.writeEmployees(EMPLOYEES_DATA_PATH, employees);
+        } catch (NumberFormatException e) {
+            // Throw NumberFormatException with the exception message
+            throw new NumberFormatException("Currencies cannot be empty.");
+        }
     }
 
     /**

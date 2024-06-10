@@ -6,6 +6,9 @@ package com.mycompany.motorph;
 
 import com.mycompany.motorph.employee.EmployeeInformation;
 import com.opencsv.exceptions.CsvValidationException;
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -32,11 +35,14 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
     private static final java.awt.Color RED = new java.awt.Color(191, 47, 47);
     private static final java.awt.Color GRAY = new java.awt.Color(242, 242, 242);
 
+    private boolean deleteButtonClicked = false;
+
     /**
      * Creates new form EmployeeSearchPage and initializes its components
      */
     public EmployeeSearchPage() {
         initComponents();
+        assignClickHandlersToTextFields();
     }
 
     /**
@@ -194,6 +200,7 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
         txtLastName.setBackground(new java.awt.Color(242, 242, 242));
         txtLastName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtLastName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtLastName.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtLastName.setFocusable(false);
 
         lblLastName.setBackground(new java.awt.Color(242, 242, 242));
@@ -878,6 +885,7 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
      * Sets the fields editable for updating employee information.
      */
     private void btnUpdateInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateInfoActionPerformed
+        deleteButtonClicked = false;
         // Set fields editable for updating
         setFieldsEditable(true);
     }//GEN-LAST:event_btnUpdateInfoActionPerformed
@@ -886,9 +894,23 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
      * Sets the fields editable for deleting employee information.
      */
     private void btnDeleteInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteInfoActionPerformed
+        deleteButtonClicked = true;
         // Set fields editable for deleting
         setFieldsEditable(true);
     }//GEN-LAST:event_btnDeleteInfoActionPerformed
+
+    /**
+     * Assigns a mouse click event handler to a text field.
+     */
+    private void assignClickHandlerToTextField(JTextField textField) {
+        textField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // When the mouse is clicked on the text field, call handleTextFieldClick method
+                handleTextFieldClick(textField);
+            }
+        });
+    }
 
     /**
      * Populates employee information based on the provided employee number.
@@ -945,10 +967,46 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
     }
 
     /**
+     * Assigns mouse click event handlers to all text fields.
+     */
+    private void assignClickHandlersToTextFields() {
+        // Assign click event handler to each text field
+        assignClickHandlerToTextField(txtLastName);
+        assignClickHandlerToTextField(txtFirstName);
+        assignClickHandlerToTextField(txtBirthdate);
+        assignClickHandlerToTextField(txtAddress);
+        assignClickHandlerToTextField(txtPhoneNumber);
+        assignClickHandlerToTextField(txtSssNumber);
+        assignClickHandlerToTextField(txtPhilHealthNumber);
+        assignClickHandlerToTextField(txtTinNumber);
+        assignClickHandlerToTextField(txtPagIbigNumber);
+        assignClickHandlerToTextField(txtStatus);
+        assignClickHandlerToTextField(txtPosition);
+        assignClickHandlerToTextField(txtImmediateSupervisor);
+        assignClickHandlerToTextField(txtBasicSalary);
+        assignClickHandlerToTextField(txtRiceSubsidy);
+        assignClickHandlerToTextField(txtPhoneAllowance);
+        assignClickHandlerToTextField(txtClothingAllowance);
+        assignClickHandlerToTextField(txtGrossSemimonthlyRate);
+        assignClickHandlerToTextField(txtHourlyRate);
+    }
+
+    /**
+     * Handles mouse click event on a text field.
+     */
+    private void handleTextFieldClick(JTextField textField) {
+        // If deleteButtonClicked is true
+        if (deleteButtonClicked) {
+            // Clear the text field
+            textField.setText("");
+        }
+    }
+
+    /**
      * Sets the editability of the fields.
      *
-     * @param allowed A boolean indicating whether the fields should be
-     * editable.
+     * @param isDeleteButton A boolean indicating whether the fields should be
+     * editable
      */
     private void setFieldsEditable(boolean allowed) {
         // Define an array of text fields
@@ -962,14 +1020,25 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
 
         // Loop through each text field
         for (JTextField field : textFields) {
-            // Set text fields to editable
-            field.setEditable(allowed);
+            // Modify text fields' background color
             field.setBackground(allowed ? WHITE : GRAY);
-            field.setFocusable(allowed);
+
+            if (deleteButtonClicked) {
+                field.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                // Set text fields to non-editable
+                field.setEditable(false);
+                field.setFocusable(false);
+            } else {
+                deleteButtonClicked = false;
+                field.setCursor(new Cursor(Cursor.TEXT_CURSOR));
+                // Set text fields to editable
+                field.setEditable(allowed);
+                field.setFocusable(allowed);
+            }
         }
 
         // Enable or disable the save button
-        btnSave.setEnabled(allowed);
+        btnSave.setEnabled(true);
     }
 
     /**
