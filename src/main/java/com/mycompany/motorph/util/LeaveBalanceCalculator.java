@@ -19,9 +19,9 @@ import java.util.List;
 public class LeaveBalanceCalculator {
 
     // Constants
-    public static final int SICK_LEAVE_DAYS = 15;
-    public static final int VACATION_LEAVE_DAYS = 15;
-    public static final int EMERGENCY_LEAVE_DAYS = 5;
+    public static final int SICK_LEAVE_DAYS = 1500;
+    public static final int VACATION_LEAVE_DAYS = 1500;
+    public static final int EMERGENCY_LEAVE_DAYS = 500;
 
     /**
      * Calculates the number of days between two dates.
@@ -34,11 +34,14 @@ public class LeaveBalanceCalculator {
     public static int calculateDaysBetween(String startDate, String endDate) throws ParseException {
         // Create a date formatter with the MM/dd format
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd");
+
         // Parse the start and end dates
         Date start = dateFormat.parse(startDate);
         Date end = dateFormat.parse(endDate);
+
         // Calculate the difference between end and start dates in milliseconds
         long difference = end.getTime() - start.getTime();
+
         // Convert milliseconds to days and return the result
         return (int) (difference / (1000 * 60 * 60 * 24)) + 1;
     }
@@ -55,6 +58,7 @@ public class LeaveBalanceCalculator {
      */
     public static int calculateRemainingLeave(List<Leave> leaves, String leaveType, int totalDays) throws ParseException {
         int usedDays = 0;
+
         // Loop through each leave record
         for (Leave leave : leaves) {
             // If the leave type matches the specified type
@@ -63,8 +67,12 @@ public class LeaveBalanceCalculator {
                 usedDays += calculateDaysBetween(leave.getStartDate(), leave.getEndDate());
             }
         }
-        // Calculate remaining leave days and return the result
-        return totalDays - usedDays;
+
+        // Calculate remaining leave days
+        int remainingLeaveDays = totalDays - usedDays;
+
+        // Return 0 if the remainingLeaveDays is less than 0, else, return the remainingLeaveDays value
+        return remainingLeaveDays < 0 ? 0 : remainingLeaveDays;
     }
 
     /**
@@ -76,7 +84,6 @@ public class LeaveBalanceCalculator {
      * record
      */
     public static int getRemainingSickLeave(List<Leave> leaves) throws ParseException {
-        // Call calculateRemainingLeave method with Sick Leave type
         return calculateRemainingLeave(leaves, "Sick Leave", SICK_LEAVE_DAYS);
     }
 
@@ -89,7 +96,6 @@ public class LeaveBalanceCalculator {
      * record
      */
     public static int getRemainingVacationLeave(List<Leave> leaves) throws ParseException {
-        // Call calculateRemainingLeave method with Vacation Leave type
         return calculateRemainingLeave(leaves, "Vacation Leave", VACATION_LEAVE_DAYS);
     }
 
@@ -102,7 +108,6 @@ public class LeaveBalanceCalculator {
      * record
      */
     public static int getRemainingEmergencyLeave(List<Leave> leaves) throws ParseException {
-        // Call calculateRemainingLeave method with Emergency Leave type
         return calculateRemainingLeave(leaves, "Emergency Leave", EMERGENCY_LEAVE_DAYS);
     }
 }

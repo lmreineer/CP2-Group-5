@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  * employee number and a specified date range. Implements the
  * EmployeeInformationManager interface.
  *
- * @author Lance1
+ * @author Lance
  */
 class NetWageCalculationPage extends javax.swing.JFrame implements EmployeeInformationManager {
 

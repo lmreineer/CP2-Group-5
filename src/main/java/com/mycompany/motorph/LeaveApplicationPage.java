@@ -7,16 +7,18 @@ package com.mycompany.motorph;
 import com.mycompany.motorph.data.LeaveDataManager;
 import com.mycompany.motorph.model.Leave;
 import com.opencsv.exceptions.CsvValidationException;
-import java.awt.HeadlessException;
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
+ * A class that represents the leave application page of the MotorPH
+ * application.
+ * <p>
+ * It allows users to input their employee number, the type of leave, the start
+ * and end dates of the leave, and the reason for the leave. It includes
+ * functionalities to update leave balance information.
  *
- * @author Lance1
+ * @author Lance
  */
 public class LeaveApplicationPage extends javax.swing.JFrame {
 
@@ -348,6 +350,9 @@ public class LeaveApplicationPage extends javax.swing.JFrame {
         applyLeave();
     }//GEN-LAST:event_btnApplyActionPerformed
 
+    /**
+     * Applies for leave by collecting information from input fields.
+     */
     private void applyLeave() {
         try {
             int employeeNumber = Integer.parseInt(txtEmployeeNumber.getText());
@@ -367,7 +372,7 @@ public class LeaveApplicationPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(pnlMain, "Leave application submitted successfully.");
         } catch (IOException | CsvValidationException | IllegalArgumentException e) {
             // Show error dialog with the exception message
-            JOptionPane.showMessageDialog(pnlMain, "Error submitting leave application: " + e.getMessage());
+            JOptionPane.showMessageDialog(pnlMain, "Error submitting leave application: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

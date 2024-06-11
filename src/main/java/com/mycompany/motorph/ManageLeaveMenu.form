@@ -44,22 +44,19 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="lblMotorPhHeader" alignment="1" max="32767" attributes="0"/>
-              <Component id="lblGrossWageCalculationHeader" alignment="0" max="32767" attributes="0"/>
-              <Component id="lblBottomSeparator" alignment="0" max="32767" attributes="0"/>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                  <Component id="btnBack" min="-2" pref="69" max="-2" attributes="0"/>
-                  <EmptySpace pref="170" max="32767" attributes="0"/>
-                  <Component id="btnExit" min="-2" pref="69" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-              </Group>
+              <Component id="lblLeaveManagementMenuHeader" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="btnBack" min="-2" pref="69" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnExit" min="-2" pref="69" max="-2" attributes="0"/>
+                      </Group>
                       <Component id="btnLeaveApplication" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnLeaveBalance" alignment="0" min="-2" pref="277" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="62" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -69,14 +66,12 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblMotorPhHeader" min="-2" pref="25" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="lblGrossWageCalculationHeader" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblLeaveManagementMenuHeader" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="btnLeaveApplication" min="-2" pref="49" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="btnLeaveBalance" min="-2" pref="49" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="lblBottomSeparator" min="-2" pref="2" max="-2" attributes="0"/>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <EmptySpace pref="40" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnExit" alignment="3" pref="49" max="32767" attributes="0"/>
                       <Component id="btnBack" alignment="3" pref="49" max="32767" attributes="0"/>
@@ -100,7 +95,7 @@
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblGrossWageCalculationHeader">
+        <Component class="javax.swing.JLabel" name="lblLeaveManagementMenuHeader">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="36" green="36" red="df" type="rgb"/>
@@ -112,22 +107,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Leave Management"/>
-            <Property name="opaque" type="boolean" value="true"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblBottomSeparator">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="33" green="33" red="33" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Leelawadee" size="16" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Leave Management Menu"/>
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
         </Component>

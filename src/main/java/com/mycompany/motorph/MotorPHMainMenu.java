@@ -10,7 +10,7 @@ package com.mycompany.motorph;
  * Provides navigation to employee search, gross wage calculation, and net wage
  * calculation pages.
  *
- * @author Lance1
+ * @author Lance
  */
 class MotorPHMainMenu extends javax.swing.JFrame {
 
@@ -258,8 +258,8 @@ class MotorPHMainMenu extends javax.swing.JFrame {
      * leave page.
      */
     private void btnManageLeaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageLeaveActionPerformed
-        // Open ManageLeavePage
-        new ManageLeavePage().setVisible(true);
+        // Open ManageLeaveMenu
+        new ManageLeaveMenu().setVisible(true);
     }//GEN-LAST:event_btnManageLeaveActionPerformed
 
     /**

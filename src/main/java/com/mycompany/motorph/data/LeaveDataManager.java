@@ -26,6 +26,7 @@ public class LeaveDataManager {
 
     // Path to the leave data file
     private static final String LEAVE_DATA_PATH = "src/main/resources/data/leave_applications.csv";
+
     // Header for the CSV file
     private static final String[] HEADER = {"Employee Number", "Leave Type", "Start Date", "End Date", "Reason"};
 
@@ -46,7 +47,6 @@ public class LeaveDataManager {
         for (Leave l : leaves) {
             // If a matching leave application is found
             if (l.getEmployeeNumber() == leave.getEmployeeNumber() && l.getLeaveType().equals(leave.getLeaveType())) {
-                // Update it
                 l.setStartDate(leave.getStartDate());
                 l.setEndDate(leave.getEndDate());
                 l.setReason(leave.getReason());
@@ -82,6 +82,7 @@ public class LeaveDataManager {
     public List<Leave> loadLeaveApplications() throws IOException, CsvValidationException {
         List<Leave> leaves = new ArrayList<>();
         File file = new File(LEAVE_DATA_PATH);
+
         // If file exists
         if (file.exists()) {
             try (CSVReader reader = new CSVReader(new FileReader(file))) {
@@ -94,6 +95,7 @@ public class LeaveDataManager {
                         // Skip header
                         continue;
                     }
+
                     // Create leave object from CSV data and add to list
                     leaves.add(new Leave(
                             Integer.parseInt(data[0]),
@@ -105,6 +107,7 @@ public class LeaveDataManager {
                 }
             }
         }
+
         return leaves;
     }
 

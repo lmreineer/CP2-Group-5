@@ -5,19 +5,23 @@
 package com.mycompany.motorph;
 
 import com.mycompany.motorph.data.LeaveDataManager;
+import com.mycompany.motorph.employee.EmployeeInformation;
 import com.mycompany.motorph.util.LeaveBalanceCalculator;
 import com.mycompany.motorph.model.Leave;
+import com.mycompany.motorph.util.CurrencyUtil;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
+ * A class that represents the leave balance page of the MotorPH application.
+ * <p>
+ * It allows users to view their remaining balances for sick leave, vacation
+ * leave, and emergency leave.
  *
- * @author Lance1
+ * @author Lance
  */
 public class LeaveBalancePage extends javax.swing.JFrame {
 
@@ -44,7 +48,7 @@ public class LeaveBalancePage extends javax.swing.JFrame {
 
         pnlMain = new javax.swing.JPanel();
         lblMotorPhHeader = new javax.swing.JLabel();
-        lblLeaveBalance = new javax.swing.JLabel();
+        lblLeaveBalanceHeader = new javax.swing.JLabel();
         lblEmployeeNumber = new javax.swing.JLabel();
         txtEmployeeNumber = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
@@ -58,6 +62,15 @@ public class LeaveBalancePage extends javax.swing.JFrame {
         lblBottomSeparator = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        txtLastName = new javax.swing.JTextField();
+        lblLastName = new javax.swing.JLabel();
+        lblFirstName = new javax.swing.JLabel();
+        txtFirstName = new javax.swing.JTextField();
+        lblStartDate = new javax.swing.JLabel();
+        txtStartDate = new javax.swing.JTextField();
+        txtEndDate = new javax.swing.JTextField();
+        lblEndDate = new javax.swing.JLabel();
+        lblMidSeparator = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -69,12 +82,12 @@ public class LeaveBalancePage extends javax.swing.JFrame {
         lblMotorPhHeader.setText("MotorPH Payroll System");
         lblMotorPhHeader.setOpaque(true);
 
-        lblLeaveBalance.setBackground(new java.awt.Color(223, 54, 54));
-        lblLeaveBalance.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
-        lblLeaveBalance.setForeground(new java.awt.Color(255, 255, 255));
-        lblLeaveBalance.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLeaveBalance.setText("Leave Balance");
-        lblLeaveBalance.setOpaque(true);
+        lblLeaveBalanceHeader.setBackground(new java.awt.Color(223, 54, 54));
+        lblLeaveBalanceHeader.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
+        lblLeaveBalanceHeader.setForeground(new java.awt.Color(255, 255, 255));
+        lblLeaveBalanceHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLeaveBalanceHeader.setText("Leave Balance");
+        lblLeaveBalanceHeader.setOpaque(true);
 
         lblEmployeeNumber.setBackground(new java.awt.Color(255, 255, 255));
         lblEmployeeNumber.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
@@ -212,39 +225,125 @@ public class LeaveBalancePage extends javax.swing.JFrame {
             }
         });
 
+        txtLastName.setEditable(false);
+        txtLastName.setBackground(new java.awt.Color(242, 242, 242));
+        txtLastName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtLastName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtLastName.setFocusable(false);
+
+        lblLastName.setBackground(new java.awt.Color(242, 242, 242));
+        lblLastName.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
+        lblLastName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLastName.setText("Last Name:");
+        lblLastName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblLastName.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblLastName.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblLastName.setOpaque(true);
+
+        lblFirstName.setBackground(new java.awt.Color(242, 242, 242));
+        lblFirstName.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
+        lblFirstName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFirstName.setText("First Name:");
+        lblFirstName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblFirstName.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblFirstName.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblFirstName.setOpaque(true);
+
+        txtFirstName.setEditable(false);
+        txtFirstName.setBackground(new java.awt.Color(242, 242, 242));
+        txtFirstName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtFirstName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtFirstName.setFocusable(false);
+
+        lblStartDate.setBackground(new java.awt.Color(242, 242, 242));
+        lblStartDate.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
+        lblStartDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblStartDate.setText("Start Date (MM/DD):");
+        lblStartDate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblStartDate.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblStartDate.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblStartDate.setOpaque(true);
+
+        txtStartDate.setEditable(false);
+        txtStartDate.setBackground(new java.awt.Color(242, 242, 242));
+        txtStartDate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtStartDate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtStartDate.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtStartDate.setFocusable(false);
+
+        txtEndDate.setEditable(false);
+        txtEndDate.setBackground(new java.awt.Color(242, 242, 242));
+        txtEndDate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtEndDate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txtEndDate.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtEndDate.setFocusable(false);
+
+        lblEndDate.setBackground(new java.awt.Color(242, 242, 242));
+        lblEndDate.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
+        lblEndDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEndDate.setText("End Date (MM/DD):");
+        lblEndDate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblEndDate.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblEndDate.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblEndDate.setOpaque(true);
+
+        lblMidSeparator.setBackground(new java.awt.Color(51, 51, 51));
+        lblMidSeparator.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
+        lblMidSeparator.setForeground(new java.awt.Color(255, 255, 255));
+        lblMidSeparator.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMidSeparator.setOpaque(true);
+
         javax.swing.GroupLayout pnlMainLayout = new javax.swing.GroupLayout(pnlMain);
         pnlMain.setLayout(pnlMainLayout);
         pnlMainLayout.setHorizontalGroup(
             pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblMotorPhHeader, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lblLeaveBalance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblLeaveBalanceHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblTopSeparator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lblBottomSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblMidSeparator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblBottomSeparator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnlMainLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMainLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(lblEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(txtEmployeeNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                        .addGap(6, 6, 6)
+                        .addGap(5, 5, 5)
+                        .addComponent(txtEmployeeNumber)
+                        .addGap(5, 5, 5)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainLayout.createSequentialGroup()
+                    .addGroup(pnlMainLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
                         .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainLayout.createSequentialGroup()
+                                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblLastName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                                    .addComponent(txtLastName)))
                             .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblSickLeave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSickLeave, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainLayout.createSequentialGroup()
+                                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblEndDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtStartDate, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtEndDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlMainLayout.createSequentialGroup()
+                                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblVacationLeave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblSickLeave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblEmergencyLeave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(5, 5, 5)))
-                        .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtVacationLeave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                            .addComponent(txtEmergencyLeave)
-                            .addComponent(txtSickLeave))))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainLayout.createSequentialGroup()
+                                    .addComponent(lblEmergencyLeave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(5, 5, 5)
+                                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtVacationLeave, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                                    .addComponent(txtEmergencyLeave))))))
+                .addGap(12, 12, 12))
+            .addGroup(pnlMainLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -257,7 +356,7 @@ public class LeaveBalancePage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblMotorPhHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblLeaveBalance)
+                .addComponent(lblLeaveBalanceHeader)
                 .addGap(15, 15, 15)
                 .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -265,6 +364,24 @@ public class LeaveBalancePage extends javax.swing.JFrame {
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addComponent(lblTopSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addComponent(lblMidSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSickLeave, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -277,24 +394,24 @@ public class LeaveBalancePage extends javax.swing.JFrame {
                 .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEmergencyLeave, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEmergencyLeave, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(lblBottomSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
                     .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
-                .addGap(15, 15, 15))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlMain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -306,14 +423,14 @@ public class LeaveBalancePage extends javax.swing.JFrame {
      * number text field.
      */
     private void txtEmployeeNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmployeeNumberActionPerformed
-        populateLeaveBalanceInformation();
+        populateEmployeeInformation();
     }//GEN-LAST:event_txtEmployeeNumberActionPerformed
 
     /**
      * Handles the event triggered when the user clicks the search button.
      */
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        populateLeaveBalanceInformation();
+        populateEmployeeInformation();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
@@ -381,36 +498,87 @@ public class LeaveBalancePage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitMouseExited
 
     /**
-     * Populates the leave balance information based on the employee number
-     * entered by the user.
+     * Populates employee information based on the provided employee number.
+     * Retrieves data from the EmployeeInformation class and fills the
+     * appropriate text fields.
      */
-    private void populateLeaveBalanceInformation() {
+    public void populateEmployeeInformation() {
         try {
             int employeeNumber = Integer.parseInt(txtEmployeeNumber.getText());
 
-            // Get the leave data with the employee number
+            // Retrieve employee information
+            List<String> employeeInfo = new EmployeeInformation().showEmployeeInformation(employeeNumber);
+
+            // Retrieve existing leave information
             List<Leave> leaves = new LeaveDataManager().getLeavesByEmployeeNumber(employeeNumber);
 
-            // Check if leave data is empty
-            if (leaves.isEmpty()) {
-                JOptionPane.showMessageDialog(pnlMain, "No leave applications found for employee number " + employeeNumber);
-                return;
-            }
+            Leave leaveInfo = leaves.get(0);
 
-            // Calculate leave balances
-            int sickLeaveBalance = LeaveBalanceCalculator.getRemainingSickLeave(leaves);
-            int vacationLeaveBalance = LeaveBalanceCalculator.getRemainingVacationLeave(leaves);
-            int emergencyLeaveBalance = LeaveBalanceCalculator.getRemainingEmergencyLeave(leaves);
-
-            // Update text fields with leave balances
-            txtSickLeave.setText(String.valueOf(sickLeaveBalance));
-            txtVacationLeave.setText(String.valueOf(vacationLeaveBalance));
-            txtEmergencyLeave.setText(String.valueOf(emergencyLeaveBalance));
-
-        } catch (IOException | ParseException | CsvValidationException | IllegalArgumentException e) {
+            // Display employee and leave information
+            updateEmployeeInformationFields(employeeInfo, leaveInfo);
+            updateLeaveInformationFields(leaves);
+        } catch (IOException | ParseException | CsvValidationException | IllegalArgumentException | IndexOutOfBoundsException e) {
             // Show error dialog with the exception message
-            JOptionPane.showMessageDialog(pnlMain, "Error populating leave balance information: " + e.getMessage());
+            showErrorDialog("Error fetching information: " + e.getMessage());
         }
+    }
+
+    /**
+     * Updates the employee information text fields for the searched employee.
+     *
+     * @param employeeInfo The information of the employee
+     */
+    private void updateEmployeeInformationFields(List<String> employeeInfo, Leave leaveInfo) {
+        txtLastName.setText(employeeInfo.get(0));
+        txtFirstName.setText(employeeInfo.get(1));
+        txtStartDate.setText(leaveInfo.getStartDate());
+        txtEndDate.setText(leaveInfo.getEndDate());
+    }
+
+    /**
+     * Updates the leave balance information text fields for the searched
+     * employee.
+     *
+     * @param leaves The leave information of the employee
+     */
+    private void updateLeaveInformationFields(List<Leave> leaves) throws ParseException {
+        // If leave data is empty
+        if (leaves.isEmpty()) {
+            showErrorDialog("No leave applications found for the employee.");
+            return;
+        }
+
+        // Calculate leave balances
+        int sickLeaveBalance = LeaveBalanceCalculator.getRemainingSickLeave(leaves);
+        int vacationLeaveBalance = LeaveBalanceCalculator.getRemainingVacationLeave(leaves);
+        int emergencyLeaveBalance = LeaveBalanceCalculator.getRemainingEmergencyLeave(leaves);
+
+        // Update leave balance information fields
+        updateLeaveBalanceInformationFields(sickLeaveBalance, vacationLeaveBalance, emergencyLeaveBalance);
+    }
+
+    /**
+     * Updates the text fields with the provided leave balance information.
+     *
+     * @param sickLeaveBalance The balance of sick leave
+     * @param vacationLeaveBalance The balance of vacation leave
+     * @param emergencyLeaveBalance The balance of emergency leave
+     */
+    private void updateLeaveBalanceInformationFields(int sickLeaveBalance, int vacationLeaveBalance, int emergencyLeaveBalance) {
+        // Update text fields with leave balances
+        txtSickLeave.setText(CurrencyUtil.formatCurrency((sickLeaveBalance)));
+        txtVacationLeave.setText(CurrencyUtil.formatCurrency((vacationLeaveBalance)));
+        txtEmergencyLeave.setText(CurrencyUtil.formatCurrency((emergencyLeaveBalance)));
+    }
+
+    /**
+     * Displays an error dialog with the provided error message.
+     *
+     * @param errorMessage The message to be displayed in the error dialog.
+     */
+    private void showErrorDialog(String errorMessage) {
+        // Show a dialog with the error message
+        JOptionPane.showMessageDialog(pnlMain, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     /**
@@ -455,15 +623,24 @@ public class LeaveBalancePage extends javax.swing.JFrame {
     private javax.swing.JLabel lblBottomSeparator;
     private javax.swing.JLabel lblEmergencyLeave;
     private javax.swing.JLabel lblEmployeeNumber;
-    private javax.swing.JLabel lblLeaveBalance;
+    private javax.swing.JLabel lblEndDate;
+    private javax.swing.JLabel lblFirstName;
+    private javax.swing.JLabel lblLastName;
+    private javax.swing.JLabel lblLeaveBalanceHeader;
+    private javax.swing.JLabel lblMidSeparator;
     private javax.swing.JLabel lblMotorPhHeader;
     private javax.swing.JLabel lblSickLeave;
+    private javax.swing.JLabel lblStartDate;
     private javax.swing.JLabel lblTopSeparator;
     private javax.swing.JLabel lblVacationLeave;
     private javax.swing.JPanel pnlMain;
     private javax.swing.JTextField txtEmergencyLeave;
     private javax.swing.JTextField txtEmployeeNumber;
+    private javax.swing.JTextField txtEndDate;
+    private javax.swing.JTextField txtFirstName;
+    private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtSickLeave;
+    private javax.swing.JTextField txtStartDate;
     private javax.swing.JTextField txtVacationLeave;
     // End of variables declaration//GEN-END:variables
 }

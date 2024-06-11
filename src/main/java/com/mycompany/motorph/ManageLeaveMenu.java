@@ -5,10 +5,14 @@
 package com.mycompany.motorph;
 
 /**
+ * A class that represents the manage leave menu in the application.
+ * <p>
+ * It allows users to navigate to either the leave application page or the leave
+ * balance page.
  *
- * @author Lance1
+ * @author Lance
  */
-public class ManageLeavePage extends javax.swing.JFrame {
+public class ManageLeaveMenu extends javax.swing.JFrame {
 
     // Constants for button coloring changes
     private static final java.awt.Color LIGHT_BLUE = new java.awt.Color(203, 203, 239);
@@ -18,7 +22,7 @@ public class ManageLeavePage extends javax.swing.JFrame {
     /**
      * Creates new form ManageLeavePage
      */
-    public ManageLeavePage() {
+    public ManageLeaveMenu() {
         initComponents();
     }
 
@@ -33,8 +37,7 @@ public class ManageLeavePage extends javax.swing.JFrame {
 
         pnlMain = new javax.swing.JPanel();
         lblMotorPhHeader = new javax.swing.JLabel();
-        lblGrossWageCalculationHeader = new javax.swing.JLabel();
-        lblBottomSeparator = new javax.swing.JLabel();
+        lblLeaveManagementMenuHeader = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         btnLeaveApplication = new javax.swing.JButton();
@@ -50,18 +53,12 @@ public class ManageLeavePage extends javax.swing.JFrame {
         lblMotorPhHeader.setText("MotorPH Payroll System");
         lblMotorPhHeader.setOpaque(true);
 
-        lblGrossWageCalculationHeader.setBackground(new java.awt.Color(223, 54, 54));
-        lblGrossWageCalculationHeader.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
-        lblGrossWageCalculationHeader.setForeground(new java.awt.Color(255, 255, 255));
-        lblGrossWageCalculationHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblGrossWageCalculationHeader.setText("Leave Management");
-        lblGrossWageCalculationHeader.setOpaque(true);
-
-        lblBottomSeparator.setBackground(new java.awt.Color(51, 51, 51));
-        lblBottomSeparator.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
-        lblBottomSeparator.setForeground(new java.awt.Color(255, 255, 255));
-        lblBottomSeparator.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBottomSeparator.setOpaque(true);
+        lblLeaveManagementMenuHeader.setBackground(new java.awt.Color(223, 54, 54));
+        lblLeaveManagementMenuHeader.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
+        lblLeaveManagementMenuHeader.setForeground(new java.awt.Color(255, 255, 255));
+        lblLeaveManagementMenuHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLeaveManagementMenuHeader.setText("Leave Management Menu");
+        lblLeaveManagementMenuHeader.setOpaque(true);
 
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
         btnExit.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
@@ -149,20 +146,17 @@ public class ManageLeavePage extends javax.swing.JFrame {
         pnlMainLayout.setHorizontalGroup(
             pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblMotorPhHeader, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lblGrossWageCalculationHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lblBottomSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+            .addComponent(lblLeaveManagementMenuHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnlMainLayout.createSequentialGroup()
                 .addGap(61, 61, 61)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnLeaveApplication, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLeaveBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(pnlMainLayout.createSequentialGroup()
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnLeaveApplication, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLeaveBalance, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         pnlMainLayout.setVerticalGroup(
             pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,14 +164,12 @@ public class ManageLeavePage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblMotorPhHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblGrossWageCalculationHeader)
+                .addComponent(lblLeaveManagementMenuHeader)
                 .addGap(40, 40, 40)
                 .addComponent(btnLeaveApplication, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(btnLeaveBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(lblBottomSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
                     .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
@@ -314,20 +306,21 @@ public class ManageLeavePage extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageLeavePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageLeaveMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageLeavePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageLeaveMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageLeavePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageLeaveMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageLeavePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageLeaveMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageLeavePage().setVisible(true);
+                new ManageLeaveMenu().setVisible(true);
             }
         });
     }
@@ -337,8 +330,7 @@ public class ManageLeavePage extends javax.swing.JFrame {
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLeaveApplication;
     private javax.swing.JButton btnLeaveBalance;
-    private javax.swing.JLabel lblBottomSeparator;
-    private javax.swing.JLabel lblGrossWageCalculationHeader;
+    private javax.swing.JLabel lblLeaveManagementMenuHeader;
     private javax.swing.JLabel lblMotorPhHeader;
     private javax.swing.JPanel pnlMain;
     // End of variables declaration//GEN-END:variables

@@ -10,7 +10,7 @@ import java.util.List;
  * An interface for populating employee information based on the provided
  * employee number.
  *
- * @author Lance1
+ * @author Lance
  */
 interface EmployeeInformationManager {
 

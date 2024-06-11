@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  * employee number and a specified date range. Implements the
  * EmployeeInformationManager interface.
  *
- * @author Lance1
+ * @author Lance
  */
 class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInformationManager {
 
@@ -582,7 +582,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
     /**
      * Updates the employee information text fields for the searched employee.
      *
-     * @param employeeInfo The information of the employee.
+     * @param employeeInfo The information of the employee
      */
     @Override
     public void updateEmployeeInformationFields(List<String> employeeInfo) {
@@ -639,7 +639,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
     /**
      * Updates the wage information text fields for the searched employee.
      *
-     * @param wageInfo The wage information of the employee.
+     * @param wageInfo The wage information of the employee
      */
     @Override
     public void updateWageInformationFields(List<String> wageInfo) {
@@ -649,7 +649,7 @@ class GrossWageCalculationPage extends javax.swing.JFrame implements EmployeeInf
     /**
      * Displays an error dialog with the provided error message.
      *
-     * @param errorMessage The message to be displayed in the error dialog.
+     * @param errorMessage The message to be displayed in the error dialog
      */
     @Override
     public void showErrorDialog(String errorMessage) {

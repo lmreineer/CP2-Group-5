@@ -25,7 +25,7 @@ import javax.swing.JTextField;
  * This class includes methods to set the frame icon, populate employee and wage
  * information, enable date inputs, and display error dialog.
  *
- * @author Lance1
+ * @author Lance
  */
 class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformationManager {
 
