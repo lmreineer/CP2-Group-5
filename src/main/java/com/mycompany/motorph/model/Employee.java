@@ -17,7 +17,7 @@ import java.util.List;
  * class also provides methods for formatting and displaying employee
  * information.
  *
- * @author Lance1
+ * @author Lance
  */
 public class Employee {
 
@@ -197,7 +197,7 @@ public class Employee {
     /**
      * Gets the birthdate of the employee formatted as a string.
      *
-     * @return The birthdate as a string in "mm/dd/yyyy" format
+     * @return The birthdate as a string in "MM/dd/yyyy" format
      */
     public String getBirthdateAsString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -212,6 +212,7 @@ public class Employee {
     public List<String> getEmployeeInformation() {
         List<String> employeeInfo = new ArrayList<>();
 
+        employeeInfo.add(String.valueOf(getEmployeeNumber()));
         employeeInfo.add(getLastName());
         employeeInfo.add(getFirstName());
         employeeInfo.add(getBirthdateAsString());

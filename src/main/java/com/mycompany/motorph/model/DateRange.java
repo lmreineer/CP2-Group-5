@@ -6,18 +6,20 @@ package com.mycompany.motorph.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
  * Represents a date range.
  *
- * @author Lance1
+ * @author Lance
  */
 public class DateRange {
 
     private final Date startDate;
     private final Date endDate;
 
+    private static final SimpleDateFormat MONTH_FORMAT = new SimpleDateFormat("MM");
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd");
 
     /**
@@ -27,6 +29,9 @@ public class DateRange {
      * @param endDate The end date of the range
      */
     public DateRange(Date startDate, Date endDate) {
+        if (endDate.before(startDate)) {
+            throw new IllegalArgumentException("End date must be on or after the start date.");
+        }
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -50,29 +55,42 @@ public class DateRange {
     }
 
     /**
-     * Creates a DateRange object with the inputted start and end date strings
-     * in "mm/dd" format.
+     * Creates a DateRange object for the entire specified month.
      *
-     * @param startDateString The start date string
-     * @param endDateString The end date string
-     * @return The DateRange object representing the specified date range
+     * @param month The month in "MM" format
+     * @return The DateRange object that represents the specified month
+     * @throws ParseException If a parsing error occurs
+     */
+    public static DateRange createMonthRange(String month) throws ParseException {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(MONTH_FORMAT.parse(month));
+
+        // Set start date to the beginning of the specified month
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        Date startDate = calendar.getTime();
+
+        // Set end date to the end of the specified month
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        Date endDate = calendar.getTime();
+
+        return new DateRange(startDate, endDate);
+    }
+
+    /**
+     * Creates a DateRange object for the specified start and end dates.
+     *
+     * @param startDateString The start date string in "MM/dd" format
+     * @param endDateString The end date string in "MM/dd" format
+     * @return The DateRange object of the date range specified
      * @throws ParseException If a parsing error occurs
      */
     public static DateRange createDateRange(String startDateString, String endDateString) throws ParseException {
-        // Set leniency to false to strictly match the pattern
-        DATE_FORMAT.setLenient(false);
+        DATE_FORMAT.setLenient(false); // Strict parsing
 
-        // Parse the start and end dates
-        Date start = DATE_FORMAT.parse(startDateString);
-        Date end = DATE_FORMAT.parse(endDateString);
+        // Parse start and end dates
+        Date startDate = DATE_FORMAT.parse(startDateString);
+        Date endDate = DATE_FORMAT.parse(endDateString);
 
-        // If the end date is before the start date
-        if (end.before(start)) {
-            // Throw IllegalArgumentException with an error message
-            throw new IllegalArgumentException("Invalid date sequence. End date must be on or after the start date.");
-        }
-
-        // Create a DateRange object with the parsed start and end dates
-        return new DateRange(start, end);
+        return new DateRange(startDate, endDate);
     }
 }

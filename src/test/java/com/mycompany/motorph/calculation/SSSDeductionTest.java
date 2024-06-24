@@ -4,6 +4,8 @@
  */
 package com.mycompany.motorph.calculation;
 
+import com.opencsv.exceptions.CsvValidationException;
+import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,21 +25,21 @@ public class SSSDeductionTest {
     private static final double STANDARD_DEDUCTION = 450.0;
 
     @Test
-    public void calculateSssDeduction_ReturnsCorrectMinimumDeduction() {
+    public void calculateSssDeduction_ReturnsCorrectMinimumDeduction() throws IOException, CsvValidationException {
         SSSDeduction sssDeduction = new SSSDeduction();
         double deduction = sssDeduction.calculateSssDeduction(MINIMUM_GROSS_WAGE);
         assertEquals(MINIMUM_DEDUCTION, deduction, DELTA, "SSS deduction should be correct for minimum wage");
     }
 
     @Test
-    public void calculateSssDeduction_DoesNotExceedMaximumDeduction() {
+    public void calculateSssDeduction_DoesNotExceedMaximumDeduction() throws IOException, CsvValidationException {
         SSSDeduction sssDeduction = new SSSDeduction();
         double deduction = sssDeduction.calculateSssDeduction(MAXIMUM_GROSS_WAGE);
         assertEquals(MAXIMUM_DEDUCTION, deduction, DELTA, "SSS deduction should not exceed maximum for maximum wage");
     }
 
     @Test
-    public void calculateSssDeduction_CalculatesCorrectDeductionWithinRange() {
+    public void calculateSssDeduction_CalculatesCorrectDeductionWithinRange() throws IOException, CsvValidationException {
         SSSDeduction sssDeduction = new SSSDeduction();
         double deduction = sssDeduction.calculateSssDeduction(10000.0);
         assertEquals(STANDARD_DEDUCTION, deduction, DELTA, "SSS deduction should be correct within range");

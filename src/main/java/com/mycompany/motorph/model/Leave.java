@@ -7,7 +7,7 @@ package com.mycompany.motorph.model;
 /**
  * Represents a leave application.
  *
- * @author Lance1
+ * @author Lance
  */
 public class Leave {
 
@@ -16,6 +16,9 @@ public class Leave {
     private String startDate;
     private String endDate;
     private String reason;
+    private double sickLeaveAmount;
+    private double vacationLeaveAmount;
+    private double emergencyLeaveAmount;
 
     public Leave(int employeeNumber, String leaveType, String startDate, String endDate, String reason) {
         this.employeeNumber = employeeNumber;
@@ -23,9 +26,13 @@ public class Leave {
         this.startDate = startDate;
         this.endDate = endDate;
         this.reason = reason;
+        // Default leave amounts
+        this.sickLeaveAmount = 0.0;
+        this.vacationLeaveAmount = 0.0;
+        this.emergencyLeaveAmount = 0.0;
     }
 
-    // Getters and setters
+    // Getters
     public int getEmployeeNumber() {
         return employeeNumber;
     }
@@ -46,6 +53,19 @@ public class Leave {
         return reason;
     }
 
+    public double getSickLeaveAmount() {
+        return sickLeaveAmount;
+    }
+
+    public double getVacationLeaveAmount() {
+        return vacationLeaveAmount;
+    }
+
+    public double getEmergencyLeaveAmount() {
+        return emergencyLeaveAmount;
+    }
+
+    // Setters
     public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
@@ -58,18 +78,15 @@ public class Leave {
         this.reason = reason;
     }
 
-    /**
-     * Converts the Leave object to an array of strings.
-     *
-     * @return An array of strings representing the Leave object
-     */
-    public String[] toStringArray() {
-        return new String[]{
-            String.valueOf(employeeNumber),
-            leaveType,
-            startDate,
-            endDate,
-            reason
-        };
+    public void setSickLeaveAmount(double sickLeaveAmount) {
+        this.sickLeaveAmount = sickLeaveAmount;
+    }
+
+    public void setVacationLeaveAmount(double vacationLeaveAmount) {
+        this.vacationLeaveAmount = vacationLeaveAmount;
+    }
+
+    public void setEmergencyLeaveAmount(double emergencyLeaveAmount) {
+        this.emergencyLeaveAmount = emergencyLeaveAmount;
     }
 }

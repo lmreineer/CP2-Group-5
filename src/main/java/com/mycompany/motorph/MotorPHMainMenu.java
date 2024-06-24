@@ -7,8 +7,7 @@ package com.mycompany.motorph;
 /**
  * Main Menu for the MotorPH application.
  * <p>
- * Provides navigation to employee search, gross wage calculation, and net wage
- * calculation pages.
+ * Provides navigation to employee search and leave management.
  *
  * @author Lance
  */
@@ -38,14 +37,13 @@ class MotorPHMainMenu extends javax.swing.JFrame {
         pnlMain = new javax.swing.JPanel();
         lblMotorPhHeader = new javax.swing.JLabel();
         lblMainMenuHeader = new javax.swing.JLabel();
-        btnCalculateGrossWage = new javax.swing.JButton();
         btnSearchEmployee = new javax.swing.JButton();
-        btnCalculateNetWage = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        lblIwantTo = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         btnManageLeave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Payroll System Main Menu");
         setResizable(false);
 
         pnlMain.setBackground(new java.awt.Color(255, 255, 255));
@@ -63,29 +61,9 @@ class MotorPHMainMenu extends javax.swing.JFrame {
         lblMainMenuHeader.setText("Main Menu");
         lblMainMenuHeader.setOpaque(true);
 
-        btnCalculateGrossWage.setBackground(new java.awt.Color(255, 255, 255));
-        btnCalculateGrossWage.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        btnCalculateGrossWage.setText("Calculate gross wage");
-        btnCalculateGrossWage.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        btnCalculateGrossWage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCalculateGrossWage.setFocusable(false);
-        btnCalculateGrossWage.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCalculateGrossWageMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCalculateGrossWageMouseExited(evt);
-            }
-        });
-        btnCalculateGrossWage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalculateGrossWageActionPerformed(evt);
-            }
-        });
-
         btnSearchEmployee.setBackground(new java.awt.Color(255, 255, 255));
         btnSearchEmployee.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        btnSearchEmployee.setText("Search employee");
+        btnSearchEmployee.setText("Search an employee");
         btnSearchEmployee.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         btnSearchEmployee.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSearchEmployee.setFocusable(false);
@@ -103,33 +81,13 @@ class MotorPHMainMenu extends javax.swing.JFrame {
             }
         });
 
-        btnCalculateNetWage.setBackground(new java.awt.Color(255, 255, 255));
-        btnCalculateNetWage.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        btnCalculateNetWage.setText("Calculate net wage");
-        btnCalculateNetWage.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        btnCalculateNetWage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCalculateNetWage.setFocusable(false);
-        btnCalculateNetWage.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCalculateNetWageMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCalculateNetWageMouseExited(evt);
-            }
-        });
-        btnCalculateNetWage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalculateNetWageActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("I want to...");
-        jLabel3.setMaximumSize(new java.awt.Dimension(93, 25));
-        jLabel3.setMinimumSize(new java.awt.Dimension(93, 25));
-        jLabel3.setOpaque(true);
+        lblIwantTo.setBackground(new java.awt.Color(255, 255, 255));
+        lblIwantTo.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
+        lblIwantTo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblIwantTo.setText("I want to...");
+        lblIwantTo.setMaximumSize(new java.awt.Dimension(93, 25));
+        lblIwantTo.setMinimumSize(new java.awt.Dimension(93, 25));
+        lblIwantTo.setOpaque(true);
 
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
         btnExit.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
@@ -176,15 +134,13 @@ class MotorPHMainMenu extends javax.swing.JFrame {
         pnlMainLayout.setHorizontalGroup(
             pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblMainMenuHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lblMotorPhHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(lblMotorPhHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
             .addGroup(pnlMainLayout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblIwantTo, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnSearchEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCalculateNetWage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCalculateGrossWage, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                        .addComponent(btnSearchEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
                         .addComponent(btnManageLeave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnExit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -196,30 +152,28 @@ class MotorPHMainMenu extends javax.swing.JFrame {
                 .addComponent(lblMotorPhHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblMainMenuHeader)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(15, 15, 15)
+                .addComponent(lblIwantTo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
                 .addComponent(btnSearchEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCalculateGrossWage, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCalculateNetWage, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(7, 7, 7)
                 .addComponent(btnManageLeave, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(15, 15, 15)
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlMain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -234,24 +188,6 @@ class MotorPHMainMenu extends javax.swing.JFrame {
         // Open EmployeeSearchPage
         new EmployeeSearchPage().setVisible(true);
     }//GEN-LAST:event_btnSearchEmployeeActionPerformed
-
-    /**
-     * Handles the action event of the calculate gross wage button to open the
-     * gross wage calculation page.
-     */
-    private void btnCalculateGrossWageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateGrossWageActionPerformed
-        // Open GrossWageCalculationPage
-        new GrossWageCalculationPage().setVisible(true);
-    }//GEN-LAST:event_btnCalculateGrossWageActionPerformed
-
-    /**
-     * Handles the action event of the calculate net wage button to open the net
-     * wage calculation page.
-     */
-    private void btnCalculateNetWageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateNetWageActionPerformed
-        // Open NetWageCalculationPage
-        new NetWageCalculationPage().setVisible(true);
-    }//GEN-LAST:event_btnCalculateNetWageActionPerformed
 
     /**
      * Handles the action event of the manage leave button to open the manage
@@ -277,38 +213,6 @@ class MotorPHMainMenu extends javax.swing.JFrame {
     private void btnSearchEmployeeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchEmployeeMouseExited
         btnSearchEmployee.setBackground(WHITE);
     }//GEN-LAST:event_btnSearchEmployeeMouseExited
-
-    /**
-     * Handles mouse hover event on the calculate gross wage button by changing
-     * its background color.
-     */
-    private void btnCalculateGrossWageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalculateGrossWageMouseEntered
-        btnCalculateGrossWage.setBackground(LIGHT_BLUE);
-    }//GEN-LAST:event_btnCalculateGrossWageMouseEntered
-
-    /**
-     * Handles mouse exit event on the calculate gross wage button by resetting
-     * its background color.
-     */
-    private void btnCalculateGrossWageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalculateGrossWageMouseExited
-        btnCalculateGrossWage.setBackground(WHITE);
-    }//GEN-LAST:event_btnCalculateGrossWageMouseExited
-
-    /**
-     * Handles mouse hover event on the calculate net wage button by changing
-     * its background color.
-     */
-    private void btnCalculateNetWageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalculateNetWageMouseEntered
-        btnCalculateNetWage.setBackground(LIGHT_BLUE);
-    }//GEN-LAST:event_btnCalculateNetWageMouseEntered
-
-    /**
-     * Handles mouse exit event on the calculate net wage button by resetting
-     * its background color.
-     */
-    private void btnCalculateNetWageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalculateNetWageMouseExited
-        btnCalculateNetWage.setBackground(WHITE);
-    }//GEN-LAST:event_btnCalculateNetWageMouseExited
 
     /**
      * Handles mouse hover event on the manage leave button by changing its
@@ -393,12 +297,10 @@ class MotorPHMainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCalculateGrossWage;
-    private javax.swing.JButton btnCalculateNetWage;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnManageLeave;
     private javax.swing.JButton btnSearchEmployee;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblIwantTo;
     private javax.swing.JLabel lblMainMenuHeader;
     private javax.swing.JLabel lblMotorPhHeader;
     private javax.swing.JPanel pnlMain;

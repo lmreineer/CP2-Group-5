@@ -7,7 +7,7 @@ package com.mycompany.motorph.calculation;
 /**
  * A class that calculates Pag-IBIG and PhilHealth deductions/contributions.
  *
- * @author Lance1
+ * @author Lance
  */
 class HealthInsurancesDeduction {
 
@@ -27,59 +27,46 @@ class HealthInsurancesDeduction {
     private static final double MAX_PAGIBIG_DEDUCTION = 100;
 
     /**
-     * Calculates the PhilHealth deduction.
+     * Calculates the PhilHealth deduction based on the employee's gross wage.
      *
      * @param grossWage The employee's gross wage
      * @return The calculated PhilHealth deduction amount
      */
-    double calculatePhilHealthDeduction(double grossWage) {
-        // Calculate monthly premium
+    public double calculatePhilHealthDeduction(double grossWage) {
         double monthlyPremium = calculatePhilHealthPremium(grossWage);
-        // Calculate employee share as 50% of the monthly premium
         return monthlyPremium * PHILHEALTH_EMPLOYEE_SHARE;
     }
 
     /**
-     * Calculates the Pag-IBIG deduction.
+     * Calculates the Pag-IBIG deduction based on the employee's gross wage.
      *
      * @param grossWage The employee's gross wage
      * @return The calculated Pag-IBIG deduction amount
      */
-    double calculatePagIbigDeduction(double grossWage) {
-        double pagIbigDeduction = 0;
-        // If the gross wage falls within the minimum salary range to be eligible for contributing
+    public double calculatePagIbigDeduction(double grossWage) {
         if (grossWage >= PAGIBIG_MIN_SALARY && grossWage <= PAGIBIG_MAX_SALARY) {
-            // Calculate Pag-IBIG deduction by getting 3% of the gross wage
-            pagIbigDeduction = grossWage * PAGIBIG_RATE_1000_TO_1500;
-
-            // Else if it is over 1500
+            return grossWage * PAGIBIG_RATE_1000_TO_1500;
         } else if (grossWage > PAGIBIG_MAX_SALARY) {
-            // Calculate Pag-IBIG deduction by getting 4% of the gross wage
             double totalContribution = grossWage * PAGIBIG_RATE_ABOVE_1500;
-            // Limit the contribution/deduction to the maximum contribution amount of 100
-            pagIbigDeduction = Math.min(totalContribution, MAX_PAGIBIG_DEDUCTION);
+            return Math.min(totalContribution, MAX_PAGIBIG_DEDUCTION);
+        } else {
+            return 0;
         }
-        return pagIbigDeduction;
     }
 
     /**
-     * Calculates PhilHealth monthly premium.
+     * Calculates the PhilHealth monthly premium based on the employee's gross
+     * wage.
      *
      * @param grossWage The employee's gross wage
-     * @return The PhilHealth premium amount
+     * @return The calculated PhilHealth premium amount
      */
     private double calculatePhilHealthPremium(double grossWage) {
-        // If the gross wage is less than 10000
         if (grossWage < PHILHEALTH_MIN_SALARY) {
-            // Return the minimum PhilHealth deduction as default
             return MIN_PHILHEALTH_DEDUCTION;
-        } // Else If the gross wage is more than 60000        
-        else if (grossWage > PHILHEALTH_MAX_SALARY) {
-            // Return the maximum PhilHealth deduction as default
+        } else if (grossWage > PHILHEALTH_MAX_SALARY) {
             return MAX_PHILHEALTH_DEDUCTION;
-        } // Else
-        else {
-            // Return monthly premium as 3% of the gross wage
+        } else {
             return grossWage * PHILHEALTH_PREMIUM_RATE;
         }
     }

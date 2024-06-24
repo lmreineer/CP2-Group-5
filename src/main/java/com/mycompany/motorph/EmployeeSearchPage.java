@@ -5,25 +5,21 @@
 package com.mycompany.motorph;
 
 import com.mycompany.motorph.employee.EmployeeInformation;
+import com.mycompany.motorph.model.Employee;
 import com.opencsv.exceptions.CsvValidationException;
-import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
- * A class that represents the Employee Search Page of the MotorPH application.
+ * A class that represents the Employee Search Page of the application.
  * <p>
- * It allows users to search for employee information based on their employee
- * number. Implements the EmployeeInformationManager interface.
- * <p>
- * This class includes methods to set the frame icon, populate employee and wage
- * information, enable date inputs, and display error dialog.
+ * It allows users to select a specific employee based on their employee number.
+ * Implements the EmployeeInformationManager interface.
  *
  * @author Lance
  */
@@ -33,16 +29,17 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
     private static final java.awt.Color LIGHT_BLUE = new java.awt.Color(203, 203, 239);
     private static final java.awt.Color WHITE = new java.awt.Color(255, 255, 255);
     private static final java.awt.Color RED = new java.awt.Color(191, 47, 47);
-    private static final java.awt.Color GRAY = new java.awt.Color(242, 242, 242);
 
-    private boolean deleteButtonClicked = false;
+    private boolean toggleOnButtonClicked = false;
+    private int clickCount = 0;
 
     /**
-     * Creates new form EmployeeSearchPage and initializes its components
+     * Creates new EmployeeSearchPage.
      */
     public EmployeeSearchPage() {
         initComponents();
-        assignClickHandlersToTextFields();
+        populateEmployeeTable();
+        setupTableMouseListener();
     }
 
     /**
@@ -58,54 +55,17 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
         pnlMain = new javax.swing.JPanel();
         lblMotorPhHeader = new javax.swing.JLabel();
         lblEmployeeSearchHeader = new javax.swing.JLabel();
-        lblEmployeeNumber = new javax.swing.JLabel();
-        lblTopSeparator = new javax.swing.JLabel();
-        txtEmployeeNumber = new javax.swing.JTextField();
-        btnSearch = new javax.swing.JButton();
         lblBottomSeparator = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
-        txtLastName = new javax.swing.JTextField();
-        lblLastName = new javax.swing.JLabel();
-        lblBirthdate = new javax.swing.JLabel();
-        txtBirthdate = new javax.swing.JTextField();
-        txtPhoneNumber = new javax.swing.JTextField();
-        lblPhoneNumber = new javax.swing.JLabel();
-        txtAddress = new javax.swing.JTextField();
-        lblAddress = new javax.swing.JLabel();
-        txtSssNumber = new javax.swing.JTextField();
-        lblSssNumber = new javax.swing.JLabel();
-        txtPhilHealthNumber = new javax.swing.JTextField();
-        lblPhilHealthNumber = new javax.swing.JLabel();
-        txtTinNumber = new javax.swing.JTextField();
-        lblTinNumber = new javax.swing.JLabel();
-        txtStatus = new javax.swing.JTextField();
-        lblStatus = new javax.swing.JLabel();
-        txtPagIbigNumber = new javax.swing.JTextField();
-        lblPagIbigNumber = new javax.swing.JLabel();
-        txtPosition = new javax.swing.JTextField();
-        lblPosition = new javax.swing.JLabel();
-        txtBasicSalary = new javax.swing.JTextField();
-        lblBasicSalary = new javax.swing.JLabel();
-        txtPhoneAllowance = new javax.swing.JTextField();
-        lblPhoneAllowance = new javax.swing.JLabel();
-        txtGrossSemimonthlyRate = new javax.swing.JTextField();
-        lblGrossSemimonthlyRate = new javax.swing.JLabel();
-        txtImmediateSupervisor = new javax.swing.JTextField();
-        lblImmediateSupervisor = new javax.swing.JLabel();
-        txtRiceSubsidy = new javax.swing.JTextField();
-        lblRiceSubsidy = new javax.swing.JLabel();
-        txtClothingAllowance = new javax.swing.JTextField();
-        lblClothingAllowance = new javax.swing.JLabel();
-        txtHourlyRate = new javax.swing.JTextField();
-        lblHourlyRate = new javax.swing.JLabel();
-        lblFirstName = new javax.swing.JLabel();
-        txtFirstName = new javax.swing.JTextField();
-        btnSave = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
-        btnDeleteInfo = new javax.swing.JButton();
-        btnUpdateInfo = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblBasicEmployeeInformation = new javax.swing.JTable();
+        tglOn = new javax.swing.JToggleButton();
+        tglOff = new javax.swing.JToggleButton();
+        lblEmployeeSelectionToggle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Employee Search");
         setResizable(false);
 
         scrollPaneMain.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -124,51 +84,6 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
         lblEmployeeSearchHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEmployeeSearchHeader.setText("Employee Search");
         lblEmployeeSearchHeader.setOpaque(true);
-
-        lblEmployeeNumber.setBackground(new java.awt.Color(255, 255, 255));
-        lblEmployeeNumber.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        lblEmployeeNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEmployeeNumber.setText("Employee #:");
-        lblEmployeeNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        lblEmployeeNumber.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblEmployeeNumber.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblEmployeeNumber.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblEmployeeNumber.setOpaque(true);
-
-        lblTopSeparator.setBackground(new java.awt.Color(51, 51, 51));
-        lblTopSeparator.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
-        lblTopSeparator.setForeground(new java.awt.Color(255, 255, 255));
-        lblTopSeparator.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTopSeparator.setOpaque(true);
-
-        txtEmployeeNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtEmployeeNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        txtEmployeeNumber.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txtEmployeeNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmployeeNumberActionPerformed(evt);
-            }
-        });
-
-        btnSearch.setBackground(new java.awt.Color(255, 255, 255));
-        btnSearch.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        btnSearch.setText("Search");
-        btnSearch.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSearch.setFocusable(false);
-        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnSearchMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnSearchMouseExited(evt);
-            }
-        });
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
-            }
-        });
 
         lblBottomSeparator.setBackground(new java.awt.Color(51, 51, 51));
         lblBottomSeparator.setFont(new java.awt.Font("Leelawadee", 1, 16)); // NOI18N
@@ -196,316 +111,6 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
             }
         });
 
-        txtLastName.setEditable(false);
-        txtLastName.setBackground(new java.awt.Color(242, 242, 242));
-        txtLastName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtLastName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtLastName.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        txtLastName.setFocusable(false);
-
-        lblLastName.setBackground(new java.awt.Color(242, 242, 242));
-        lblLastName.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblLastName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLastName.setText("Last Name:");
-        lblLastName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblLastName.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblLastName.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblLastName.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblLastName.setOpaque(true);
-
-        lblBirthdate.setBackground(new java.awt.Color(242, 242, 242));
-        lblBirthdate.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblBirthdate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBirthdate.setText("Birthdate:");
-        lblBirthdate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblBirthdate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblBirthdate.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblBirthdate.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblBirthdate.setOpaque(true);
-
-        txtBirthdate.setEditable(false);
-        txtBirthdate.setBackground(new java.awt.Color(242, 242, 242));
-        txtBirthdate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtBirthdate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtBirthdate.setFocusable(false);
-
-        txtPhoneNumber.setEditable(false);
-        txtPhoneNumber.setBackground(new java.awt.Color(242, 242, 242));
-        txtPhoneNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtPhoneNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtPhoneNumber.setFocusable(false);
-
-        lblPhoneNumber.setBackground(new java.awt.Color(242, 242, 242));
-        lblPhoneNumber.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblPhoneNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPhoneNumber.setText("Phone #:");
-        lblPhoneNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblPhoneNumber.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblPhoneNumber.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblPhoneNumber.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblPhoneNumber.setOpaque(true);
-
-        txtAddress.setEditable(false);
-        txtAddress.setBackground(new java.awt.Color(242, 242, 242));
-        txtAddress.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtAddress.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtAddress.setFocusable(false);
-
-        lblAddress.setBackground(new java.awt.Color(242, 242, 242));
-        lblAddress.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblAddress.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAddress.setText("Address:");
-        lblAddress.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblAddress.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblAddress.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblAddress.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblAddress.setOpaque(true);
-
-        txtSssNumber.setEditable(false);
-        txtSssNumber.setBackground(new java.awt.Color(242, 242, 242));
-        txtSssNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSssNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtSssNumber.setFocusable(false);
-
-        lblSssNumber.setBackground(new java.awt.Color(242, 242, 242));
-        lblSssNumber.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblSssNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSssNumber.setText("SSS #:");
-        lblSssNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblSssNumber.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblSssNumber.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblSssNumber.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblSssNumber.setOpaque(true);
-
-        txtPhilHealthNumber.setEditable(false);
-        txtPhilHealthNumber.setBackground(new java.awt.Color(242, 242, 242));
-        txtPhilHealthNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtPhilHealthNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtPhilHealthNumber.setFocusable(false);
-
-        lblPhilHealthNumber.setBackground(new java.awt.Color(242, 242, 242));
-        lblPhilHealthNumber.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblPhilHealthNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPhilHealthNumber.setText("PhilHealth #:");
-        lblPhilHealthNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblPhilHealthNumber.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblPhilHealthNumber.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblPhilHealthNumber.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblPhilHealthNumber.setOpaque(true);
-
-        txtTinNumber.setEditable(false);
-        txtTinNumber.setBackground(new java.awt.Color(242, 242, 242));
-        txtTinNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtTinNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtTinNumber.setFocusable(false);
-
-        lblTinNumber.setBackground(new java.awt.Color(242, 242, 242));
-        lblTinNumber.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblTinNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTinNumber.setText("TIN #:");
-        lblTinNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblTinNumber.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblTinNumber.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblTinNumber.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblTinNumber.setOpaque(true);
-
-        txtStatus.setEditable(false);
-        txtStatus.setBackground(new java.awt.Color(242, 242, 242));
-        txtStatus.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtStatus.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtStatus.setFocusable(false);
-
-        lblStatus.setBackground(new java.awt.Color(242, 242, 242));
-        lblStatus.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStatus.setText("Status:");
-        lblStatus.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblStatus.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblStatus.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblStatus.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblStatus.setOpaque(true);
-
-        txtPagIbigNumber.setEditable(false);
-        txtPagIbigNumber.setBackground(new java.awt.Color(242, 242, 242));
-        txtPagIbigNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtPagIbigNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtPagIbigNumber.setFocusable(false);
-
-        lblPagIbigNumber.setBackground(new java.awt.Color(242, 242, 242));
-        lblPagIbigNumber.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblPagIbigNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPagIbigNumber.setText("Pag-IBIG #:");
-        lblPagIbigNumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblPagIbigNumber.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblPagIbigNumber.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblPagIbigNumber.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblPagIbigNumber.setOpaque(true);
-
-        txtPosition.setEditable(false);
-        txtPosition.setBackground(new java.awt.Color(242, 242, 242));
-        txtPosition.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtPosition.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtPosition.setFocusable(false);
-
-        lblPosition.setBackground(new java.awt.Color(242, 242, 242));
-        lblPosition.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblPosition.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPosition.setText("Position:");
-        lblPosition.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblPosition.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblPosition.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblPosition.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblPosition.setOpaque(true);
-
-        txtBasicSalary.setEditable(false);
-        txtBasicSalary.setBackground(new java.awt.Color(242, 242, 242));
-        txtBasicSalary.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtBasicSalary.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtBasicSalary.setFocusable(false);
-
-        lblBasicSalary.setBackground(new java.awt.Color(242, 242, 242));
-        lblBasicSalary.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblBasicSalary.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBasicSalary.setText("Basic Salary:");
-        lblBasicSalary.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblBasicSalary.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblBasicSalary.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblBasicSalary.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblBasicSalary.setOpaque(true);
-
-        txtPhoneAllowance.setEditable(false);
-        txtPhoneAllowance.setBackground(new java.awt.Color(242, 242, 242));
-        txtPhoneAllowance.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtPhoneAllowance.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtPhoneAllowance.setFocusable(false);
-
-        lblPhoneAllowance.setBackground(new java.awt.Color(242, 242, 242));
-        lblPhoneAllowance.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblPhoneAllowance.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPhoneAllowance.setText("Phone Allowance:");
-        lblPhoneAllowance.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblPhoneAllowance.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblPhoneAllowance.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblPhoneAllowance.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblPhoneAllowance.setOpaque(true);
-
-        txtGrossSemimonthlyRate.setEditable(false);
-        txtGrossSemimonthlyRate.setBackground(new java.awt.Color(242, 242, 242));
-        txtGrossSemimonthlyRate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtGrossSemimonthlyRate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtGrossSemimonthlyRate.setFocusable(false);
-
-        lblGrossSemimonthlyRate.setBackground(new java.awt.Color(242, 242, 242));
-        lblGrossSemimonthlyRate.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblGrossSemimonthlyRate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblGrossSemimonthlyRate.setText("Gross Semi-monthly Rate:");
-        lblGrossSemimonthlyRate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblGrossSemimonthlyRate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblGrossSemimonthlyRate.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblGrossSemimonthlyRate.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblGrossSemimonthlyRate.setOpaque(true);
-
-        txtImmediateSupervisor.setEditable(false);
-        txtImmediateSupervisor.setBackground(new java.awt.Color(242, 242, 242));
-        txtImmediateSupervisor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtImmediateSupervisor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtImmediateSupervisor.setFocusable(false);
-
-        lblImmediateSupervisor.setBackground(new java.awt.Color(242, 242, 242));
-        lblImmediateSupervisor.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblImmediateSupervisor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblImmediateSupervisor.setText("Immediate Supervisor:");
-        lblImmediateSupervisor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblImmediateSupervisor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblImmediateSupervisor.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblImmediateSupervisor.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblImmediateSupervisor.setOpaque(true);
-
-        txtRiceSubsidy.setEditable(false);
-        txtRiceSubsidy.setBackground(new java.awt.Color(242, 242, 242));
-        txtRiceSubsidy.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtRiceSubsidy.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtRiceSubsidy.setFocusable(false);
-
-        lblRiceSubsidy.setBackground(new java.awt.Color(242, 242, 242));
-        lblRiceSubsidy.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblRiceSubsidy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblRiceSubsidy.setText("Rice Subsidy:");
-        lblRiceSubsidy.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblRiceSubsidy.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblRiceSubsidy.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblRiceSubsidy.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblRiceSubsidy.setOpaque(true);
-
-        txtClothingAllowance.setEditable(false);
-        txtClothingAllowance.setBackground(new java.awt.Color(242, 242, 242));
-        txtClothingAllowance.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtClothingAllowance.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtClothingAllowance.setFocusable(false);
-
-        lblClothingAllowance.setBackground(new java.awt.Color(242, 242, 242));
-        lblClothingAllowance.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblClothingAllowance.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblClothingAllowance.setText("Clothing Allowance:");
-        lblClothingAllowance.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblClothingAllowance.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblClothingAllowance.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblClothingAllowance.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblClothingAllowance.setOpaque(true);
-
-        txtHourlyRate.setEditable(false);
-        txtHourlyRate.setBackground(new java.awt.Color(242, 242, 242));
-        txtHourlyRate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtHourlyRate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtHourlyRate.setFocusable(false);
-
-        lblHourlyRate.setBackground(new java.awt.Color(242, 242, 242));
-        lblHourlyRate.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblHourlyRate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHourlyRate.setText("Hourly Rate:");
-        lblHourlyRate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblHourlyRate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblHourlyRate.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblHourlyRate.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblHourlyRate.setOpaque(true);
-
-        lblFirstName.setBackground(new java.awt.Color(242, 242, 242));
-        lblFirstName.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
-        lblFirstName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFirstName.setText("First Name:");
-        lblFirstName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblFirstName.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblFirstName.setMaximumSize(new java.awt.Dimension(93, 25));
-        lblFirstName.setMinimumSize(new java.awt.Dimension(93, 25));
-        lblFirstName.setOpaque(true);
-
-        txtFirstName.setEditable(false);
-        txtFirstName.setBackground(new java.awt.Color(242, 242, 242));
-        txtFirstName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtFirstName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        txtFirstName.setFocusable(false);
-
-        btnSave.setBackground(new java.awt.Color(255, 255, 255));
-        btnSave.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        btnSave.setText("Save");
-        btnSave.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSave.setEnabled(false);
-        btnSave.setFocusable(false);
-        btnSave.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnSaveMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnSaveMouseExited(evt);
-            }
-        });
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
-            }
-        });
-
         btnBack.setBackground(new java.awt.Color(255, 255, 255));
         btnBack.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
         btnBack.setText("Back");
@@ -526,239 +131,141 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
             }
         });
 
-        btnDeleteInfo.setBackground(new java.awt.Color(199, 73, 73));
-        btnDeleteInfo.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        btnDeleteInfo.setText("Delete Information");
-        btnDeleteInfo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        btnDeleteInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnDeleteInfo.setEnabled(false);
-        btnDeleteInfo.setFocusable(false);
-        btnDeleteInfo.addActionListener(new java.awt.event.ActionListener() {
+        tblBasicEmployeeInformation.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        tblBasicEmployeeInformation.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Employee Number", "Last Name", "First Name", "SSS #", "PhilHealth #", "TIN", "Pag-IBIG #"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblBasicEmployeeInformation.setEnabled(false);
+        tblBasicEmployeeInformation.setFocusable(false);
+        tblBasicEmployeeInformation.setRowHeight(24);
+        tblBasicEmployeeInformation.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblBasicEmployeeInformation);
+        if (tblBasicEmployeeInformation.getColumnModel().getColumnCount() > 0) {
+            tblBasicEmployeeInformation.getColumnModel().getColumn(0).setResizable(false);
+            tblBasicEmployeeInformation.getColumnModel().getColumn(1).setResizable(false);
+            tblBasicEmployeeInformation.getColumnModel().getColumn(3).setResizable(false);
+            tblBasicEmployeeInformation.getColumnModel().getColumn(4).setResizable(false);
+            tblBasicEmployeeInformation.getColumnModel().getColumn(5).setResizable(false);
+        }
+
+        tglOn.setBackground(new java.awt.Color(255, 255, 255));
+        tglOn.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        tglOn.setText("On");
+        tglOn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tglOn.setFocusable(false);
+        tglOn.setMaximumSize(new java.awt.Dimension(105, 17));
+        tglOn.setMinimumSize(new java.awt.Dimension(105, 17));
+        tglOn.setPreferredSize(new java.awt.Dimension(105, 17));
+        tglOn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tglOnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tglOnMouseExited(evt);
+            }
+        });
+        tglOn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteInfoActionPerformed(evt);
+                tglOnActionPerformed(evt);
             }
         });
 
-        btnUpdateInfo.setBackground(new java.awt.Color(73, 199, 73));
-        btnUpdateInfo.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        btnUpdateInfo.setText("Update Information");
-        btnUpdateInfo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        btnUpdateInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUpdateInfo.setEnabled(false);
-        btnUpdateInfo.setFocusable(false);
-        btnUpdateInfo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateInfoActionPerformed(evt);
+        tglOff.setBackground(new java.awt.Color(255, 255, 255));
+        tglOff.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        tglOff.setText("Off");
+        tglOff.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tglOff.setFocusable(false);
+        tglOff.setMaximumSize(new java.awt.Dimension(105, 17));
+        tglOff.setMinimumSize(new java.awt.Dimension(105, 17));
+        tglOff.setPreferredSize(new java.awt.Dimension(105, 17));
+        tglOff.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tglOffMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tglOffMouseExited(evt);
             }
         });
+        tglOff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tglOffActionPerformed(evt);
+            }
+        });
+
+        lblEmployeeSelectionToggle.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
+        lblEmployeeSelectionToggle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEmployeeSelectionToggle.setText("Employee Selection Toggle");
+        lblEmployeeSelectionToggle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout pnlMainLayout = new javax.swing.GroupLayout(pnlMain);
         pnlMain.setLayout(pnlMainLayout);
         pnlMainLayout.setHorizontalGroup(
             pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTopSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblBottomSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblEmployeeSearchHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblMotorPhHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnlMainLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(163, 163, 163)
-                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(136, 136, 136))
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane1)
+                .addGap(12, 12, 12))
+            .addGroup(pnlMainLayout.createSequentialGroup()
+                .addGap(297, 297, 297)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblEmployeeSelectionToggle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlMainLayout.createSequentialGroup()
-                        .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtLastName))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFirstName))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtBirthdate))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtAddress))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPhoneNumber))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblSssNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSssNumber))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblPhilHealthNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPhilHealthNumber))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblTinNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTinNumber))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblPagIbigNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPagIbigNumber))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtStatus))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPosition))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblImmediateSupervisor, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtImmediateSupervisor))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblBasicSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtBasicSalary))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblRiceSubsidy, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtRiceSubsidy))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblPhoneAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPhoneAllowance))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblClothingAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtClothingAllowance))
-                            .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(pnlMainLayout.createSequentialGroup()
-                                    .addComponent(lblHourlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtHourlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(pnlMainLayout.createSequentialGroup()
-                                    .addComponent(lblGrossSemimonthlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtGrossSemimonthlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlMainLayout.createSequentialGroup()
-                        .addComponent(lblEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addComponent(txtEmployeeNumber)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(pnlMainLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnDeleteInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnUpdateInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(tglOn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(tglOff, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainLayout.createSequentialGroup()
+                .addGap(231, 231, 231)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
+                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(231, 231, 231))
         );
         pnlMainLayout.setVerticalGroup(
             pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMainLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(13, 13, 13)
                 .addComponent(lblMotorPhHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(7, 7, 7)
                 .addComponent(lblEmployeeSearchHeader)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addComponent(lblTopSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSssNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSssNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPhilHealthNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPhilHealthNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTinNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTinNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPagIbigNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPagIbigNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblImmediateSupervisor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtImmediateSupervisor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBasicSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBasicSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblRiceSubsidy, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRiceSubsidy, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPhoneAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPhoneAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblClothingAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtClothingAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblGrossSemimonthlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtGrossSemimonthlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHourlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtHourlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
+                .addComponent(lblEmployeeSelectionToggle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDeleteInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdateInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                    .addComponent(tglOff, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tglOn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
                 .addComponent(lblBottomSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGap(15, 15, 15)
                 .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         scrollPaneMain.setViewportView(pnlMain);
@@ -767,50 +274,33 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneMain, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(scrollPaneMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneMain, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(scrollPaneMain, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * Handles the action event of the search button to populate employee
-     * information.
-     */
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // Populate employee information
-        populateEmployeeInformation();
-    }//GEN-LAST:event_btnSearchActionPerformed
-
-    /**
-     * Handles the action event of the employee number text field to populate
-     * employee information.
-     */
-    private void txtEmployeeNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmployeeNumberActionPerformed
-        // Populate employee information
-        populateEmployeeInformation();
-    }//GEN-LAST:event_txtEmployeeNumberActionPerformed
-
-    /**
-     * Handles mouse hover event on the search button by changing its background
-     * color.
-     */
-    private void btnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseEntered
-        btnSearch.setBackground(LIGHT_BLUE);
-    }//GEN-LAST:event_btnSearchMouseEntered
-
-    /**
-     * Handles mouse exit event on the search button by resetting its background
-     * color.
-     */
-    private void btnSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseExited
-        btnSearch.setBackground(WHITE);
-    }//GEN-LAST:event_btnSearchMouseExited
+    private void setupTableMouseListener() {
+        // Add mouse listener to handle table row clicks
+        tblBasicEmployeeInformation.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int rowIndex = tblBasicEmployeeInformation.getSelectedRow();
+                // If a row is selected and toggle button is on
+                if (rowIndex != -1 && toggleOnButtonClicked) {
+                    // Show employee information
+                    showEmployeeInformation(rowIndex);
+                }
+            }
+        });
+    }
 
     /**
      * Handles the action event of the back button to close the current page.
@@ -860,253 +350,140 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
         btnExit.setBackground(WHITE);
     }//GEN-LAST:event_btnExitMouseExited
 
-    /**
-     * Updates the employee information and sets fields non-editable.
-     */
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        updateEmployeeInformation();
-    }//GEN-LAST:event_btnSaveActionPerformed
+    private void tglOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tglOnActionPerformed
+        handleToggleOn();
+    }//GEN-LAST:event_tglOnActionPerformed
+
+    private void tglOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tglOffActionPerformed
+        handleToggleOff();
+    }//GEN-LAST:event_tglOffActionPerformed
 
     /**
-     * Handles mouse hover event on the save button by changing its background
-     * color.
+     * Handles mouse hover event on the toggle on button by changing its
+     * background color.
      */
-    private void btnSaveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseEntered
-        btnSave.setBackground(LIGHT_BLUE);
-    }//GEN-LAST:event_btnSaveMouseEntered
+    private void tglOnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tglOnMouseEntered
+        tglOn.setBackground(LIGHT_BLUE);
+    }//GEN-LAST:event_tglOnMouseEntered
 
     /**
-     * Handles mouse exit event on the save button by resetting its background
-     * color.
+     * Handles mouse exit event on the toggle on button by resetting its
+     * background color.
      */
-    private void btnSaveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseExited
-        btnSave.setBackground(WHITE);
-    }//GEN-LAST:event_btnSaveMouseExited
+    private void tglOnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tglOnMouseExited
+        tglOn.setBackground(WHITE);
+    }//GEN-LAST:event_tglOnMouseExited
 
     /**
-     * Sets the fields editable for updating employee information.
+     * Handles mouse hover event on the toggle off button by changing its
+     * background color.
      */
-    private void btnUpdateInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateInfoActionPerformed
-        deleteButtonClicked = false;
-        // Set fields editable for updating
-        setFieldsEditable(true);
-    }//GEN-LAST:event_btnUpdateInfoActionPerformed
+    private void tglOffMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tglOffMouseEntered
+        tglOff.setBackground(LIGHT_BLUE);
+    }//GEN-LAST:event_tglOffMouseEntered
 
     /**
-     * Sets the fields editable for deleting employee information.
+     * Handles mouse exit event on the toggle off button by resetting its
+     * background color.
      */
-    private void btnDeleteInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteInfoActionPerformed
-        deleteButtonClicked = true;
-        // Set fields editable for deleting
-        setFieldsEditable(true);
-    }//GEN-LAST:event_btnDeleteInfoActionPerformed
-
-    /**
-     * Assigns a mouse click event handler to a text field.
-     */
-    private void assignClickHandlerToTextField(JTextField textField) {
-        textField.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // When the mouse is clicked on the text field, call handleTextFieldClick method
-                handleTextFieldClick(textField);
-            }
-        });
-    }
-
-    /**
-     * Populates employee information based on the provided employee number.
-     * Retrieves data from the EmployeeInformation class and fills the
-     * appropriate text fields.
-     */
-    @Override
-    public void populateEmployeeInformation() {
-        try {
-            // Parse the employee number from the text field
-            int employeeNumber = Integer.parseInt(txtEmployeeNumber.getText());
-
-            // Retrieve employee information
-            List<String> employeeInfo = new EmployeeInformation().showEmployeeInformation(employeeNumber);
-
-            // Populate text fields with employee details
-            updateEmployeeInformationFields(employeeInfo);
-
-            // Enable the delete and update buttons
-            btnDeleteInfo.setEnabled(true);
-            btnUpdateInfo.setEnabled(true);
-        } catch (IOException | ParseException | CsvValidationException | IllegalArgumentException e) {
-            // Show error dialog with the exception message
-            showErrorDialog("Error fetching employee information: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Updates the employee information text fields for the searched employee.
-     *
-     * @param employeeInfo The information of the employee.
-     */
-    @Override
-    public void updateEmployeeInformationFields(List<String> employeeInfo) {
-        // Set the text of each field using the employee information
-        txtLastName.setText(employeeInfo.get(0));
-        txtFirstName.setText(employeeInfo.get(1));
-        txtBirthdate.setText(employeeInfo.get(2));
-        txtAddress.setText(employeeInfo.get(3));
-        txtPhoneNumber.setText(employeeInfo.get(4));
-        txtSssNumber.setText(employeeInfo.get(5));
-        txtPhilHealthNumber.setText(employeeInfo.get(16));
-        txtTinNumber.setText(employeeInfo.get(7));
-        txtPagIbigNumber.setText(employeeInfo.get(8));
-        txtStatus.setText(employeeInfo.get(9));
-        txtPosition.setText(employeeInfo.get(10));
-        txtImmediateSupervisor.setText(employeeInfo.get(11));
-        txtBasicSalary.setText(employeeInfo.get(12));
-        txtRiceSubsidy.setText(employeeInfo.get(13));
-        txtPhoneAllowance.setText(employeeInfo.get(14));
-        txtClothingAllowance.setText(employeeInfo.get(15));
-        txtGrossSemimonthlyRate.setText(employeeInfo.get(16));
-        txtHourlyRate.setText(employeeInfo.get(17));
-    }
-
-    /**
-     * Assigns mouse click event handlers to all text fields.
-     */
-    private void assignClickHandlersToTextFields() {
-        // Assign click event handler to each text field
-        assignClickHandlerToTextField(txtLastName);
-        assignClickHandlerToTextField(txtFirstName);
-        assignClickHandlerToTextField(txtBirthdate);
-        assignClickHandlerToTextField(txtAddress);
-        assignClickHandlerToTextField(txtPhoneNumber);
-        assignClickHandlerToTextField(txtSssNumber);
-        assignClickHandlerToTextField(txtPhilHealthNumber);
-        assignClickHandlerToTextField(txtTinNumber);
-        assignClickHandlerToTextField(txtPagIbigNumber);
-        assignClickHandlerToTextField(txtStatus);
-        assignClickHandlerToTextField(txtPosition);
-        assignClickHandlerToTextField(txtImmediateSupervisor);
-        assignClickHandlerToTextField(txtBasicSalary);
-        assignClickHandlerToTextField(txtRiceSubsidy);
-        assignClickHandlerToTextField(txtPhoneAllowance);
-        assignClickHandlerToTextField(txtClothingAllowance);
-        assignClickHandlerToTextField(txtGrossSemimonthlyRate);
-        assignClickHandlerToTextField(txtHourlyRate);
-    }
-
-    /**
-     * Handles mouse click event on a text field.
-     */
-    private void handleTextFieldClick(JTextField textField) {
-        // If deleteButtonClicked is true
-        if (deleteButtonClicked) {
-            // Clear the text field
-            textField.setText("");
-        }
-    }
-
-    /**
-     * Sets the editability of the fields.
-     *
-     * @param isDeleteButton A boolean indicating whether the fields should be
-     * editable
-     */
-    private void setFieldsEditable(boolean allowed) {
-        // Define an array of text fields
-        JTextField[] textFields = {
-            txtLastName, txtFirstName, txtBirthdate, txtAddress, txtPhoneNumber,
-            txtSssNumber, txtPhilHealthNumber, txtTinNumber, txtPagIbigNumber,
-            txtStatus, txtPosition, txtImmediateSupervisor, txtBasicSalary,
-            txtRiceSubsidy, txtPhoneAllowance, txtClothingAllowance,
-            txtGrossSemimonthlyRate, txtHourlyRate
-        };
-
-        // Loop through each text field
-        for (JTextField field : textFields) {
-            // Modify text fields' background color
-            field.setBackground(allowed ? WHITE : GRAY);
-
-            if (deleteButtonClicked) {
-                field.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                // Set text fields to non-editable
-                field.setEditable(false);
-                field.setFocusable(false);
-            } else {
-                deleteButtonClicked = false;
-                field.setCursor(new Cursor(Cursor.TEXT_CURSOR));
-                // Set text fields to editable
-                field.setEditable(allowed);
-                field.setFocusable(allowed);
-            }
-        }
-
-        // Enable or disable the save button
-        btnSave.setEnabled(true);
-    }
-
-    /**
-     * Gathers employee information from the fields.
-     *
-     * @return A list of strings containing the employee information.
-     */
-    private List<String> gatherEmployeeInformationFromFields() {
-        List<String> employeeInfo = new ArrayList<>();
-
-        // Add the text of each field to the list
-        employeeInfo.add(txtLastName.getText());
-        employeeInfo.add(txtFirstName.getText());
-        employeeInfo.add(txtBirthdate.getText());
-        employeeInfo.add(txtAddress.getText());
-        employeeInfo.add(txtPhoneNumber.getText());
-        employeeInfo.add(txtSssNumber.getText());
-        employeeInfo.add(txtPhilHealthNumber.getText());
-        employeeInfo.add(txtTinNumber.getText());
-        employeeInfo.add(txtPagIbigNumber.getText());
-        employeeInfo.add(txtStatus.getText());
-        employeeInfo.add(txtPosition.getText());
-        employeeInfo.add(txtImmediateSupervisor.getText());
-        employeeInfo.add(txtBasicSalary.getText());
-        employeeInfo.add(txtRiceSubsidy.getText());
-        employeeInfo.add(txtPhoneAllowance.getText());
-        employeeInfo.add(txtClothingAllowance.getText());
-        employeeInfo.add(txtGrossSemimonthlyRate.getText());
-        employeeInfo.add(txtHourlyRate.getText());
-
-        return employeeInfo;
-    }
-
-    /**
-     * Updates the employee information.
-     */
-    private void updateEmployeeInformation() {
-        try {
-            // Parse the employee number from the text field
-            int employeeNumber = Integer.parseInt(txtEmployeeNumber.getText());
-
-            // Gather the updated employee information from the fields
-            List<String> updatedEmployeeInfo = gatherEmployeeInformationFromFields();
-
-            // Update the employee information in the CSV file
-            new EmployeeInformation().updateEmployeeInformationInCsv(employeeNumber, updatedEmployeeInfo);
-
-            // Set fields non-editable after saving
-            setFieldsEditable(false);
-            // Set deleteButtonClicked value to false
-            deleteButtonClicked = false;
-        } catch (IOException | ParseException | CsvValidationException | IllegalArgumentException e) {
-            // Show error dialog with the exception message
-            showErrorDialog("Error updating employee information: " + e.getMessage() + e);
-        }
-    }
+    private void tglOffMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tglOffMouseExited
+        tglOff.setBackground(WHITE);
+    }//GEN-LAST:event_tglOffMouseExited
 
     /**
      * Displays an error dialog with the provided error message.
      *
-     * @param errorMessage The message to be displayed in the error dialog.
+     * @param errorMessage The error message to display in the dialog.
      */
     @Override
     public void showErrorDialog(String errorMessage) {
         // Show a dialog with the error message
-        JOptionPane.showMessageDialog(pnlMain, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(pnlMain, "Error updating employee information: " + errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * Handles the action event of the toggle on button to enable selection of
+     * employee and show its information.
+     */
+    private void handleToggleOn() {
+        // Increment the click count
+        clickCount++;
+        // Determine if toggle is on or off
+        toggleOnButtonClicked = (clickCount % 2 != 0);
+
+        // Enable or disable table and set toggle button states
+        tblBasicEmployeeInformation.setEnabled(toggleOnButtonClicked);
+        tglOn.setSelected(toggleOnButtonClicked);
+        tglOff.setSelected(!toggleOnButtonClicked);
+    }
+
+    /**
+     * Handles the action event of the toggle off button to disable selection of
+     * employee and reset toggle state.
+     */
+    private void handleToggleOff() {
+        // Reset click count
+        clickCount = 0;
+        // Set toggle to off
+        toggleOnButtonClicked = false;
+
+        // Disable table and set intended toggle button states
+        tblBasicEmployeeInformation.setEnabled(false);
+        tglOn.setSelected(false);
+        tglOff.setSelected(true);
+    }
+
+    /**
+     * Populates the employee table with all employees' basic information.
+     * Populates employee table based on the provided employee number. Gets data
+     * from the EmployeeInformation class and fills the appropriate rows.
+     */
+    private void populateEmployeeTable() {
+        try {
+            // Get employee data
+            EmployeeInformation employeeInformation = new EmployeeInformation();
+            List<Employee> employees = employeeInformation.getAllEmployees();
+
+            // Populate table with employee data
+            DefaultTableModel model = (DefaultTableModel) tblBasicEmployeeInformation.getModel();
+            for (Employee employee : employees) {
+                model.addRow(new Object[]{
+                    employee.getEmployeeNumber(),
+                    employee.getLastName(),
+                    employee.getFirstName(),
+                    employee.getSssNumber(),
+                    employee.getPhilHealthNumber(),
+                    employee.getTinNumber(),
+                    employee.getPagIbigNumber()
+                });
+            }
+        } catch (IOException | ParseException | CsvValidationException e) {
+            showErrorDialog(e.getMessage());
+        }
+    }
+
+    /**
+     * Displays employee information in a new frame.
+     *
+     * @param rowIndex The index of the selected row in the table
+     */
+    private void showEmployeeInformation(int rowIndex) {
+        try {
+            // Get selected employee's information
+            DefaultTableModel model = (DefaultTableModel) tblBasicEmployeeInformation.getModel();
+
+            int employeeNumber = (int) model.getValueAt(rowIndex, 0);
+
+            EmployeeInformation employeeInformation = new EmployeeInformation();
+
+            List<String> employeeDetails = employeeInformation.showEmployeeInformation(employeeNumber);
+
+            // Display information in a new frame
+            new EmployeeInformationFrame(employeeDetails).setVisible(true);
+        } catch (IOException | ParseException | CsvValidationException e) {
+            // Show error dialog with the exception message
+            showErrorDialog(e.getMessage());
+        }
     }
 
     /**
@@ -1116,7 +493,7 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For information see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -1149,80 +526,17 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnDeleteInfo;
     private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnUpdateInfo;
-    private javax.swing.JLabel lblAddress;
-    private javax.swing.JLabel lblBasicSalary;
-    private javax.swing.JLabel lblBirthdate;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBottomSeparator;
-    private javax.swing.JLabel lblClothingAllowance;
-    private javax.swing.JLabel lblEmployeeNumber;
     private javax.swing.JLabel lblEmployeeSearchHeader;
-    private javax.swing.JLabel lblFirstName;
-    private javax.swing.JLabel lblGrossSemimonthlyRate;
-    private javax.swing.JLabel lblHourlyRate;
-    private javax.swing.JLabel lblImmediateSupervisor;
-    private javax.swing.JLabel lblLastName;
+    private javax.swing.JLabel lblEmployeeSelectionToggle;
     private javax.swing.JLabel lblMotorPhHeader;
-    private javax.swing.JLabel lblPagIbigNumber;
-    private javax.swing.JLabel lblPhilHealthNumber;
-    private javax.swing.JLabel lblPhoneAllowance;
-    private javax.swing.JLabel lblPhoneNumber;
-    private javax.swing.JLabel lblPosition;
-    private javax.swing.JLabel lblRiceSubsidy;
-    private javax.swing.JLabel lblSssNumber;
-    private javax.swing.JLabel lblStatus;
-    private javax.swing.JLabel lblTinNumber;
-    private javax.swing.JLabel lblTopSeparator;
     private javax.swing.JPanel pnlMain;
     private javax.swing.JScrollPane scrollPaneMain;
-    private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtBasicSalary;
-    private javax.swing.JTextField txtBirthdate;
-    private javax.swing.JTextField txtClothingAllowance;
-    private javax.swing.JTextField txtEmployeeNumber;
-    private javax.swing.JTextField txtFirstName;
-    private javax.swing.JTextField txtGrossSemimonthlyRate;
-    private javax.swing.JTextField txtHourlyRate;
-    private javax.swing.JTextField txtImmediateSupervisor;
-    private javax.swing.JTextField txtLastName;
-    private javax.swing.JTextField txtPagIbigNumber;
-    private javax.swing.JTextField txtPhilHealthNumber;
-    private javax.swing.JTextField txtPhoneAllowance;
-    private javax.swing.JTextField txtPhoneNumber;
-    private javax.swing.JTextField txtPosition;
-    private javax.swing.JTextField txtRiceSubsidy;
-    private javax.swing.JTextField txtSssNumber;
-    private javax.swing.JTextField txtStatus;
-    private javax.swing.JTextField txtTinNumber;
+    private javax.swing.JTable tblBasicEmployeeInformation;
+    private javax.swing.JToggleButton tglOff;
+    private javax.swing.JToggleButton tglOn;
     // End of variables declaration//GEN-END:variables
 
-    /**
-     * Populates wage information. This method is not yet supported.
-     */
-    @Override
-    public void populateWageInformation() {
-        throw new UnsupportedOperationException("Not supported yet."); // Method not yet implemented
-    }
-
-    /**
-     * Enables date input fields. This method is not yet supported.
-     */
-    @Override
-    public void enableDateInputs() {
-        throw new UnsupportedOperationException("Not supported yet."); // Method not yet implemented
-    }
-
-    /**
-     * Updates the wage information text fields for the searched employee.
-     *
-     * @param wageInfo The wage information of the employee.
-     */
-    @Override
-    public void updateWageInformationFields(List<String> wageInfo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Method not yet implemented
-    }
 }

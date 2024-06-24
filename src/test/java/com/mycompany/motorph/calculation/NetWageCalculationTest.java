@@ -5,6 +5,8 @@
 package com.mycompany.motorph.calculation;
 
 import com.mycompany.motorph.model.DateRange;
+import com.opencsv.exceptions.CsvValidationException;
+import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,13 +41,13 @@ public class NetWageCalculationTest {
     }
 
     @Test
-    public void calculateWage_CalculatesCorrectNetWage() {
+    public void calculateWage_CalculatesCorrectNetWage() throws IOException, CsvValidationException {
         double hourlyRate = 10.0;
         double hoursWorked = 40.0;
         double lateArrivalDeduction = 0.0;
         NetWageCalculation netWageCalculation = createNetWageCalculation();
 
-        double netWage = netWageCalculation.calculateWage(hourlyRate, hoursWorked, lateArrivalDeduction);
+        double netWage = netWageCalculation.calculateNetWage(hourlyRate, hoursWorked, lateArrivalDeduction);
 
         assertEquals(115.0, netWage, DELTA, "Net wage should be 115.0");
     }

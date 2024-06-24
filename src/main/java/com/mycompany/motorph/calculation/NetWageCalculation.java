@@ -6,6 +6,8 @@ package com.mycompany.motorph.calculation;
 
 import com.mycompany.motorph.model.DateRange;
 import com.mycompany.motorph.util.CurrencyUtil;
+import com.opencsv.exceptions.CsvValidationException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,9 +24,9 @@ import java.util.List;
  * wage and late arrival deduction and displays the employee's information along
  * with the calculated wage
  *
- * @author Lance1
+ * @author Lance
  */
-public class NetWageCalculation extends WageCalculation {
+public class NetWageCalculation {
 
     private final SSSDeduction sssDeduction;
     private final HealthInsurancesDeduction healthInsurancesDeduction;
@@ -40,7 +42,7 @@ public class NetWageCalculation extends WageCalculation {
     private static final int MINUTES_IN_HOUR = 60;
 
     /**
-     * Constructor for NetWageCalculation.
+     * Constructor for NetWageCalculator.
      */
     public NetWageCalculation() {
         // Initialize dependencies
@@ -58,8 +60,7 @@ public class NetWageCalculation extends WageCalculation {
      * @return The late arrival deduction amount
      * @throws ParseException If a date parsing error occurs
      */
-    @Override
-    protected double calculateLateArrivalDeduction(List<String[]> attendanceDataList, int employeeNumber, DateRange dateRange) throws ParseException {
+    public double calculateLateArrivalDeduction(List<String[]> attendanceDataList, int employeeNumber, DateRange dateRange) throws ParseException {
         double totalLateArrivalDeduction = 0.0;
 
         // Iterate through each row of attendance data
@@ -86,26 +87,6 @@ public class NetWageCalculation extends WageCalculation {
     }
 
     /**
-     * Calculates net wage by subtracting total deductions from gross wage.
-     *
-     * @param hourlyRate The hourly rate
-     * @param hoursWorked The hours worked
-     * @param lateArrivalDeduction The late arrival deduction for the employee
-     * @return The calculated wage
-     */
-    @Override
-    protected double calculateWage(double hourlyRate, double hoursWorked, double lateArrivalDeduction) {
-        // Calculate gross wage
-        double grossWage = hourlyRate * hoursWorked;
-
-        // Calculate total deductions
-        double totalDeductions = calculateTotalDeductions(grossWage, lateArrivalDeduction);
-
-        // Calculate net wage by subtracting total deductions from the gross wage
-        return grossWage - totalDeductions;
-    }
-
-    /**
      * Displays the employee's net wage with other information.
      *
      * @param employeeNumber The employee number
@@ -114,14 +95,14 @@ public class NetWageCalculation extends WageCalculation {
      * @param lateArrivalDeduction The late arrival deduction
      * @return A list of strings containing wage information
      */
-    @Override
-    protected List<String> getWageInformation(int employeeNumber, double hourlyRate, double hoursWorked, double lateArrivalDeduction) {
+    public List<String> getWageInformation(int employeeNumber, double hourlyRate, double hoursWorked, double lateArrivalDeduction) throws IOException, CsvValidationException {
         // Calculate gross wage
         double grossWage = hourlyRate * hoursWorked;
         // Calculate net wage
-        double netWage = calculateWage(hourlyRate, hoursWorked, lateArrivalDeduction);
+        double netWage = calculateNetWage(hourlyRate, hoursWorked, lateArrivalDeduction);
 
         List<String> wageInfo = new ArrayList<>();
+
         wageInfo.add(CurrencyUtil.formatCurrency(grossWage));
         wageInfo.add(CurrencyUtil.formatCurrency(sssDeduction.calculateSssDeduction(grossWage)));
         wageInfo.add(CurrencyUtil.formatCurrency(healthInsurancesDeduction.calculatePhilHealthDeduction(grossWage)));
@@ -132,6 +113,25 @@ public class NetWageCalculation extends WageCalculation {
         wageInfo.add(CurrencyUtil.formatCurrency(netWage));
 
         return wageInfo;
+    }
+
+    /**
+     * Calculates net wage by subtracting total deductions from gross wage.
+     *
+     * @param hourlyRate The hourly rate
+     * @param hoursWorked The hours worked
+     * @param lateArrivalDeduction The late arrival deduction for the employee
+     * @return The calculated net wage
+     */
+    double calculateNetWage(double hourlyRate, double hoursWorked, double lateArrivalDeduction) throws IOException, CsvValidationException {
+        // Calculate gross wage
+        double grossWage = hourlyRate * hoursWorked;
+
+        // Calculate total deductions
+        double totalDeductions = calculateTotalDeductions(grossWage, lateArrivalDeduction);
+
+        // Calculate net wage by subtracting total deductions from the gross wage and make sure it's non-negative
+        return Math.max(grossWage - totalDeductions, 0);
     }
 
     /**
@@ -182,7 +182,7 @@ public class NetWageCalculation extends WageCalculation {
      * @param lateArrivalDeduction The late arrival deduction
      * @return The total deductions
      */
-    private double calculateTotalDeductions(double grossWage, double lateArrivalDeduction) {
+    private double calculateTotalDeductions(double grossWage, double lateArrivalDeduction) throws IOException, CsvValidationException {
         // Calculate SSS deductions
         double sssDeductions = sssDeduction.calculateSssDeduction(grossWage);
 

@@ -18,7 +18,7 @@ import java.util.List;
  * It allows displaying employee information using employee numbers, and
  * provides methods for finding employees.
  *
- * @author Lance1
+ * @author Lance
  */
 public class EmployeeInformation {
 
@@ -37,11 +37,8 @@ public class EmployeeInformation {
      * @throws ParseException If parsing error occurs
      */
     public List<String> showEmployeeInformation(int employeeNumber) throws IOException, CsvValidationException, ParseException {
-        // Create an instance of EmployeeDataReader
-        EmployeeDataReader employeeDataReader = new EmployeeDataReader();
-
         // Read the list of employees from the data file
-        List<Employee> employees = employeeDataReader.readEmployees(EMPLOYEES_DATA_PATH);
+        List<Employee> employees = getAllEmployees();
 
         // Find the employee with the inputted employee number
         Employee foundEmployee = findEmployeeByNumber(employees, employeeNumber);
@@ -109,20 +106,13 @@ public class EmployeeInformation {
      *
      * @param employees The list of employees to search in
      * @param employeeNumber The employee number to search for
-     * @return The found employee. If not found, return null
+     * @return The found employee, or null if not found
      */
-    public Employee findEmployeeByNumber(List<Employee> employees, int employeeNumber) {
-        // Loop through the list of employees
-        for (Employee employee : employees) {
-            // If the employee's number matches the inputted number
-            if (employee.getEmployeeNumber() == employeeNumber) {
-                // Return found employee
-                return employee;
-            }
-        }
-
-        // Return null if no matching employee is found
-        return null;
+    private Employee findEmployeeByNumber(List<Employee> employees, int employeeNumber) {
+        return employees.stream()
+                .filter(employee -> employee.getEmployeeNumber() == employeeNumber)
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -130,6 +120,7 @@ public class EmployeeInformation {
      *
      * @param employee The employee to update
      * @param updatedEmployeeInfo The updated information of the employee
+     * @throws ParseException If parsing error occurs
      */
     private void updateEmployee(Employee employee, List<String> updatedEmployeeInfo) throws ParseException {
         // Update employee information

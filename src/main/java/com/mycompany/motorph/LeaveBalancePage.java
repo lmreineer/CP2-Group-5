@@ -6,7 +6,6 @@ package com.mycompany.motorph;
 
 import com.mycompany.motorph.data.LeaveDataManager;
 import com.mycompany.motorph.employee.EmployeeInformation;
-import com.mycompany.motorph.util.LeaveBalanceCalculator;
 import com.mycompany.motorph.model.Leave;
 import com.mycompany.motorph.util.CurrencyUtil;
 import com.opencsv.exceptions.CsvValidationException;
@@ -23,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author Lance
  */
-public class LeaveBalancePage extends javax.swing.JFrame {
+class LeaveBalancePage extends javax.swing.JFrame implements EmployeeInformationManager {
 
     // Constants for button coloring changes
     private static final java.awt.Color LIGHT_BLUE = new java.awt.Color(203, 203, 239);
@@ -31,7 +30,7 @@ public class LeaveBalancePage extends javax.swing.JFrame {
     private static final java.awt.Color RED = new java.awt.Color(191, 47, 47);
 
     /**
-     * Creates new form LeaveBalancePage
+     * Creates new LeaveBalancePage
      */
     public LeaveBalancePage() {
         initComponents();
@@ -73,6 +72,7 @@ public class LeaveBalancePage extends javax.swing.JFrame {
         lblMidSeparator = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Leave Balance");
 
         pnlMain.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -498,77 +498,27 @@ public class LeaveBalancePage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitMouseExited
 
     /**
-     * Populates employee information based on the provided employee number.
-     * Retrieves data from the EmployeeInformation class and fills the
-     * appropriate text fields.
+     * Populates employee information including leave balances based on the
+     * provided employee number.
      */
     public void populateEmployeeInformation() {
         try {
-            int employeeNumber = Integer.parseInt(txtEmployeeNumber.getText());
+            int employeeNumber = Integer.parseInt(txtEmployeeNumber.getText().trim());
 
-            // Retrieve employee information
+            // Get employee information
             List<String> employeeInfo = new EmployeeInformation().showEmployeeInformation(employeeNumber);
 
-            // Retrieve existing leave information
+            // Get leave information including leave amounts
             List<Leave> leaves = new LeaveDataManager().getLeavesByEmployeeNumber(employeeNumber);
 
-            Leave leaveInfo = leaves.get(0);
+            // Display leave information for the first leave application found (assuming it's the most recent)
+            Leave leaveInfo = leaves.get(0); // Modify this based on your actual logic
 
-            // Display employee and leave information
+            // Update fields with retrieved information
             updateEmployeeInformationFields(employeeInfo, leaveInfo);
-            updateLeaveInformationFields(leaves);
-        } catch (IOException | ParseException | CsvValidationException | IllegalArgumentException | IndexOutOfBoundsException e) {
-            // Show error dialog with the exception message
-            showErrorDialog("Error fetching information: " + e.getMessage());
+        } catch (ParseException | IOException | CsvValidationException | IllegalArgumentException e) {
+            showErrorDialog(e.getMessage());
         }
-    }
-
-    /**
-     * Updates the employee information text fields for the searched employee.
-     *
-     * @param employeeInfo The information of the employee
-     */
-    private void updateEmployeeInformationFields(List<String> employeeInfo, Leave leaveInfo) {
-        txtLastName.setText(employeeInfo.get(0));
-        txtFirstName.setText(employeeInfo.get(1));
-        txtStartDate.setText(leaveInfo.getStartDate());
-        txtEndDate.setText(leaveInfo.getEndDate());
-    }
-
-    /**
-     * Updates the leave balance information text fields for the searched
-     * employee.
-     *
-     * @param leaves The leave information of the employee
-     */
-    private void updateLeaveInformationFields(List<Leave> leaves) throws ParseException {
-        // If leave data is empty
-        if (leaves.isEmpty()) {
-            showErrorDialog("No leave applications found for the employee.");
-            return;
-        }
-
-        // Calculate leave balances
-        int sickLeaveBalance = LeaveBalanceCalculator.getRemainingSickLeave(leaves);
-        int vacationLeaveBalance = LeaveBalanceCalculator.getRemainingVacationLeave(leaves);
-        int emergencyLeaveBalance = LeaveBalanceCalculator.getRemainingEmergencyLeave(leaves);
-
-        // Update leave balance information fields
-        updateLeaveBalanceInformationFields(sickLeaveBalance, vacationLeaveBalance, emergencyLeaveBalance);
-    }
-
-    /**
-     * Updates the text fields with the provided leave balance information.
-     *
-     * @param sickLeaveBalance The balance of sick leave
-     * @param vacationLeaveBalance The balance of vacation leave
-     * @param emergencyLeaveBalance The balance of emergency leave
-     */
-    private void updateLeaveBalanceInformationFields(int sickLeaveBalance, int vacationLeaveBalance, int emergencyLeaveBalance) {
-        // Update text fields with leave balances
-        txtSickLeave.setText(CurrencyUtil.formatCurrency((sickLeaveBalance)));
-        txtVacationLeave.setText(CurrencyUtil.formatCurrency((vacationLeaveBalance)));
-        txtEmergencyLeave.setText(CurrencyUtil.formatCurrency((emergencyLeaveBalance)));
     }
 
     /**
@@ -576,44 +526,29 @@ public class LeaveBalancePage extends javax.swing.JFrame {
      *
      * @param errorMessage The message to be displayed in the error dialog.
      */
-    private void showErrorDialog(String errorMessage) {
+    @Override
+    public void showErrorDialog(String errorMessage) {
         // Show a dialog with the error message
-        JOptionPane.showMessageDialog(pnlMain, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(pnlMain, "Error submitting leave application: " + errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     /**
-     * @param args the command line arguments
+     * Updates the employee information text fields for the employee searched.
+     *
+     * @param employeeInfo The list that contains the employee's information
+     * @param leaveInfo The Leave object which contains leave start and end
+     * dates
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LeaveBalancePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LeaveBalancePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LeaveBalancePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LeaveBalancePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void updateEmployeeInformationFields(List<String> employeeInfo, Leave leaveInfo) {
+        txtLastName.setText(employeeInfo.get(0));
+        txtFirstName.setText(employeeInfo.get(1));
+        txtStartDate.setText(leaveInfo.getStartDate());
+        txtEndDate.setText(leaveInfo.getEndDate());
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LeaveBalancePage().setVisible(true);
-            }
-        });
+        // Display leave amounts
+        txtSickLeave.setText(CurrencyUtil.formatCurrency(leaveInfo.getSickLeaveAmount()));
+        txtVacationLeave.setText(CurrencyUtil.formatCurrency(leaveInfo.getVacationLeaveAmount()));
+        txtEmergencyLeave.setText(CurrencyUtil.formatCurrency(leaveInfo.getEmergencyLeaveAmount()));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

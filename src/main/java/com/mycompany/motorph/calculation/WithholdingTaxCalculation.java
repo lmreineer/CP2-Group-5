@@ -4,10 +4,13 @@
  */
 package com.mycompany.motorph.calculation;
 
+import com.opencsv.exceptions.CsvValidationException;
+import java.io.IOException;
+
 /**
  * A class that calculates withholding tax using gross wage and deductions.
  *
- * @author Lance1
+ * @author Lance
  */
 class WithholdingTaxCalculation {
 
@@ -15,7 +18,7 @@ class WithholdingTaxCalculation {
     private final HealthInsurancesDeduction healthInsuranceDeduction;
 
     /**
-     * Constructor for WithholdingTaxCalculation.
+     * Constructor for WithholdingTaxCalculator.
      */
     public WithholdingTaxCalculation() {
         // Initialize deductions
@@ -24,92 +27,75 @@ class WithholdingTaxCalculation {
     }
 
     /**
-     * Calculates the withholding tax based on the gross wage and monthly
-     * contributions/deduction.
+     * Calculates the withholding tax based on the gross wage.
      *
      * @param grossWage Employee's gross wage
-     * @return Withholding tax
+     * @return Withholding tax amount
+     * @throws IOException If an I/O error occurs while calculating deductions
+     * @throws CsvValidationException If there is an error in CSV validation
      */
-    double calculateWithholdingTax(double grossWage) {
-        // Calculate the taxable income by subtracting gross wage from monthly contributions/deductions
-        double taxableIncome = grossWage - calculateMonthlyContributions(grossWage);
+    public double calculateWithholdingTax(double grossWage) throws IOException, CsvValidationException {
+        // Calculate taxable income
+        double taxableIncome = calculateTaxableIncome(grossWage);
 
-        // Determine the excess value and additional rate in percentage
-        double excessValue = determineExcessValue(taxableIncome);
-        double additionalRateInPercentage = determineAdditionalRateInPercentage(taxableIncome);
+        // Determine additional rate
+        double additionalRate = determineAdditionalRate(taxableIncome);
 
-        double withholdingTax;
-
-        // Calculate withholding tax based on excess value and additional rate
-        if (excessValue == 0 || additionalRateInPercentage == 0) {
-            withholdingTax = 0;
-        } else {
-            withholdingTax = (taxableIncome - excessValue) * additionalRateInPercentage;
-        }
+        // Calculate withholding tax
+        double withholdingTax = taxableIncome * additionalRate;
 
         return withholdingTax;
     }
 
     /**
-     * Calculates the total of SSS, PhilHealth, and Pag-IBIG
-     * contributions/deduction.
+     * Calculates the total monthly deductions from gross wage.
      *
      * @param grossWage Employee's gross wage
-     * @return Total monthly contributions/deductions
+     * @return Total monthly deductions
+     * @throws IOException If an I/O error occurs while calculating deductions
+     * @throws CsvValidationException If there is an error in CSV validation
      */
-    double calculateMonthlyContributions(double grossWage) {
-        // Calculate contributions/deductions of SSS, PhilHealth, and Pag-IBIG
-        double sssContribution = sssDeduction.calculateSssDeduction(grossWage);
+    private double calculateMonthlyDeductions(double grossWage) throws IOException, CsvValidationException {
+        double sssDeductionAmount = sssDeduction.calculateSssDeduction(grossWage);
         double philHealthContribution = healthInsuranceDeduction.calculatePhilHealthDeduction(grossWage);
         double pagIbigContribution = healthInsuranceDeduction.calculatePagIbigDeduction(grossWage);
 
-        // Return the sum of all the contributions/deductions
-        return sssContribution + philHealthContribution + pagIbigContribution;
+        // Total deductions
+        return sssDeductionAmount + philHealthContribution + pagIbigContribution;
     }
 
     /**
-     * Determines the "additional" tax rate provided in percentage based on the
-     * reference.
+     * Calculates taxable income by subtracting deductions from gross wage.
      *
-     * @param taxableIncome Amount of the taxable income
-     * @return Additional tax rate provided in percentage
+     * @param grossWage Employee's gross wage
+     * @return Taxable income
+     * @throws IOException If an I/O error occurs while calculating deductions
+     * @throws CsvValidationException If there is an error in CSV validation
      */
-    private double determineAdditionalRateInPercentage(double taxableIncome) {
+    private double calculateTaxableIncome(double grossWage) throws IOException, CsvValidationException {
+        double deductions = calculateMonthlyDeductions(grossWage);
+        return grossWage - deductions;
+    }
+
+    /**
+     * Determines the additional tax rate based on taxable income.
+     *
+     * @param taxableIncome Taxable income amount
+     * @return Additional tax rate
+     */
+    private double determineAdditionalRate(double taxableIncome) {
         if (taxableIncome >= 666667) {
             return 0.35;
-        } else if (taxableIncome >= 166667 && taxableIncome < 666667) {
+        } else if (taxableIncome >= 166667) {
             return 0.32;
-        } else if (taxableIncome >= 66667 && taxableIncome < 166667) {
+        } else if (taxableIncome >= 66667) {
             return 0.30;
-        } else if (taxableIncome >= 33333 && taxableIncome < 66667) {
+        } else if (taxableIncome >= 33333) {
             return 0.25;
-        } else if (taxableIncome >= 20832 && taxableIncome < 33333) {
+        } else if (taxableIncome >= 20832) {
             return 0.20;
         } else {
             return 0.0;
         }
     }
-
-    /**
-     * Determines the excess value.
-     *
-     * @param taxableIncome Taxable income amount
-     * @return Excess value
-     */
-    private double determineExcessValue(double taxableIncome) {
-        if (taxableIncome >= 666667) {
-            return 666667;
-        } else if (taxableIncome >= 166667 && taxableIncome < 666667) {
-            return 166667;
-        } else if (taxableIncome >= 66667 && taxableIncome < 166667) {
-            return 66667;
-        } else if (taxableIncome >= 33333 && taxableIncome < 66667) {
-            return 33333;
-        } else if (taxableIncome >= 20832 && taxableIncome < 33333) {
-            return 20832;
-        } else {
-            return 0.0;
-        }
-    }
-
 }

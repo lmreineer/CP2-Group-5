@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * A class that reads employee data from the data file.
  *
- * @author Lance1
+ * @author Lance
  */
 public class EmployeeDataReader {
 
@@ -166,5 +166,4 @@ public class EmployeeDataReader {
     private double parseDouble(String value) {
         return Double.parseDouble(value.replaceAll(",", ""));
     }
-
 }

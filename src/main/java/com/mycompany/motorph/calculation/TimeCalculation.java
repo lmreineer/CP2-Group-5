@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * A class for calculating employee working hours.
  *
- * @author Lance1
+ * @author Lance
  */
 class TimeCalculation {
 
@@ -76,7 +76,7 @@ class TimeCalculation {
      * @param dateRange The date range
      * @return The number of days
      */
-    private long calculateNumberOfDays(DateRange dateRange) {
+    public long calculateNumberOfDays(DateRange dateRange) {
         long startMillis = dateRange.getStartDate().getTime();
         long endMillis = dateRange.getEndDate().getTime();
 
