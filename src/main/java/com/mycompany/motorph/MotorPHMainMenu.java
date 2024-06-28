@@ -41,6 +41,7 @@ class MotorPHMainMenu extends javax.swing.JFrame {
         lblIwantTo = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         btnManageLeave = new javax.swing.JButton();
+        btnGoBackToLogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Payroll System Main Menu");
@@ -129,6 +130,26 @@ class MotorPHMainMenu extends javax.swing.JFrame {
             }
         });
 
+        btnGoBackToLogin.setBackground(new java.awt.Color(255, 255, 255));
+        btnGoBackToLogin.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        btnGoBackToLogin.setText("Go back to login");
+        btnGoBackToLogin.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        btnGoBackToLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGoBackToLogin.setFocusable(false);
+        btnGoBackToLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGoBackToLoginMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGoBackToLoginMouseExited(evt);
+            }
+        });
+        btnGoBackToLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGoBackToLoginActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlMainLayout = new javax.swing.GroupLayout(pnlMain);
         pnlMain.setLayout(pnlMainLayout);
         pnlMainLayout.setHorizontalGroup(
@@ -137,12 +158,14 @@ class MotorPHMainMenu extends javax.swing.JFrame {
             .addComponent(lblMotorPhHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
             .addGroup(pnlMainLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblIwantTo, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnSearchEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
-                        .addComponent(btnManageLeave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(btnExit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSearchEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                    .addComponent(btnManageLeave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlMainLayout.createSequentialGroup()
+                        .addComponent(btnGoBackToLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlMainLayout.setVerticalGroup(
@@ -159,7 +182,9 @@ class MotorPHMainMenu extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addComponent(btnManageLeave, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGoBackToLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -231,12 +256,12 @@ class MotorPHMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnManageLeaveMouseExited
 
     /**
-     * Handles the action event of the exit button to exit the application.
+     * Handles mouse exit event on the exit button by resetting its background
+     * color.
      */
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // Exit the application
-        System.exit(0);
-    }//GEN-LAST:event_btnExitActionPerformed
+    private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
+        btnExit.setBackground(WHITE);
+    }//GEN-LAST:event_btnExitMouseExited
 
     /**
      * Handles mouse hover event on the exit button by changing its background
@@ -247,57 +272,41 @@ class MotorPHMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitMouseEntered
 
     /**
-     * Handles mouse exit event on the exit button by resetting its background
-     * color.
+     * Handles the action event of the exit button to exit the application.
      */
-    private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
-        btnExit.setBackground(WHITE);
-    }//GEN-LAST:event_btnExitMouseExited
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // Exit the application
+        System.exit(0);
+    }//GEN-LAST:event_btnExitActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Handles the action event of the "Go back to login" button. Opens the
+     * login page and closes the current main menu.
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MotorPHMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MotorPHMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MotorPHMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MotorPHMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+    private void btnGoBackToLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackToLoginActionPerformed
+        new LoginPage().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnGoBackToLoginActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MotorPHMainMenu().setVisible(true);
-            }
-        });
-    }
+    /**
+     * Handles mouse hover event on the "Go back to login" button by changing
+     * its background color.
+     */
+    private void btnGoBackToLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGoBackToLoginMouseEntered
+        btnGoBackToLogin.setBackground(LIGHT_BLUE);
+    }//GEN-LAST:event_btnGoBackToLoginMouseEntered
+
+    /**
+     * Handles mouse exit event on the "Go back to login" button by resetting
+     * its background color.
+     */
+    private void btnGoBackToLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGoBackToLoginMouseExited
+        btnGoBackToLogin.setBackground(WHITE);
+    }//GEN-LAST:event_btnGoBackToLoginMouseExited
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnGoBackToLogin;
     private javax.swing.JButton btnManageLeave;
     private javax.swing.JButton btnSearchEmployee;
     private javax.swing.JLabel lblIwantTo;
