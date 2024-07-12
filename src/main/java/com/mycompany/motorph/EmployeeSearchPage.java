@@ -453,7 +453,7 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
                     employee.getFirstName(),
                     employee.getSssNumber(),
                     employee.getPhilHealthNumber(),
-                    employee.getTinNumber(),
+                    employee.getTin(),
                     employee.getPagIbigNumber()
                 });
             }

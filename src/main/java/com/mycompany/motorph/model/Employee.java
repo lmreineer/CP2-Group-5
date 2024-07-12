@@ -29,7 +29,7 @@ public class Employee {
     private String phoneNumber;
     private String sssNumber;
     private String philHealthNumber;
-    private String tinNumber;
+    private String tin;
     private String pagIbigNumber;
     private String status;
     private String position;
@@ -106,12 +106,12 @@ public class Employee {
         this.philHealthNumber = philHealthNumber;
     }
 
-    public String getTinNumber() {
-        return tinNumber;
+    public String getTin() {
+        return tin;
     }
 
-    public void setTinNumber(String tinNumber) {
-        this.tinNumber = tinNumber;
+    public void setTin(String tin) {
+        this.tin = tin;
     }
 
     public String getPagIbigNumber() {
@@ -220,7 +220,7 @@ public class Employee {
         employeeInfo.add(getPhoneNumber());
         employeeInfo.add(getSssNumber());
         employeeInfo.add(getPhilHealthNumber());
-        employeeInfo.add(getTinNumber());
+        employeeInfo.add(getTin());
         employeeInfo.add(getPagIbigNumber());
         employeeInfo.add(getStatus());
         employeeInfo.add(getPosition());

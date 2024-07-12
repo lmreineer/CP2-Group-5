@@ -131,7 +131,7 @@ public class EmployeeInformation {
         employee.setPhoneNumber(updatedEmployeeInfo.get(4));
         employee.setSssNumber(updatedEmployeeInfo.get(5));
         employee.setPhilHealthNumber(updatedEmployeeInfo.get(6));
-        employee.setTinNumber(updatedEmployeeInfo.get(7));
+        employee.setTin(updatedEmployeeInfo.get(7));
         employee.setPagIbigNumber(updatedEmployeeInfo.get(8));
         employee.setStatus(updatedEmployeeInfo.get(9));
         employee.setPosition(updatedEmployeeInfo.get(10));
