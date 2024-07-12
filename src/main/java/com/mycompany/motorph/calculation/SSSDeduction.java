@@ -25,7 +25,7 @@ public class SSSDeduction {
     private static final double MAX_COMPENSATION_RANGE = 24750.00;
     private static final double MIN_DEDUCTION = 135.00;
     private static final double MAX_DEDUCTION = 1125.00;
-    private static final int SSS_DEDUCTION_EXPECTED_DATA_LENGTH = 3;
+    private static final int SSS_DEDUCTION_EXPECTED_COL_LENGTH = 3;
 
     private final List<double[]> sssCompensationRanges = new ArrayList<>();
     private final List<Double> sssDeductions = new ArrayList<>();
@@ -74,13 +74,16 @@ public class SSSDeduction {
      * @throws CsvValidationException If CSV validation fails
      */
     private void readSSSDeductions() throws IOException, CsvValidationException {
+        // Open the file for reading
         try (CSVReader reader = new CSVReader(new FileReader(SSS_DEDUCTIONS_PATH))) {
             String[] data;
             // Skip header
             reader.readNext();
 
+            // Read data per row from the data file
             while ((data = reader.readNext()) != null) {
-                if (data.length == SSS_DEDUCTION_EXPECTED_DATA_LENGTH) {
+                // If the data has the expected length per column
+                if (data.length == SSS_DEDUCTION_EXPECTED_COL_LENGTH) {
                     double lowerRange = Double.parseDouble(data[0]);
                     double upperRange = Double.parseDouble(data[1]);
                     double sssDeduction = Double.parseDouble(data[2]);
@@ -88,6 +91,7 @@ public class SSSDeduction {
                     sssCompensationRanges.add(new double[]{lowerRange, upperRange});
                     sssDeductions.add(sssDeduction);
                 } else {
+                    // Throw IllegalArgumentException with the exception message
                     throw new IllegalArgumentException("Invalid data length: " + data.length + " in row: " + String.join(",", data) + " of the SSS deductions data.");
                 }
             }

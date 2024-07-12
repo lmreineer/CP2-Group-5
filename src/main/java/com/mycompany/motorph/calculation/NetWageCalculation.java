@@ -16,13 +16,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * A class that calculates and displays net wage.
- * <p>
- * Extends the abstract class WageCalculation.
+ * A class that calculates net wage.
  * <p>
  * This class calculates the net wage by subtracting total deductions from gross
- * wage and late arrival deduction and displays the employee's information along
- * with the calculated wage
+ * wage and late arrival deduction.
  *
  * @author Lance
  */
@@ -35,7 +32,10 @@ public class NetWageCalculation {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd");
     private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
 
+    // Constants for data indices and lengths
     private static final int ATTENDANCE_EXPECTED_COL_LENGTH = 6;
+    private static final int EMPLOYEE_NUM_INDEX = 0;
+
     private static final double LATE_ARRIVAL_DEDUCTION_PER_MINUTE = 1.66;
     private static final int LATE_HOUR_START = 8;
     private static final int LATE_MINUTE_START = 11;
@@ -65,8 +65,8 @@ public class NetWageCalculation {
 
         // Iterate through each row of attendance data
         for (String[] data : attendanceDataList) {
-            // If the data has the expected length per row and has the matching employee number from the inputted one
-            if (data.length == ATTENDANCE_EXPECTED_COL_LENGTH && Integer.parseInt(data[0]) == employeeNumber) {
+            // If the data has the expected length per column and has the matching employee number from the inputted one
+            if (data.length == ATTENDANCE_EXPECTED_COL_LENGTH && Integer.parseInt(data[EMPLOYEE_NUM_INDEX]) == employeeNumber) {
                 // Parse attendance date, time in, and time out from the data
                 Date attendanceDate = DATE_FORMAT.parse(data[3]);
                 Date attendanceTimeIn = TIME_FORMAT.parse(data[4]);

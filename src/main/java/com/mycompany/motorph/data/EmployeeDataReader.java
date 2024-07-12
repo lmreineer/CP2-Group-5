@@ -26,8 +26,8 @@ public class EmployeeDataReader {
 
     private static final SimpleDateFormat BIRTHDATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
-    // Expected total number of data per row from the data
-    private static final int EMPLOYEE_EXPECTED_DATA_LENGTH = 19;
+    // Expected total number of data per column from the data
+    private static final int SSS_DEDUCTION_EXPECTED_COL_LENGTH = 19;
 
     /**
      * Reads employee data from the data file and returns a list of employees.
@@ -46,10 +46,11 @@ public class EmployeeDataReader {
             String[] data;
             // Skip header
             reader.readNext();
-            // Read data per row from the file
+
+            // Read data per row from the data file
             while ((data = reader.readNext()) != null) {
-                // If the data has the expected length per row
-                if (data.length == EMPLOYEE_EXPECTED_DATA_LENGTH) {
+                // If the data has the expected length per column
+                if (data.length == SSS_DEDUCTION_EXPECTED_COL_LENGTH) {
                     // Create an employee object from the data and add it to the list
                     employees.add(createEmployeeFromData(data));
                 } else {

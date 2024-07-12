@@ -38,7 +38,7 @@ class TimeCalculation {
 
         // Iterate through each row of attendance data
         for (String[] data : attendanceDataList) {
-            // If the data has the expected length per row and has the matching employee number from the inputted one
+            // If the data has the expected length per column and has the matching employee number from the inputted one
             if (data.length == ATTENDANCE_EXPECTED_COL_LENGTH && Integer.parseInt(data[0]) == employeeNumber) {
                 // Parse attendance date, time in, and time out from the data
                 Date attendanceDate = DATE_FORMAT.parse(data[3]);

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Represents an employee.
  * <p>
- * Contains employee information and methods to access and display it. This
+ * Contains employee information and methods to access. This
  * class also provides methods for formatting and displaying employee
  * information.
  *

@@ -14,11 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An abstract class that calculates wages based on hours worked.
+ * A class for calculating wages based on hours worked.
  * <p>
  * This class reads employee and attendance data from files, calculates total
- * hours worked, late arrival deduction, and wage based on both, and displays
- * the employee's calculated wage
+ * hours worked, late arrival deduction, and net wage based on both.
  *
  * @author Lance
  */
@@ -31,7 +30,7 @@ public class WageCalculation {
     private static final String ATTENDANCE_DATA_PATH = "src/main/resources/data/employee_attendance.csv";
 
     // Constants for data indices and lengths
-    private static final int EMPLOYEE_EXPECTED_DATA_LENGTH = 19;
+    private static final int EMPLOYEE_EXPECTED_COL_LENGTH = 19;
     private static final int EMPLOYEE_NUM_INDEX = 0;
     private static final int HOURLY_RATE_INDEX = 18;
 
@@ -88,11 +87,16 @@ public class WageCalculation {
      * @throws ParseException If parsing error occurs
      */
     private double getHourlyRate(int employeeNumber) throws IOException, CsvValidationException, ParseException {
+        // Open the file for reading
         try (CSVReader reader = new CSVReader(new FileReader(EMPLOYEES_DATA_PATH))) {
             String[] data;
-            reader.readNext(); // Skip header
+            // Skip header
+            reader.readNext();
+
+            // Read data per row from the data file
             while ((data = reader.readNext()) != null) {
-                if (data.length == EMPLOYEE_EXPECTED_DATA_LENGTH && Integer.parseInt(data[EMPLOYEE_NUM_INDEX]) == employeeNumber) {
+                // If the data has the expected length per column and has the matching employee number from the inputted one
+                if (data.length == EMPLOYEE_EXPECTED_COL_LENGTH && Integer.parseInt(data[EMPLOYEE_NUM_INDEX]) == employeeNumber) {
                     return Double.parseDouble(data[HOURLY_RATE_INDEX]);
                 }
             }

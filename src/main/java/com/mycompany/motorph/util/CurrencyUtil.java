@@ -7,7 +7,7 @@ package com.mycompany.motorph.util;
 /**
  * A utility class for formatting currency values.
  *
- * @author Lance1
+ * @author Lance
  */
 public class CurrencyUtil {
 

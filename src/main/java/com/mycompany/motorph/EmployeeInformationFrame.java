@@ -31,7 +31,7 @@ import javax.swing.border.EmptyBorder;
 
 /**
  * A class that displays the specific employee's pay information based on the
- * selected month, and his/her full information and allows updating of them
+ * selected month, and his/her full information and allows updating of them.
  *
  * @author Lance
  */

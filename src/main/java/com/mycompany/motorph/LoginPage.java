@@ -15,8 +15,9 @@ import javax.naming.AuthenticationException;
 import javax.swing.JOptionPane;
 
 /**
+ * A class that provides the login functionality in the application.
  *
- * @author Lance1
+ * @author Lance
  */
 public class LoginPage extends javax.swing.JFrame implements EmployeeInformationManager {
 
