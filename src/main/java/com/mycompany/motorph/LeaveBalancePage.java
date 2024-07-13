@@ -501,7 +501,7 @@ class LeaveBalancePage extends javax.swing.JFrame implements EmployeeInformation
      * Populates employee information including leave balances based on the
      * provided employee number.
      */
-    public void populateEmployeeInformation() {
+    private void populateEmployeeInformation() {
         try {
             int employeeNumber = Integer.parseInt(txtEmployeeNumber.getText().trim());
 

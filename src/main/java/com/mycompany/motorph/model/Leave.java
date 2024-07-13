@@ -32,7 +32,7 @@ public class Leave {
         this.emergencyLeaveAmount = 0.0;
     }
 
-    // Getters
+    // Getters and setters
     public int getEmployeeNumber() {
         return employeeNumber;
     }
@@ -45,45 +45,44 @@ public class Leave {
         return startDate;
     }
 
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public double getSickLeaveAmount() {
-        return sickLeaveAmount;
-    }
-
-    public double getVacationLeaveAmount() {
-        return vacationLeaveAmount;
-    }
-
-    public double getEmergencyLeaveAmount() {
-        return emergencyLeaveAmount;
-    }
-
-    // Setters
     public void setStartDate(String startDate) {
         this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
     }
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
+    public String getReason() {
+        return reason;
+    }
+
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public double getSickLeaveAmount() {
+        return sickLeaveAmount;
     }
 
     public void setSickLeaveAmount(double sickLeaveAmount) {
         this.sickLeaveAmount = sickLeaveAmount;
     }
 
+    public double getVacationLeaveAmount() {
+        return vacationLeaveAmount;
+    }
+
     public void setVacationLeaveAmount(double vacationLeaveAmount) {
         this.vacationLeaveAmount = vacationLeaveAmount;
+    }
+
+    public double getEmergencyLeaveAmount() {
+        return emergencyLeaveAmount;
     }
 
     public void setEmergencyLeaveAmount(double emergencyLeaveAmount) {

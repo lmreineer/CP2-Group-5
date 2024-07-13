@@ -350,16 +350,22 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
         btnExit.setBackground(WHITE);
     }//GEN-LAST:event_btnExitMouseExited
 
+    /**
+     * Handles the action event of the "Toggle On" button to handle its clicks.
+     */
     private void tglOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tglOnActionPerformed
         handleToggleOn();
     }//GEN-LAST:event_tglOnActionPerformed
 
+    /**
+     * Handles the action event of the "Toggle Off" button to handle its clicks.
+     */
     private void tglOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tglOffActionPerformed
         handleToggleOff();
     }//GEN-LAST:event_tglOffActionPerformed
 
     /**
-     * Handles mouse hover event on the toggle on button by changing its
+     * Handles mouse hover event on the "Toggle On" button by changing its
      * background color.
      */
     private void tglOnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tglOnMouseEntered
@@ -367,7 +373,7 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
     }//GEN-LAST:event_tglOnMouseEntered
 
     /**
-     * Handles mouse exit event on the toggle on button by resetting its
+     * Handles mouse exit event on the "Toggle On" button by resetting its
      * background color.
      */
     private void tglOnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tglOnMouseExited
@@ -375,7 +381,7 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
     }//GEN-LAST:event_tglOnMouseExited
 
     /**
-     * Handles mouse hover event on the toggle off button by changing its
+     * Handles mouse hover event on the "Toggle Off" button by changing its
      * background color.
      */
     private void tglOffMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tglOffMouseEntered
@@ -383,7 +389,7 @@ class EmployeeSearchPage extends javax.swing.JFrame implements EmployeeInformati
     }//GEN-LAST:event_tglOffMouseEntered
 
     /**
-     * Handles mouse exit event on the toggle off button by resetting its
+     * Handles mouse exit event on the "Toggle Off" button by resetting its
      * background color.
      */
     private void tglOffMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tglOffMouseExited

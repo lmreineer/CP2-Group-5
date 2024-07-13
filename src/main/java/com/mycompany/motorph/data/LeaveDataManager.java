@@ -35,37 +35,6 @@ public class LeaveDataManager {
     private static final String[] HEADER = {"Employee Number", "Leave Type", "Start Date", "End Date", "Reason", "Sick Leave", "Vacation Leave", "Emergency Leave"};
 
     /**
-     * Calculates leave amounts based on leave type and duration.
-     *
-     * @param leave The leave application to calculate amounts for
-     * @throws ParseException If date parsing error occurs
-     */
-    private void calculateLeaveAmounts(Leave leave) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd");
-
-        Date startDate = sdf.parse(leave.getStartDate());
-        Date endDate = sdf.parse(leave.getEndDate());
-
-        long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
-        // Include both start and end days
-        long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS) + 1;
-
-        // Reset amounts to 0
-        leave.setSickLeaveAmount(0);
-        leave.setVacationLeaveAmount(0);
-        leave.setEmergencyLeaveAmount(0);
-
-        switch (leave.getLeaveType()) {
-            case "Sick Leave" ->
-                leave.setSickLeaveAmount(1500 * diffInDays);
-            case "Vacation Leave" ->
-                leave.setVacationLeaveAmount(1500 * diffInDays);
-            case "Emergency Leave" ->
-                leave.setEmergencyLeaveAmount(500 * diffInDays);
-        }
-    }
-
-    /**
      * Saves a leave application to the CSV file.
      *
      * @param leave The leave application to be saved
@@ -113,13 +82,37 @@ public class LeaveDataManager {
     }
 
     /**
+     * Retrieves leave applications for a specific employee.
+     *
+     * @param employeeNumber The employee number
+     * @return A list of leave applications for the specified employee
+     * @throws IOException If an I/O error occurs
+     * @throws CsvValidationException If a CSV validation error occurs
+     */
+    public List<Leave> getLeavesByEmployeeNumber(int employeeNumber) throws IOException, CsvValidationException {
+        List<Leave> allLeaves = loadLeaveApplications();
+
+        // Filter leaves by employee number
+        List<Leave> employeeLeaves = allLeaves.stream()
+                .filter(leave -> leave.getEmployeeNumber() == employeeNumber)
+                .collect(Collectors.toList());
+
+        // If no leave applications found
+        if (employeeLeaves.isEmpty()) {
+            throw new IllegalArgumentException("No leave information found for employee number: " + employeeNumber);
+        }
+
+        return employeeLeaves;
+    }
+
+    /**
      * Loads all leave applications from the CSV file.
      *
      * @return A list of all leave applications
      * @throws IOException If an I/O error occurs
      * @throws CsvValidationException If a CSV validation error occurs
      */
-    public List<Leave> loadLeaveApplications() throws IOException, CsvValidationException {
+    private List<Leave> loadLeaveApplications() throws IOException, CsvValidationException {
         List<Leave> leaves = new ArrayList<>();
         File file = new File(LEAVE_DATA_PATH);
 
@@ -160,26 +153,33 @@ public class LeaveDataManager {
     }
 
     /**
-     * Retrieves leave applications for a specific employee.
+     * Calculates leave amounts based on leave type and duration.
      *
-     * @param employeeNumber The employee number
-     * @return A list of leave applications for the specified employee
-     * @throws IOException If an I/O error occurs
-     * @throws CsvValidationException If a CSV validation error occurs
+     * @param leave The leave application to calculate amounts for
+     * @throws ParseException If date parsing error occurs
      */
-    public List<Leave> getLeavesByEmployeeNumber(int employeeNumber) throws IOException, CsvValidationException {
-        List<Leave> allLeaves = loadLeaveApplications();
+    private void calculateLeaveAmounts(Leave leave) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd");
 
-        // Filter leaves by employee number
-        List<Leave> employeeLeaves = allLeaves.stream()
-                .filter(leave -> leave.getEmployeeNumber() == employeeNumber)
-                .collect(Collectors.toList());
+        Date startDate = sdf.parse(leave.getStartDate());
+        Date endDate = sdf.parse(leave.getEndDate());
 
-        // If no leave applications found
-        if (employeeLeaves.isEmpty()) {
-            throw new IllegalArgumentException("No leave information found for employee number: " + employeeNumber);
+        long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
+        // Include both start and end days
+        long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS) + 1;
+
+        // Reset amounts to 0
+        leave.setSickLeaveAmount(0);
+        leave.setVacationLeaveAmount(0);
+        leave.setEmergencyLeaveAmount(0);
+
+        switch (leave.getLeaveType()) {
+            case "Sick Leave" ->
+                leave.setSickLeaveAmount(1500 * diffInDays);
+            case "Vacation Leave" ->
+                leave.setVacationLeaveAmount(1500 * diffInDays);
+            case "Emergency Leave" ->
+                leave.setEmergencyLeaveAmount(500 * diffInDays);
         }
-
-        return employeeLeaves;
     }
 }
