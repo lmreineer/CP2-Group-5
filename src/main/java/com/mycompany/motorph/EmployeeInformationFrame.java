@@ -1195,11 +1195,22 @@ class EmployeeInformationFrame extends javax.swing.JFrame implements EmployeeInf
     }//GEN-LAST:event_btnDeleteInfoActionPerformed
 
     /**
+     * Displays an error dialog with the provided error message.
+     *
+     * @param errorMessage The error message to display in the dialog.
+     */
+    @Override
+    public void showErrorDialog(String errorMessage) {
+        // Show a dialog with the error message
+        JOptionPane.showMessageDialog(pnlMain, "Error updating employee information: " + errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
      * Updates the employee information text fields for the chosen employee.
      *
      * @param employeeInfo The information of the employee
      */
-    public void updateEmployeeInformationFields(List<String> employeeInfo) {
+    private void updateEmployeeInformationFields(List<String> employeeInfo) {
         JTextField[] textFields = {txtEmployeeNumber, txtLastName, txtFirstName, txtBirthdate, txtAddress, txtPhoneNumber,
             txtSssNumber, txtPhilHealthNumber, txtTinNumber, txtPagIbigNumber, txtStatus, txtPosition,
             txtImmediateSupervisor, txtBasicSalary, txtRiceSubsidy, txtPhoneAllowance, txtClothingAllowance,
@@ -1217,7 +1228,7 @@ class EmployeeInformationFrame extends javax.swing.JFrame implements EmployeeInf
      *
      * @param employeeNumberString The employee number as a string.
      */
-    public void populateEmployeeInformation(String employeeNumberString) {
+    private void populateEmployeeInformation(String employeeNumberString) {
         try {
             // Parse the employee number from the text field
             int employeeNumber = Integer.parseInt(employeeNumberString);
@@ -1244,7 +1255,7 @@ class EmployeeInformationFrame extends javax.swing.JFrame implements EmployeeInf
      * @param selectedMonth The selected month for which the wage information is
      * displayed
      */
-    public void populateWageInformation(String selectedMonth) {
+    private void populateWageInformation(String selectedMonth) {
         try {
             int employeeNumber = Integer.parseInt(txtEmployeeNumber.getText());
 
@@ -1275,7 +1286,7 @@ class EmployeeInformationFrame extends javax.swing.JFrame implements EmployeeInf
      * @param selectedMonth The selected month for which the wage information is
      * displayed
      */
-    public void updateWageInformationFields(List<String> wageInfo, String selectedMonth) {
+    private void updateWageInformationFields(List<String> wageInfo, String selectedMonth) {
         String monthName = getMonthName(selectedMonth);
 
         txtMonth.setText(monthName);
@@ -1297,7 +1308,7 @@ class EmployeeInformationFrame extends javax.swing.JFrame implements EmployeeInf
      * @throws IllegalArgumentException If the month number is invalid (not
      * between 1 and 12).
      */
-    public String getMonthName(String monthNumber) throws IllegalArgumentException {
+    private String getMonthName(String monthNumber) throws IllegalArgumentException {
         int monthInt = Integer.parseInt(monthNumber);
         if (monthInt < 1 || monthInt > 12) {
             showErrorDialog("Invalid month number: " + monthNumber);
@@ -1310,17 +1321,6 @@ class EmployeeInformationFrame extends javax.swing.JFrame implements EmployeeInf
         monthName = monthName.substring(0, 1).toUpperCase() + monthName.substring(1);
 
         return monthName;
-    }
-
-    /**
-     * Displays an error dialog with the provided error message.
-     *
-     * @param errorMessage The error message to display in the dialog.
-     */
-    @Override
-    public void showErrorDialog(String errorMessage) {
-        // Show a dialog with the error message
-        JOptionPane.showMessageDialog(pnlMain, "Error updating employee information: " + errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     /**
